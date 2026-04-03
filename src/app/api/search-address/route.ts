@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+// API route for geocoding addresses in NYC
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const query = searchParams.get('q')
