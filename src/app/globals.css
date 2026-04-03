@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -38,5 +40,55 @@
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
+  }
+
+  body {
+    @apply font-sans text-gray-950;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 md:px-8;
+  }
+
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  .section-title {
+    @apply text-4xl md:text-5xl font-serif font-bold text-gray-950 leading-tight;
+  }
+
+  .btn-primary {
+    @apply px-8 py-3 bg-accent hover:bg-accent-dark text-white font-medium rounded-md transition-all duration-200 inline-block shadow-md hover:shadow-lg hover:shadow-accent/40 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply px-8 py-3 bg-white text-accent border-2 border-accent font-medium rounded-md transition-all duration-200 inline-block hover:bg-accent hover:text-white active:scale-95;
+  }
+
+  .btn-outline {
+    @apply px-6 py-2 bg-transparent border border-gray-300 text-gray-700 hover:border-accent hover:text-accent rounded-md transition-colors;
+  }
+
+  .card {
+    @apply bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow;
+  }
+
+  .badge {
+    @apply inline-block px-3 py-1 bg-accent/10 text-accent text-sm font-medium rounded-full;
+  }
+
+  input[type="email"],
+  input[type="text"],
+  input[type="date"],
+  select,
+  textarea {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all;
   }
 }
