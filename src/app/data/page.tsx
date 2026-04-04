@@ -45,6 +45,7 @@ export default function DataPage() {
   const [selectedNeighborhood, setSelectedNeighborhood] = useState<Neighborhood | null>(null)
   const [mapCenter, setMapCenter] = useState<[number, number]>([40.7128, -74.0060]) // NYC center
   const [mapZoom, setMapZoom] = useState(11)
+  const [showDataModal, setShowDataModal] = useState(false)
 
   // Sample neighborhood coordinates (in a real app, these would be in the database)
   const neighborhoodCoords: Record<string, [number, number]> = {
@@ -148,11 +149,14 @@ export default function DataPage() {
     })
 
     setSelectedNeighborhood(nearestNeighborhood)
+    setShowDataModal(true) // Show the data popup
+  }
   }
 
   // Handle neighborhood marker click
   const handleNeighborhoodClick = (neighborhood: Neighborhood) => {
     setSelectedNeighborhood(neighborhood)
+    setShowDataModal(true) // Show the data popup
     if (neighborhood.lat && neighborhood.lng) {
       setMapCenter([neighborhood.lat, neighborhood.lng])
       setMapZoom(15)
@@ -249,9 +253,116 @@ export default function DataPage() {
             </div>
           </div>
 
+          {/* Data Modal Popup */}
+          {showDataModal && selectedNeighborhood && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+              <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                <div className="p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-3xl font-serif font-bold text-gray-900 flex items-center">
+                      <MapPin className="w-8 h-8 text-accent mr-3" />
+                      {selectedLocation ? `${selectedLocation.name} - ${selectedNeighborhood.name}` : selectedNeighborhood.name}
+                    </h3>
+                    <button
+                      onClick={() => setShowDataModal(false)}
+                      className="text-gray-400 hover:text-gray-600 text-2xl font-bold"
+                    >
+                      ×
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                    <div className="text-center bg-gradient-to-br from-accent/5 to-accent/10 p-6 rounded-xl border border-accent/20">
+                      <div className="flex items-center justify-center mb-3">
+                        <DollarSign className="w-7 h-7 text-accent" />
+                      </div>
+                      <div className="text-4xl font-bold text-accent mb-1">${selectedNeighborhood.avg_rent_sqft}</div>
+                      <div className="text-sm text-gray-700 font-medium">Avg Rent/sq ft</div>
+                      <div className="text-xs text-gray-500 mt-1">Commercial space</div>
+                    </div>
+
+                    <div className="text-center bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200">
+                      <div className="flex items-center justify-center mb-3">
+                        <Users className="w-7 h-7 text-blue-600" />
+                      </div>
+                      <div className="text-4xl font-bold text-blue-600 mb-1">{selectedNeighborhood.foot_traffic_score}%</div>
+                      <div className="text-sm text-gray-700 font-medium">Foot Traffic</div>
+                      <div className="text-xs text-gray-500 mt-1">Daily pedestrian flow</div>
+                    </div>
+
+                    <div className="text-center bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border border-green-200">
+                      <div className="flex items-center justify-center mb-3">
+                        <TrendingUp className="w-7 h-7 text-green-600" />
+                      </div>
+                      <div className="text-4xl font-bold text-green-600 mb-1">{selectedNeighborhood.asian_dining_score}%</div>
+                      <div className="text-sm text-gray-700 font-medium">Asian Demand</div>
+                      <div className="text-xs text-gray-500 mt-1">Market saturation</div>
+                    </div>
+
+                    <div className="text-center bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl border border-orange-200">
+                      <div className="flex items-center justify-center mb-3">
+                        <MapPin className="w-7 h-7 text-orange-600" />
+                      </div>
+                      <div className="text-4xl font-bold text-orange-600 mb-1">{selectedNeighborhood.competitor_count}</div>
+                      <div className="text-sm text-gray-700 font-medium">Competitors</div>
+                      <div className="text-xs text-gray-500 mt-1">Asian restaurants</div>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-r from-gray-50 to-white p-6 rounded-xl border border-gray-200 mb-6">
+                    <h4 className="font-serif font-bold text-xl mb-4 flex items-center text-gray-900">
+                      <TrendingUp className="w-6 h-6 text-accent mr-2" />
+                      Market Insights & Recommendations
+                    </h4>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <h5 className="font-semibold text-gray-900 mb-3 flex items-center">
+                          <Users className="w-4 h-4 text-blue-600 mr-2" />
+                          Traffic Analysis
+                        </h5>
+                        <div className="text-sm text-gray-700">
+                          {selectedNeighborhood.foot_traffic_score > 80 ? '🚀 Excellent visibility potential with high pedestrian traffic' :
+                           selectedNeighborhood.foot_traffic_score > 60 ? '✅ Good traffic flow for steady customer acquisition' :
+                           '⚠️ Limited foot traffic may require marketing investment'}
+                        </div>
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-gray-900 mb-3 flex items-center">
+                          <MapPin className="w-4 h-4 text-orange-600 mr-2" />
+                          Competition Assessment
+                        </h5>
+                        <div className="text-sm text-gray-700">
+                          {selectedNeighborhood.asian_dining_score > 80 ? '🔴 High market saturation - focus on differentiation' :
+                           selectedNeighborhood.asian_dining_score > 60 ? '🟡 Moderate competition - opportunity for unique positioning' :
+                           '🟢 Low saturation - potential for market leadership'}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end space-x-4">
+                    <button
+                      onClick={() => setShowDataModal(false)}
+                      className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200 font-medium"
+                    >
+                      Close
+                    </button>
+                    <button
+                      onClick={() => window.open('/waitlist', '_blank')}
+                      className="px-6 py-3 bg-accent text-white rounded-lg hover:bg-accent-dark transition-colors duration-200 font-medium flex items-center"
+                    >
+                      <TrendingUp className="w-4 h-4 mr-2" />
+                      Start Expansion
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Selected Location Data */}
           {selectedNeighborhood && (
-            <div className="bg-gradient-to-r from-accent/5 to-accent/10 p-8 border-2 border-accent/20 rounded-2xl shadow-lg">
+            <div id="detailed-analysis" className="bg-gradient-to-r from-accent/5 to-accent/10 p-8 border-2 border-accent/20 rounded-2xl shadow-lg">
               <h3 className="text-2xl font-serif font-bold mb-6 flex items-center text-gray-900">
                 <TrendingUp className="w-7 h-7 text-accent mr-3" />
                 {selectedNeighborhood.name} Market Analysis
