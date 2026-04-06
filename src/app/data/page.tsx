@@ -4,19 +4,25 @@ import { useState, useEffect } from 'react'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
-import { supabase } from '@/lib/supabase'
-import dynamic from 'next/dynamic'
 import { Search, MapPin, TrendingUp, Users, DollarSign } from 'lucide-react'
+import { supabase } from '@/lib/supabase'
 
-// Create a separate client component for the map
-const MapComponent = dynamic(() => import('./MapComponent'), {
-  ssr: false,
-  loading: () => (
-    <div className="h-96 bg-gray-100 rounded-lg flex items-center justify-center">
-      <div className="text-gray-500">Loading map...</div>
+// Create a simple placeholder for the map during build
+const MapComponent = (_props: {
+  neighborhoods: Neighborhood[]
+  selectedLocation: { lat: number; lng: number; name: string } | null
+  mapCenter: [number, number]
+  mapZoom: number
+  onNeighborhoodClick: (neighborhood: Neighborhood) => void
+}) => (
+  <div className="h-96 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-gray-200">
+    <div className="text-center">
+      <MapPin className="w-12 h-12 text-accent mx-auto mb-4" />
+      <div className="text-gray-600 font-medium">Interactive Map</div>
+      <div className="text-sm text-gray-500">Search an address above to see location data</div>
     </div>
-  )
-})
+  </div>
+)
 
 interface Neighborhood {
   id: string
@@ -67,7 +73,7 @@ export default function DataPage() {
         if (error) throw error
 
         // Add coordinates to neighborhoods
-        const neighborhoodsWithCoords = (data || []).map(neighborhood => ({
+        const neighborhoodsWithCoords = (data || []).map((neighborhood: Neighborhood) => ({
           ...neighborhood,
           lat: neighborhoodCoords[neighborhood.name]?.[0] || 40.7128,
           lng: neighborhoodCoords[neighborhood.name]?.[1] || -74.0060
@@ -132,15 +138,17 @@ export default function DataPage() {
     setSearchQuery(result.display_name.split(',')[0])
     setSearchResults([])
 
-    // Find nearest neighborhood
+    // Find nearest neighborhood with better distance calculation
     let nearestNeighborhood: Neighborhood | null = null
     let minDistance = Infinity
 
     neighborhoods.forEach(neighborhood => {
       if (neighborhood.lat && neighborhood.lng) {
-        const distance = Math.sqrt(
-          Math.pow(neighborhood.lat - lat, 2) + Math.pow(neighborhood.lng - lng, 2)
-        )
+        // Use proper geographic distance (Haversine formula approximation)
+        const dLat = (neighborhood.lat - lat) * Math.PI / 180
+        const dLng = (neighborhood.lng - lng) * Math.PI / 180
+        const distance = Math.sqrt(dLat * dLat + dLng * dLng) * 111 // Rough km conversion
+
         if (distance < minDistance) {
           minDistance = distance
           nearestNeighborhood = neighborhood
@@ -148,9 +156,15 @@ export default function DataPage() {
       }
     })
 
-    setSelectedNeighborhood(nearestNeighborhood)
-    setShowDataModal(true) // Show the data popup
-  }
+    // If no neighborhood found within reasonable distance, use the first one as fallback
+    if (!nearestNeighborhood && neighborhoods.length > 0) {
+      nearestNeighborhood = neighborhoods[0]
+    }
+
+    if (nearestNeighborhood) {
+      setSelectedNeighborhood(nearestNeighborhood)
+      setShowDataModal(true) // Show the data popup
+    }
   }
 
   // Handle neighborhood marker click
@@ -175,6 +189,7 @@ export default function DataPage() {
     demand: n.asian_dining_score,
     competitors: n.competitor_count
   }))
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       <Header />

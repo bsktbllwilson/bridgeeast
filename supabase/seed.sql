@@ -217,3 +217,17 @@ INSERT INTO guides (title, slug, category, phase, content, published) VALUES
 
 <h3>Social Media Strategy</h3>
 <p>Adapt content for Instagram, TikTok, and local platforms.</p>', true);
+
+-- Seed seller profiles
+INSERT INTO profiles (id, email, full_name, business_name, bio, verification_status) VALUES
+('11111111-1111-1111-1111-111111111111', 'mei@lotusdumpling.com', 'Mei Zhang', 'Lotus Dumpling Studio', 'Handmade northern Chinese dumplings with a modern quick-service format designed for high-foot-traffic neighborhoods.', 'verified'),
+('22222222-2222-2222-2222-222222222222', 'kenji@midori-matcha.com', 'Kenji Sato', 'Midori Matcha Bar', 'Ceremonial-grade matcha beverages and Japanese soft serve built for compact urban storefronts.', 'pending'),
+('33333333-3333-3333-3333-333333333333', 'hana@seoulbakehouse.com', 'Hana Park', 'Seoul Bakehouse', 'Korean-inspired cafe concept focused on laminated pastries, specialty coffee, and all-day dessert service.', 'unverified')
+ON CONFLICT (email) DO NOTHING;
+
+-- Seed seller listings
+INSERT INTO listings (profile_id, title, category, city, description, moderation_status, is_flagged, flag_reason) VALUES
+('11111111-1111-1111-1111-111111111111', 'Lotus Dumpling Studio - Williamsburg Pop-up to Permanent', 'Quick Service', 'Brooklyn', 'Seeking a 900-1,200 sq ft corner storefront with strong lunch traffic and venting potential.', 'active', false, null),
+('22222222-2222-2222-2222-222222222222', 'Midori Matcha Bar - Flatiron Flagship', 'Cafe', 'Manhattan', 'Compact beverage-led concept targeting office density and afternoon snack demand.', 'active', true, 'Needs a closer review of marketing claims and listing imagery.'),
+('33333333-3333-3333-3333-333333333333', 'Seoul Bakehouse - Long Island City Commissary', 'Bakery', 'Queens', 'Production bakery concept with a retail counter and commissary capacity for wholesale expansion.', 'active', false, null)
+ON CONFLICT DO NOTHING;

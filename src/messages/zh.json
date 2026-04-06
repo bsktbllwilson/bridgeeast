@@ -1,0 +1,224 @@
+{
+  "nav": {
+    "marketData": "市场数据",
+    "listings": "房源",
+    "guides": "指南",
+    "partners": "合作伙伴",
+    "waitlist": "加入等候名单",
+    "admin": "管理后台",
+    "toggleMenu": "切换菜单",
+    "language": "语言",
+    "switchTo": "切换到{language}",
+    "english": "EN",
+    "chinese": "简"
+  },
+  "footer": {
+    "tagline": "为进入纽约市场的亚洲餐饮品牌提供市场情报与合作资源。",
+    "explore": "探索",
+    "resources": "资源",
+    "marketData": "市场数据",
+    "guides": "指南",
+    "partners": "合作伙伴",
+    "joinWaitlist": "加入等候名单",
+    "faq": "常见问题",
+    "contact": "联系我们",
+    "stayUpdated": "保持更新",
+    "stayUpdatedBody": "及时获取新指南与合作资源更新。",
+    "emailPlaceholder": "your@email.com",
+    "rights": "© 2026 BridgeEast。保留所有权利。",
+    "privacy": "隐私政策",
+    "terms": "服务条款"
+  },
+  "common": {
+    "loading": "加载中...",
+    "notFound": "未找到。",
+    "status": "状态",
+    "email": "邮箱",
+    "lastSubmitted": "最近提交时间",
+    "viewSellerProfile": "查看卖家资料",
+    "viewListingDetails": "查看房源详情",
+    "viewInquiryThread": "查看咨询对话",
+    "backToListings": "返回房源列表",
+    "backToGuides": "返回指南",
+    "verification": {
+      "verified": "已认证",
+      "pending": "审核中",
+      "rejected": "已拒绝",
+      "unverified": "未认证"
+    }
+  },
+  "home": {
+    "badge": "深受亚洲餐饮创始人信赖",
+    "titleLine1": "助力您进入纽约市场的",
+    "titleHighlight": "核心情报平台",
+    "subtitle": "BridgeEast 为亚洲餐饮创始人整合精选市场数据、分步骤指南与本地优质合作伙伴，帮助您更稳妥地落地首家纽约门店。",
+    "primaryCta": "加入等候名单",
+    "secondaryCta": "查看数据",
+    "stats": {
+      "neighborhoods": "已覆盖社区",
+      "partners": "认证合作伙伴",
+      "guides": "专业指南",
+      "freeAccess": "免费开放"
+    },
+    "pillarsTitle": "成功落地的三大支柱",
+    "pillars": {
+      "marketData": {
+        "title": "市场数据",
+        "description": "按社区查看租金基准、人流表现与竞争密度。"
+      },
+      "curatedGuides": {
+        "title": "精选指南",
+        "description": "覆盖签证、许可、租赁、招聘、供应链与本地化的阶段化操作手册。"
+      },
+      "partnerDirectory": {
+        "title": "合作伙伴目录",
+        "description": "预先筛选的经纪人、律师、分销商、公关与财务顾问。"
+      },
+      "explore": "查看"
+    },
+    "realityTitle": "市场现实速览",
+    "avgRentTitle": "各社区平均租金",
+    "difficultyTitle": "开店难度评级",
+    "difficulty": {
+      "veryHigh": "很高",
+      "high": "高",
+      "medium": "中等"
+    },
+    "ctaTitle": "准备开启您的纽约拓展之旅？",
+    "ctaBody": "加入数百位使用 BridgeEast 做扩张决策的亚洲餐饮创始人。",
+    "ctaButton": "获取优先访问"
+  },
+  "listings": {
+    "badge": "卖家市场",
+    "title": "浏览已准备扩张的卖家与在架品牌房源",
+    "subtitle": "查看卖家概念、识别已认证商家，并进入卖家主页追踪其扩张计划。",
+    "loading": "房源加载中...",
+    "categoryFallback": "未分类",
+    "descriptionFallback": "暂无描述。"
+  },
+  "listingDetail": {
+    "badge": "房源详情",
+    "loading": "房源详情加载中...",
+    "notFound": "未找到该房源。",
+    "descriptionTitle": "房源描述",
+    "sellerTitle": "卖家",
+    "metaCategory": "类别",
+    "metaCity": "城市",
+    "inquiryTitle": "咨询对话",
+    "inquiryBody": "在联系之前查看最新的卖家与买家消息。",
+    "sidebarTitle": "下一步",
+    "sidebarBody": "先查看卖家认证状态，再进入咨询对话按需翻译卖家回复。"
+  },
+  "inquiryThread": {
+    "badge": "咨询对话",
+    "title": "卖家与买家的交流记录",
+    "subtitle": "卖家回复仅在点击后按需翻译，不会自动翻译。",
+    "empty": "该房源暂时没有消息。",
+    "buyer": "买家",
+    "seller": "卖家",
+    "sampleNotice": "当前展示的是示例对话，因为系统中还没有保存的咨询线程。"
+  },
+  "seller": {
+    "badge": "卖家资料",
+    "loading": "卖家资料加载中...",
+    "notFound": "未找到卖家资料。",
+    "verificationTitle": "认证状态",
+    "verificationBody": "已认证卖家会在资料页和房源页显示绿色勾选徽章。上传文件会以私有方式存储在 Supabase Storage。",
+    "activeListings": "在线房源",
+    "getVerifiedBadge": "申请认证",
+    "getVerifiedTitle": "提交认证文件",
+    "getVerifiedBody": "上传政府身份证明、企业所有权证明，以及可选的营业执照。提交后，您的资料会在后台显示为待审核。",
+    "governmentId": "政府身份证明",
+    "ownershipProof": "企业所有权证明",
+    "businessLicense": "营业执照（可选）",
+    "submit": "提交认证申请",
+    "submitting": "正在提交文件...",
+    "submitSuccess": "文件已上传，您的认证申请已进入审核中。"
+  },
+  "admin": {
+    "badge": "管理后台",
+    "title": "认证审核与房源管理",
+    "subtitle": "在一个后台中查看待审核卖家、打开私有认证文件，并处理房源审核。",
+    "unlockTitle": "开启后台访问",
+    "unlockBody": "此后台通过硬编码管理员邮箱校验访问权限。请输入配置好的管理员邮箱继续。",
+    "adminEmail": "管理员邮箱",
+    "adminEmailPlaceholder": "admin@bridgeeast.com",
+    "enter": "进入后台",
+    "cards": {
+      "pending": "待审核认证",
+      "flagged": "已标记或已下架",
+      "dataSource": "数据来源",
+      "sample": "示例回退数据",
+      "live": "Supabase 实时数据"
+    },
+    "pendingTitle": "待审核认证",
+    "pendingLoading": "正在加载认证队列...",
+    "pendingEmpty": "当前没有待审核认证。",
+    "seller": "卖家",
+    "submitted": "提交时间",
+    "documents": "文件",
+    "actions": "操作",
+    "governmentId": "身份证明",
+    "ownershipProof": "所有权证明",
+    "businessLicense": "营业执照",
+    "approve": "通过",
+    "approving": "处理中...",
+    "reject": "拒绝",
+    "rejecting": "拒绝中...",
+    "moderationTitle": "房源审核队列",
+    "moderationLoading": "正在加载房源审核队列...",
+    "moderationEmpty": "当前没有房源。",
+    "unknownSeller": "未知卖家",
+    "unknown": "未知",
+    "status": "状态",
+    "sellerLabel": "卖家",
+    "flag": "标记",
+    "flagging": "标记中...",
+    "remove": "下架",
+    "removing": "下架中...",
+    "restore": "恢复",
+    "restoring": "恢复中..."
+  },
+  "translate": {
+    "button": "翻译",
+    "translating": "翻译中...",
+    "toEnglish": "翻译成英文",
+    "toChinese": "翻译成中文",
+    "translatedLabel": "译文",
+    "inlineHint": "按需翻译",
+    "missingKey": "请先配置 ANTHROPIC_API_KEY 以启用翻译。",
+    "failed": "当前无法翻译这段内容。"
+  },
+  "errors": {
+    "adminUnauthorized": "该邮箱无权访问管理后台。",
+    "loadAdmin": "无法加载管理后台。",
+    "updateVerification": "无法更新认证请求。",
+    "moderateListing": "无法处理房源审核。",
+    "submitVerification": "无法提交认证文件。",
+    "loadListings": "获取房源失败。",
+    "loadSeller": "获取卖家资料失败。",
+    "listingNotFound": "未找到该房源。",
+    "translationEmpty": "没有可翻译的内容。",
+    "translationFailed": "当前无法翻译这段内容。",
+    "translationMissingConfig": "尚未配置 ANTHROPIC_API_KEY，暂时无法翻译。",
+    "generic": "发生错误，请稍后重试。"
+  },
+  "listingForm": {
+    "title": {
+      "label": "房源标题",
+      "placeholder": "Lotus Dumpling Studio - Williamsburg 快闪转长期门店"
+    },
+    "category": {
+      "label": "类别",
+      "placeholder": "快餐简餐"
+    },
+    "city": {
+      "label": "城市",
+      "placeholder": "布鲁克林"
+    },
+    "description": {
+      "label": "房源描述",
+      "placeholder": "描述品牌概念、扩张目标和空间需求。"
+    }
+  }
+}

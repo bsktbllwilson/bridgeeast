@@ -1,0 +1,224 @@
+{
+  "nav": {
+    "marketData": "Market Data",
+    "listings": "Listings",
+    "guides": "Guides",
+    "partners": "Partners",
+    "waitlist": "Join Waitlist",
+    "admin": "Admin",
+    "toggleMenu": "Toggle menu",
+    "language": "Language",
+    "switchTo": "Switch to {language}",
+    "english": "EN",
+    "chinese": "简"
+  },
+  "footer": {
+    "tagline": "Market intelligence and partnerships for Asian food & beverage brands entering NYC.",
+    "explore": "Explore",
+    "resources": "Resources",
+    "marketData": "Market Data",
+    "guides": "Guides",
+    "partners": "Partners",
+    "joinWaitlist": "Join Waitlist",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "stayUpdated": "Stay Updated",
+    "stayUpdatedBody": "Get notified about new guides and partnerships.",
+    "emailPlaceholder": "your@email.com",
+    "rights": "© 2026 BridgeEast. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "common": {
+    "loading": "Loading...",
+    "notFound": "Not found.",
+    "status": "Status",
+    "email": "Email",
+    "lastSubmitted": "Last submitted",
+    "viewSellerProfile": "View Seller Profile",
+    "viewListingDetails": "View Listing Details",
+    "viewInquiryThread": "View Inquiry Thread",
+    "backToListings": "Back to Listings",
+    "backToGuides": "Back to Guides",
+    "verification": {
+      "verified": "Verified",
+      "pending": "Pending review",
+      "rejected": "Rejected",
+      "unverified": "Unverified"
+    }
+  },
+  "home": {
+    "badge": "Trusted by Asian F&B founders",
+    "titleLine1": "Your Market Intelligence for",
+    "titleHighlight": "NYC Expansion",
+    "subtitle": "BridgeEast connects Asian F&B founders with curated market data, step-by-step guides, and vetted local partners—everything needed to navigate your first NYC location.",
+    "primaryCta": "Join the Waitlist",
+    "secondaryCta": "Explore Data",
+    "stats": {
+      "neighborhoods": "Neighborhoods Mapped",
+      "partners": "Vetted Partners",
+      "guides": "Expert Guides",
+      "freeAccess": "Free Access"
+    },
+    "pillarsTitle": "Three Pillars of Success",
+    "pillars": {
+      "marketData": {
+        "title": "Market Data",
+        "description": "Neighborhood-level rent benchmarks, foot traffic, and competitive density insights."
+      },
+      "curatedGuides": {
+        "title": "Curated Guides",
+        "description": "Phase-based playbooks: visas, permits, leasing, hiring, sourcing, and localization."
+      },
+      "partnerDirectory": {
+        "title": "Partner Directory",
+        "description": "Pre-vetted specialists: brokers, attorneys, distributors, PR, accountants."
+      },
+      "explore": "Explore"
+    },
+    "realityTitle": "Market Reality Check",
+    "avgRentTitle": "Average Rent by Neighborhood",
+    "difficultyTitle": "Opening Difficulty Rating",
+    "difficulty": {
+      "veryHigh": "Very High",
+      "high": "High",
+      "medium": "Medium"
+    },
+    "ctaTitle": "Ready to Start Your NYC Journey?",
+    "ctaBody": "Join hundreds of Asian F&B founders who trust BridgeEast for their expansion decisions.",
+    "ctaButton": "Get Early Access"
+  },
+  "listings": {
+    "badge": "Seller Marketplace",
+    "title": "Browse expansion-ready sellers and live concept listings",
+    "subtitle": "Review seller concepts, discover who is verified, and jump into individual seller profiles to track their current expansion plans.",
+    "loading": "Loading listings...",
+    "categoryFallback": "Uncategorized",
+    "descriptionFallback": "No description provided yet."
+  },
+  "listingDetail": {
+    "badge": "Listing Detail",
+    "loading": "Loading listing details...",
+    "notFound": "Listing not found.",
+    "descriptionTitle": "Listing description",
+    "sellerTitle": "Seller",
+    "metaCategory": "Category",
+    "metaCity": "City",
+    "inquiryTitle": "Inquiry thread",
+    "inquiryBody": "Review the latest seller and buyer messages before reaching out.",
+    "sidebarTitle": "Next steps",
+    "sidebarBody": "Use the seller profile to review verification status, then open the inquiry thread if you need translated seller responses."
+  },
+  "inquiryThread": {
+    "badge": "Inquiry Thread",
+    "title": "Seller and buyer conversation",
+    "subtitle": "Translate seller replies on demand. Nothing is translated automatically.",
+    "empty": "No messages available for this listing yet.",
+    "buyer": "Buyer",
+    "seller": "Seller",
+    "sampleNotice": "Sample conversation shown because no saved inquiry thread exists yet."
+  },
+  "seller": {
+    "badge": "Seller Profile",
+    "loading": "Loading seller profile...",
+    "notFound": "Seller profile not found.",
+    "verificationTitle": "Verification status",
+    "verificationBody": "Verified sellers receive a green checkmark badge on their profile and listings. Uploaded documents are stored privately in Supabase Storage.",
+    "activeListings": "Active Listings",
+    "getVerifiedBadge": "Get Verified",
+    "getVerifiedTitle": "Submit your verification documents",
+    "getVerifiedBody": "Upload a government ID, proof of business ownership, and optionally a business license. Once submitted, your profile moves to pending review in the admin panel.",
+    "governmentId": "Government ID",
+    "ownershipProof": "Proof of Business Ownership",
+    "businessLicense": "Business License (optional)",
+    "submit": "Submit for Verification",
+    "submitting": "Submitting documents...",
+    "submitSuccess": "Documents uploaded. Your verification request is now pending review."
+  },
+  "admin": {
+    "badge": "Admin Panel",
+    "title": "Verification and listing moderation",
+    "subtitle": "Review pending seller verification requests, open private verification documents, and moderate seller listings from a single dashboard.",
+    "unlockTitle": "Unlock admin access",
+    "unlockBody": "This admin route uses a hardcoded email check. Enter the configured admin email to continue.",
+    "adminEmail": "Admin email",
+    "adminEmailPlaceholder": "admin@bridgeeast.com",
+    "enter": "Enter Admin Panel",
+    "cards": {
+      "pending": "Pending verifications",
+      "flagged": "Flagged or removed",
+      "dataSource": "Data source",
+      "sample": "Sample fallback",
+      "live": "Supabase live data"
+    },
+    "pendingTitle": "Pending verifications",
+    "pendingLoading": "Loading verification queue...",
+    "pendingEmpty": "No pending verification requests.",
+    "seller": "Seller",
+    "submitted": "Submitted",
+    "documents": "Documents",
+    "actions": "Actions",
+    "governmentId": "Government ID",
+    "ownershipProof": "Ownership proof",
+    "businessLicense": "Business license",
+    "approve": "Approve",
+    "approving": "Approving...",
+    "reject": "Reject",
+    "rejecting": "Rejecting...",
+    "moderationTitle": "Listings moderation queue",
+    "moderationLoading": "Loading listings moderation queue...",
+    "moderationEmpty": "No listings available.",
+    "unknownSeller": "Unknown seller",
+    "unknown": "Unknown",
+    "status": "Status",
+    "sellerLabel": "Seller",
+    "flag": "Flag",
+    "flagging": "Flagging...",
+    "remove": "Remove",
+    "removing": "Removing...",
+    "restore": "Restore",
+    "restoring": "Restoring..."
+  },
+  "translate": {
+    "button": "Translate",
+    "translating": "Translating...",
+    "toEnglish": "Translate to English",
+    "toChinese": "Translate to Chinese",
+    "translatedLabel": "Translation",
+    "inlineHint": "Translated on demand",
+    "missingKey": "Add ANTHROPIC_API_KEY to enable translation.",
+    "failed": "Unable to translate this text right now."
+  },
+  "errors": {
+    "adminUnauthorized": "That email is not allowed into the admin panel.",
+    "loadAdmin": "Unable to load the admin dashboard.",
+    "updateVerification": "Unable to update verification request.",
+    "moderateListing": "Unable to moderate listing.",
+    "submitVerification": "Unable to submit verification documents.",
+    "loadListings": "Error fetching listings.",
+    "loadSeller": "Error fetching seller profile.",
+    "listingNotFound": "Listing not found.",
+    "translationEmpty": "Nothing to translate.",
+    "translationFailed": "Unable to translate this text right now.",
+    "translationMissingConfig": "Translation is unavailable until ANTHROPIC_API_KEY is configured.",
+    "generic": "Something went wrong. Please try again."
+  },
+  "listingForm": {
+    "title": {
+      "label": "Listing title",
+      "placeholder": "Lotus Dumpling Studio - Williamsburg pop-up to permanent"
+    },
+    "category": {
+      "label": "Category",
+      "placeholder": "Quick Service"
+    },
+    "city": {
+      "label": "City",
+      "placeholder": "Brooklyn"
+    },
+    "description": {
+      "label": "Listing description",
+      "placeholder": "Describe the concept, expansion target, and space requirements."
+    }
+  }
+}

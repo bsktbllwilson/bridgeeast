@@ -47,15 +47,26 @@ A full-stack web platform helping Asian F&B brands navigate their first NYC loca
    Edit `.env.local` and add:
    - `NEXT_PUBLIC_SUPABASE_URL` — Your Supabase project URL
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY` — Your Supabase anon key
+   - `SUPABASE_SERVICE_ROLE_KEY` — Server-side key for admin actions and private uploads
+   - `ADMIN_EMAIL` — Hardcoded admin email allowed into `/admin`
+   - `NEXT_PUBLIC_ADMIN_EMAIL` — Same value exposed to the client-side admin gate
+   - `RESEND_API_KEY` — Optional, used by the Supabase Edge Function to send verification emails
+   - `VERIFICATION_EMAIL_FROM` — Optional sender for verification decision emails
 
 4. **Initialize the database**
    
    In Supabase:
    - Open the SQL editor
    - Run `supabase/migrations/001_initial_schema.sql` to create tables
+   - Run `supabase/migrations/002_seller_verification_and_admin.sql` to create seller profiles, listings, and the private verification bucket
    - Run `supabase/seed.sql` to seed sample data
 
-5. **Run the development server**
+5. **Deploy the verification email function**
+   ```bash
+   supabase functions deploy send-verification-email
+   ```
+
+6. **Run the development server**
    ```bash
    npm run dev
    ```
@@ -94,7 +105,10 @@ bridgeeast/
 - `/guides` — Guide library with category filtering
 - `/guides/[slug]` — Individual guide detail pages
 - `/partners` — Searchable partner directory with category and language filters
+- `/listings` — Seller listings with verification badges and seller profile links
+- `/sellers/[id]` — Seller profile with listing history and verification upload form
 - `/waitlist` — Email capture form for early access
+- `/admin` — Basic admin panel for verification review and listing moderation
 
 ## Database Schema
 
@@ -136,6 +150,30 @@ bridgeeast/
 - email (TEXT)
 - brand_name, origin_country (TEXT)
 - target_open_date (DATE)
+- created_at, updated_at (TIMESTAMP)
+```
+
+### profiles
+```sql
+- id (UUID)
+- email (TEXT)
+- full_name, business_name (TEXT)
+- bio (TEXT)
+- verification_status (TEXT: unverified|pending|verified|rejected)
+- government_id_path, ownership_document_path, business_license_path (TEXT)
+- verification_submitted_at, verification_reviewed_at (TIMESTAMP)
+- created_at, updated_at (TIMESTAMP)
+```
+
+### listings
+```sql
+- id (UUID)
+- profile_id (UUID)
+- title, category, city (TEXT)
+- description (TEXT)
+- moderation_status (TEXT: active|removed)
+- is_flagged (BOOLEAN)
+- flag_reason (TEXT)
 - created_at, updated_at (TIMESTAMP)
 ```
 
@@ -214,6 +252,15 @@ npm start
 
 1. Add/edit partners in Supabase `partners` table directly, or
 2. Build an admin panel (`/admin`) with protected routes using Supabase Auth
+
+### Seller Verification Setup
+
+1. Apply the new seller/admin migration
+2. Confirm the `verification-documents` storage bucket exists and remains private
+3. Set `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_EMAIL`, and `NEXT_PUBLIC_ADMIN_EMAIL`
+4. Deploy `supabase/functions/send-verification-email`
+5. Visit `/sellers/[id]` to submit seller documents
+6. Visit `/admin` and unlock with the configured admin email to review requests
 
 ## Development Notes
 
