@@ -13,6 +13,7 @@ export function Header() {
   const locale = getLocaleFromPathname(pathname)
   const alternateLocale = getOppositeLocale(locale)
   const messages = getStaticMessages(locale)
+  const homeHref = localizePath('/listings', locale)
 
   const handleLocaleSwitch = () => {
     document.cookie = `NEXT_LOCALE=${alternateLocale}; path=/; max-age=31536000; samesite=lax`
@@ -28,7 +29,7 @@ export function Header() {
   return (
     <header className="border-b border-gray-200 sticky top-0 bg-white/95 backdrop-blur z-50 shadow-sm">
       <div className="container flex items-center justify-between h-18 md:h-20">
-        <Link href={localizePath('/', locale)} className="text-2xl md:text-3xl font-serif font-bold text-gray-950 hover:text-accent transition-colors">
+        <Link href={homeHref} className="text-2xl md:text-3xl font-serif font-bold text-gray-950 hover:text-accent transition-colors">
           BridgeEast
         </Link>
 

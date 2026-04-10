@@ -226,8 +226,8 @@ INSERT INTO profiles (id, email, full_name, business_name, bio, verification_sta
 ON CONFLICT (email) DO NOTHING;
 
 -- Seed seller listings
-INSERT INTO listings (profile_id, title, category, city, description, moderation_status, is_flagged, flag_reason) VALUES
-('11111111-1111-1111-1111-111111111111', 'Lotus Dumpling Studio - Williamsburg Pop-up to Permanent', 'Quick Service', 'Brooklyn', 'Seeking a 900-1,200 sq ft corner storefront with strong lunch traffic and venting potential.', 'active', false, null),
-('22222222-2222-2222-2222-222222222222', 'Midori Matcha Bar - Flatiron Flagship', 'Cafe', 'Manhattan', 'Compact beverage-led concept targeting office density and afternoon snack demand.', 'active', true, 'Needs a closer review of marketing claims and listing imagery.'),
-('33333333-3333-3333-3333-333333333333', 'Seoul Bakehouse - Long Island City Commissary', 'Bakery', 'Queens', 'Production bakery concept with a retail counter and commissary capacity for wholesale expansion.', 'active', false, null)
+INSERT INTO listings (profile_id, title, category, city, description, image_url, moderation_status, is_flagged, flag_reason) VALUES
+('11111111-1111-1111-1111-111111111111', 'Lotus Dumpling Studio - Williamsburg Pop-up to Permanent', 'Quick Service', 'Brooklyn', 'Seeking a 900-1,200 sq ft corner storefront with strong lunch traffic and venting potential.', 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80', 'active', false, null),
+('22222222-2222-2222-2222-222222222222', 'Midori Matcha Bar - Flatiron Flagship', 'Cafe', 'Manhattan', 'Compact beverage-led concept targeting office density and afternoon snack demand.', 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=80', 'active', true, 'Needs a closer review of marketing claims and listing imagery.'),
+('33333333-3333-3333-3333-333333333333', 'Seoul Bakehouse - Long Island City Commissary', 'Bakery', 'Queens', 'Production bakery concept with a retail counter and commissary capacity for wholesale expansion.', 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=1200&q=80', 'active', false, null)
 ON CONFLICT DO NOTHING;

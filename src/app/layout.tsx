@@ -13,23 +13,23 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'BridgeEast - NYC Guide for Asian F&B Expansion',
-  description: 'Market intelligence, guides, and vetted partners for Asian food & beverage brands opening in NYC. Free access to rent data, foot traffic analysis, and expert resources.',
-  keywords: ['NYC restaurants', 'Asian food business', 'restaurant expansion', 'food & beverage', 'NYC market data', 'restaurant guides', 'commercial real estate NYC'],
+  title: 'BridgeEast - Guide for Asian F&B U.S. Market Entry',
+  description: 'Market intelligence, guides, and vetted partners for Asian food & beverage brands planning U.S. market entry. Free access to rent data, foot traffic analysis, and expert resources.',
+  keywords: ['restaurant market entry', 'Asian food business', 'restaurant expansion', 'food & beverage', 'market data', 'restaurant guides', 'commercial real estate'],
   authors: [{ name: 'BridgeEast' }],
   creator: 'BridgeEast',
   publisher: 'BridgeEast',
   openGraph: {
-    title: 'BridgeEast - NYC Guide for Asian F&B Expansion',
-    description: 'Market intelligence, guides, and vetted partners for Asian food & beverage brands opening in NYC.',
+    title: 'BridgeEast - Guide for Asian F&B U.S. Market Entry',
+    description: 'Market intelligence, guides, and vetted partners for Asian food & beverage brands planning U.S. market entry.',
     type: 'website',
     locale: 'en_US',
     siteName: 'BridgeEast',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BridgeEast - NYC Guide for Asian F&B Expansion',
-    description: 'Market intelligence, guides, and vetted partners for Asian food & beverage brands opening in NYC.',
+    title: 'BridgeEast - Guide for Asian F&B U.S. Market Entry',
+    description: 'Market intelligence, guides, and vetted partners for Asian food & beverage brands planning U.S. market entry.',
     creator: '@BridgeEast',
   },
   robots: {

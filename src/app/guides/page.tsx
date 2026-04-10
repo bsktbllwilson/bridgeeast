@@ -49,11 +49,11 @@ export default function GuidesPage() {
           },
           {
             id: '2',
-            title: 'NYC Health Department Permits',
+            title: 'Health Department Permits',
             slug: 'health-permits',
             category: 'Permits & Licensing',
             phase: 'Pre-Launch',
-            content: '<h2>Food Service Establishment Permit</h2><p>The NYC Department of Health requires all food service establishments...</p>',
+            content: '<h2>Food Service Establishment Permit</h2><p>The local Department of Health requires all food service establishments...</p>',
             published: true,
           },
           {
@@ -67,20 +67,20 @@ export default function GuidesPage() {
           },
           {
             id: '4',
-            title: 'Hiring & NYC Labor Law Compliance',
+            title: 'Hiring & Labor Law Compliance',
             slug: 'hiring-labor',
             category: 'Operations',
             phase: 'Launch',
-            content: '<h2>NYC Labor Laws Overview</h2><p>New York City has some of the most employee-friendly labor laws...</p>',
+            content: '<h2>Labor Laws Overview</h2><p>Many U.S. markets have employee-friendly labor laws that require close attention...</p>',
             published: true,
           },
           {
             id: '5',
-            title: 'Specialty Ingredient Sourcing in NYC',
+            title: 'Specialty Ingredient Sourcing',
             slug: 'ingredient-sourcing',
             category: 'Operations',
             phase: 'Launch',
-            content: '<h2>NYC Food Distribution Landscape</h2><p>New York City has a robust network of food distributors...</p>',
+            content: '<h2>Food Distribution Landscape</h2><p>Major U.S. markets have robust networks of food distributors...</p>',
             published: true,
           },
           {
@@ -113,7 +113,7 @@ export default function GuidesPage() {
       <Header />
 
       <section className="container section pt-32 md:pt-40 pb-20">
-        <h1 className="mb-6">Curated Guides for<br /><span className="text-accent">Your NYC Journey</span></h1>
+        <h1 className="mb-6">Curated Guides for<br /><span className="text-accent">Your Expansion Journey</span></h1>
         <p className="text-lg text-gray-600 max-w-2xl">
           Step-by-step playbooks organized by phase: from visa strategy to launch day operations.
         </p>

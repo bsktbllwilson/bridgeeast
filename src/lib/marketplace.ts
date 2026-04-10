@@ -21,11 +21,39 @@ export interface SellerListing {
   category: string
   city: string
   description: string
+  image_url?: string | null
   moderation_status: ModerationStatus
   is_flagged: boolean
   flag_reason?: string | null
   created_at?: string
   profiles?: Pick<SellerProfile, 'id' | 'full_name' | 'business_name' | 'verification_status'> | null
+}
+
+const listingCategoryImages: Record<string, string> = {
+  restaurant: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80',
+  food: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80',
+  'quick service': 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80',
+  cafe: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=80',
+  bakery: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=1200&q=80',
+  retail: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80',
+  wellness: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1200&q=80',
+}
+
+const defaultListingImage = 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80'
+
+export function getListingImageUrl(listing: Pick<SellerListing, 'category' | 'image_url'>) {
+  if (listing.image_url) {
+    return listing.image_url
+  }
+
+  const normalizedCategory = (listing.category || '').trim().toLowerCase()
+
+  if (listingCategoryImages[normalizedCategory]) {
+    return listingCategoryImages[normalizedCategory]
+  }
+
+  const partialMatch = Object.entries(listingCategoryImages).find(([key]) => normalizedCategory.includes(key))
+  return partialMatch?.[1] || defaultListingImage
 }
 
 export interface InquiryMessage {
@@ -73,6 +101,7 @@ export const sampleListings: SellerListing[] = [
     category: 'Quick Service',
     city: 'Brooklyn',
     description: 'Seeking a 900-1,200 sq ft corner storefront with strong lunch traffic and venting potential.',
+    image_url: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80',
     moderation_status: 'active',
     is_flagged: false,
     profiles: {
@@ -89,6 +118,7 @@ export const sampleListings: SellerListing[] = [
     category: 'Cafe',
     city: 'Manhattan',
     description: 'Compact beverage-led concept targeting office density and afternoon snack demand.',
+    image_url: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=80',
     moderation_status: 'active',
     is_flagged: true,
     flag_reason: 'Needs a closer review of marketing claims and listing imagery.',
@@ -106,6 +136,7 @@ export const sampleListings: SellerListing[] = [
     category: 'Bakery',
     city: 'Queens',
     description: 'Production bakery concept with a retail counter and commissary capacity for wholesale expansion.',
+    image_url: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=1200&q=80',
     moderation_status: 'active',
     is_flagged: false,
     profiles: {
@@ -123,7 +154,7 @@ const sampleInquiryThreads: Record<string, InquiryMessage[]> = {
       id: 'message-1',
       listing_id: 'listing-1',
       author: 'buyer',
-      sender_name: 'NYC Expansion Team',
+      sender_name: 'BridgeEast Expansion Team',
       body: 'Can you share your target opening window and whether a vented kitchen is a hard requirement?',
       sent_at: '2026-04-02T14:20:00.000Z',
     },

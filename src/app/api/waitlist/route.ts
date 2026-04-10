@@ -1,5 +1,5 @@
+import { createClient } from '@supabase/supabase-js'
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,6 +34,8 @@ export async function POST(request: NextRequest) {
         { status: 201 }
       )
     }
+
+    const supabase = createClient(supabaseUrl, supabaseKey)
 
     // Insert into Supabase
     const { data, error } = await supabase

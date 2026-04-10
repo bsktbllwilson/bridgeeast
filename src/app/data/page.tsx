@@ -49,7 +49,7 @@ export default function DataPage() {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
   const [selectedLocation, setSelectedLocation] = useState<{ lat: number; lng: number; name: string } | null>(null)
   const [selectedNeighborhood, setSelectedNeighborhood] = useState<Neighborhood | null>(null)
-  const [mapCenter, setMapCenter] = useState<[number, number]>([40.7128, -74.0060]) // NYC center
+  const [mapCenter, setMapCenter] = useState<[number, number]>([40.7128, -74.0060]) // Default city center
   const [mapZoom, setMapZoom] = useState(11)
   const [showDataModal, setShowDataModal] = useState(false)
 
@@ -200,15 +200,15 @@ export default function DataPage() {
           <h1 className="mb-6 text-5xl md:text-7xl font-serif font-bold leading-tight">
             Market Intelligence for<br />
             <span className="text-accent bg-gradient-to-r from-accent to-accent-dark bg-clip-text text-transparent">
-              Your NYC Expansion
+              Your U.S. Market Entry
             </span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Search any NYC address to get real neighborhood data on rent, foot traffic, demand, and competitive density. Make informed decisions for your Asian F&B expansion.
+            Search any target address to get real neighborhood data on rent, foot traffic, demand, and competitive density. Make informed decisions for your Asian F&B expansion.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <div className="badge">Real-time Data</div>
-            <div className="badge">NYC Focus</div>
+            <div className="badge">Market Focus</div>
             <div className="badge">Asian F&B Insights</div>
           </div>
         </div>
@@ -220,7 +220,7 @@ export default function DataPage() {
           <div className="text-center mb-12">
             <h2 className="section-title mb-4">Search Your Target Location</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Enter any NYC address to see real market data and neighborhood insights
+              Enter any target address to see real market data and neighborhood insights
             </p>
           </div>
 
@@ -230,7 +230,7 @@ export default function DataPage() {
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6" />
               <input
                 type="text"
-                placeholder="Enter an NYC address (e.g., Times Square, Brooklyn Bridge)..."
+                placeholder="Enter a target address (e.g., Times Square, Brooklyn Bridge)..."
                 value={searchQuery}
                 onChange={handleSearchChange}
                 className="w-full pl-12 pr-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-accent/20 focus:border-accent transition-all duration-200 shadow-sm hover:shadow-md"
@@ -458,7 +458,7 @@ export default function DataPage() {
           <div className="text-center mb-12">
             <h2 className="section-title mb-4">Average Rent by Neighborhood</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Commercial real estate costs across NYC neighborhoods (2025 data)
+              Commercial real estate costs across target neighborhoods (2025 data)
             </p>
           </div>
           <div className="bg-white p-8 border-2 border-gray-200 rounded-2xl shadow-lg">
@@ -529,7 +529,7 @@ export default function DataPage() {
         <div className="text-center mb-12">
           <h2 className="section-title mb-4">Neighborhood Deep Dive</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Comprehensive metrics for each NYC neighborhood to inform your expansion strategy
+            Comprehensive metrics for each neighborhood to inform your expansion strategy
           </p>
         </div>
         <div className="overflow-x-auto border-2 border-gray-200 rounded-2xl shadow-lg">
@@ -601,7 +601,7 @@ export default function DataPage() {
           <div className="text-center mb-12">
             <h2 className="section-title mb-4">Opening Difficulty Ratings</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Understanding the challenges and timelines for opening an Asian restaurant in NYC
+              Understanding the challenges and timelines for opening an Asian restaurant in a new market
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-8">

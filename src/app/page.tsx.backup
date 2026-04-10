@@ -42,10 +42,10 @@ export default function Home() {
         <div className="max-w-3xl">
           <h1 className="mb-6 leading-tight">
             Your Market Intelligence for<br />
-            <span className="text-accent">NYC Expansion</span>
+            <span className="text-accent">U.S. Market Entry</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed">
-            BridgeEast connects Asian F&B founders with curated market data, step-by-step guides, and vetted local partners—everything needed to navigate your first NYC location.
+            BridgeEast connects Asian F&B founders with curated market data, step-by-step guides, and vetted local partners—everything needed to navigate your first expansion move.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href="/waitlist" className="btn-primary text-center">

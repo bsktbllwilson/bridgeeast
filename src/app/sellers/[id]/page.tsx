@@ -1,12 +1,13 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { FileCheck2, Shield, UploadCloud } from 'lucide-react'
 
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { VerificationBadge } from '@/components/VerificationBadge'
-import { findSampleProfile, getSampleListingsForProfile, type SellerListing, type SellerProfile } from '@/lib/marketplace'
+import { findSampleProfile, getListingImageUrl, getSampleListingsForProfile, type SellerListing, type SellerProfile } from '@/lib/marketplace'
 import { supabase } from '@/lib/supabase'
 
 function normalizeProfile(profile: any): SellerProfile {
@@ -32,6 +33,7 @@ function normalizeListing(listing: any): SellerListing {
     category: listing.category,
     city: listing.city,
     description: listing.description,
+    image_url: listing.image_url,
     moderation_status: listing.moderation_status,
     is_flagged: Boolean(listing.is_flagged),
     flag_reason: listing.flag_reason,
@@ -58,7 +60,7 @@ export default function SellerProfilePage({ params }: { params: { id: string } }
             .single(),
           supabase
             .from('listings')
-            .select('id, profile_id, title, category, city, description, moderation_status, is_flagged, flag_reason, created_at')
+            .select('id, profile_id, title, category, city, description, image_url, moderation_status, is_flagged, flag_reason, created_at')
             .eq('profile_id', params.id)
             .eq('moderation_status', 'active')
             .order('created_at', { ascending: false }),
@@ -178,16 +180,21 @@ export default function SellerProfilePage({ params }: { params: { id: string } }
 
             <div className="grid gap-5 md:grid-cols-2">
               {listings.map((listing) => (
-                <article key={listing.id} className="card p-6">
-                  <div className="mb-4 flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">{listing.category}</p>
-                      <h3 className="mt-2 text-2xl font-bold text-gray-950">{listing.title}</h3>
-                    </div>
-                    {profile.verification_status === 'verified' && <VerificationBadge status="verified" />}
+                <article key={listing.id} className="card overflow-hidden p-0">
+                  <div className="relative h-[200px] w-full">
+                    <Image src={getListingImageUrl(listing)} alt={listing.title} fill className="object-cover" sizes="(min-width: 768px) 50vw, 100vw" />
                   </div>
-                  <p className="mb-3 text-sm text-gray-500">{listing.city}</p>
-                  <p className="leading-relaxed text-gray-600">{listing.description}</p>
+                  <div className="p-6">
+                    <div className="mb-4 flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">{listing.category}</p>
+                        <h3 className="mt-2 text-2xl font-bold text-gray-950">{listing.title}</h3>
+                      </div>
+                      {profile.verification_status === 'verified' && <VerificationBadge status="verified" />}
+                    </div>
+                    <p className="mb-3 text-sm text-gray-500">{listing.city}</p>
+                    <p className="leading-relaxed text-gray-600">{listing.description}</p>
+                  </div>
                 </article>
               ))}
             </div>

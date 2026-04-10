@@ -13,7 +13,7 @@
     "chinese": "简"
   },
   "footer": {
-    "tagline": "Market intelligence and partnerships for Asian food & beverage brands entering NYC.",
+    "tagline": "Market intelligence and partnerships for Asian food & beverage brands planning U.S. market entry.",
     "explore": "Explore",
     "resources": "Resources",
     "marketData": "Market Data",
@@ -50,8 +50,8 @@
   "home": {
     "badge": "Trusted by Asian F&B founders",
     "titleLine1": "Your Market Intelligence for",
-    "titleHighlight": "NYC Expansion",
-    "subtitle": "BridgeEast connects Asian F&B founders with curated market data, step-by-step guides, and vetted local partners—everything needed to navigate your first NYC location.",
+    "titleHighlight": "U.S. Market Entry",
+    "subtitle": "BridgeEast connects Asian F&B founders with curated market data, step-by-step guides, and vetted local partners—everything needed to navigate your first expansion move.",
     "primaryCta": "Join the Waitlist",
     "secondaryCta": "Explore Data",
     "stats": {
@@ -84,17 +84,60 @@
       "high": "High",
       "medium": "Medium"
     },
-    "ctaTitle": "Ready to Start Your NYC Journey?",
+    "ctaTitle": "Ready to Start Your Expansion Journey?",
     "ctaBody": "Join hundreds of Asian F&B founders who trust BridgeEast for their expansion decisions.",
     "ctaButton": "Get Early Access"
   },
   "listings": {
-    "badge": "Seller Marketplace",
-    "title": "Browse expansion-ready sellers and live concept listings",
-    "subtitle": "Review seller concepts, discover who is verified, and jump into individual seller profiles to track their current expansion plans.",
+    "heroBadge": "For Asian F&B Brands",
+    "heroTitle": "Search NYC restaurant spaces like you search homes on Zillow.",
+    "heroSubtitle": "Browse active restaurant and retail listings across Manhattan, Brooklyn, and Queens — built for Asian F&B brands ready to open in New York.",
+    "searchPlaceholder": "Search by neighborhood, cuisine, concept, or keyword",
+    "allCities": "All boroughs",
+    "neighborhoodsTitle": "Neighborhood chips",
+    "priceBandsTitle": "Rent bands",
+    "filters": {
+      "all": "All",
+      "restaurant": "Restaurant",
+      "cafe": "Cafe",
+      "bakery": "Bakery",
+      "retail": "Retail",
+      "verifiedOnly": "Verified only"
+    },
+    "priceBands": {
+      "all": "All budgets",
+      "starter": "Starter rent",
+      "growth": "Growth corridor",
+      "premium": "Premium flagship"
+    },
+    "pills": {
+      "verified": "Asian-friendly operators",
+      "turnkey": "Bilingual support",
+      "high-foot-traffic": "NYC market guides"
+    },
+    "heroStats": {
+      "listingsLabel": "Listings now",
+      "responseLabel": "BridgeEast advantage",
+      "responseTitle": "Translated seller conversations, only when a listing is worth the next step.",
+      "responseValue": "Compare listings first, then open bilingual seller conversations inline when a space makes the shortlist."
+    },
+    "badge": "Live marketplace",
+    "title": "Restaurant listings ready for buyer review",
+    "subtitle": "A visual starting point for restaurant acquisition and market-entry scouting: scan the image, read the story, and move into the seller profile when you want diligence.",
+    "resultsCount": "{count, plural, =0 {No listings} one {# listing} other {# listings}}",
+    "emptyTitle": "No listings match these filters yet.",
+    "emptyBody": "Try another keyword, open up the borough filter, or clear the category chips to widen the search.",
+    "clearFilters": "Clear search",
     "loading": "Loading listings...",
     "categoryFallback": "Uncategorized",
-    "descriptionFallback": "No description provided yet."
+    "descriptionFallback": "No description provided yet.",
+    "mapBadge": "Map pulse",
+    "mapTitle": "See where buyer attention is clustering",
+    "mapBody": "Use the neighborhood map to jump between boroughs quickly, then work down the shortlist on the left like a live deal board.",
+    "mapNeighborhoodLabel": "Neighborhood",
+    "mapListingsCount": "{count, plural, =0 {No listings} one {# listing} other {# listings}}",
+    "mapShortlistTitle": "Shortlist view",
+    "mapReset": "Reset map"
   },
   "listingDetail": {
     "badge": "Listing Detail",

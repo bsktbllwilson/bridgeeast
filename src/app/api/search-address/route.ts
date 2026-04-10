@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-// API route for geocoding addresses in NYC
+// API route for geocoding local target addresses
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const query = searchParams.get('q')
@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
 
     const data = await response.json()
 
-    // Filter for NYC results and format
+    // Filter for local results and format
     const results = data
       .filter((result: any) => {
         const displayName = result.display_name.toLowerCase()

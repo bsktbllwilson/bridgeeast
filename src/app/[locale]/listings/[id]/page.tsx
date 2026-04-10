@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { MapPin, Store } from 'lucide-react'
@@ -9,7 +10,7 @@ import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { InlineTranslation } from '@/components/InlineTranslation'
 import { VerificationBadge } from '@/components/VerificationBadge'
-import { findSampleListing, findSampleProfile, type SellerListing, type SellerProfile } from '@/lib/marketplace'
+import { findSampleListing, findSampleProfile, getListingImageUrl, type SellerListing, type SellerProfile } from '@/lib/marketplace'
 import { supabase } from '@/lib/supabase'
 
 interface ListingDetail extends SellerListing {
@@ -26,6 +27,7 @@ function normalizeListing(listing: any): ListingDetail {
     category: listing.category,
     city: listing.city,
     description: listing.description,
+    image_url: listing.image_url,
     moderation_status: listing.moderation_status,
     is_flagged: Boolean(listing.is_flagged),
     flag_reason: listing.flag_reason,
@@ -54,7 +56,7 @@ export default function ListingDetailPage({ params }: { params: { id: string } }
       try {
         const { data, error } = await supabase
           .from('listings')
-          .select('id, profile_id, title, category, city, description, moderation_status, is_flagged, flag_reason, created_at, profiles(id, full_name, business_name, verification_status, bio)')
+          .select('id, profile_id, title, category, city, description, image_url, moderation_status, is_flagged, flag_reason, created_at, profiles(id, full_name, business_name, verification_status, bio)')
           .eq('id', params.id)
           .single()
 
@@ -127,6 +129,11 @@ export default function ListingDetailPage({ params }: { params: { id: string } }
         <div className="grid gap-10 lg:grid-cols-[1.3fr_0.7fr]">
           <div>
             <p className="badge mb-6">{t('badge')}</p>
+            <div className="mb-8 overflow-hidden rounded-3xl bg-gray-100">
+              <div className="relative h-[320px] w-full">
+                <Image src={getListingImageUrl(listing)} alt={listing.title} fill className="object-cover" sizes="(min-width: 1024px) 66vw, 100vw" />
+              </div>
+            </div>
             <div className="mb-6 flex items-start justify-between gap-4">
               <div>
                 <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-accent">{listing.category}</p>

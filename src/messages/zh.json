@@ -13,7 +13,7 @@
     "chinese": "简"
   },
   "footer": {
-    "tagline": "为进入纽约市场的亚洲餐饮品牌提供市场情报与合作资源。",
+    "tagline": "为计划进入美国市场的亚洲餐饮品牌提供市场情报与合作资源。",
     "explore": "探索",
     "resources": "资源",
     "marketData": "市场数据",
@@ -49,9 +49,9 @@
   },
   "home": {
     "badge": "深受亚洲餐饮创始人信赖",
-    "titleLine1": "助力您进入纽约市场的",
+    "titleLine1": "助力您进入美国市场的",
     "titleHighlight": "核心情报平台",
-    "subtitle": "BridgeEast 为亚洲餐饮创始人整合精选市场数据、分步骤指南与本地优质合作伙伴，帮助您更稳妥地落地首家纽约门店。",
+    "subtitle": "BridgeEast 为亚洲餐饮创始人整合精选市场数据、分步骤指南与本地优质合作伙伴，帮助您更稳妥地推进首次扩张。",
     "primaryCta": "加入等候名单",
     "secondaryCta": "查看数据",
     "stats": {
@@ -84,17 +84,60 @@
       "high": "高",
       "medium": "中等"
     },
-    "ctaTitle": "准备开启您的纽约拓展之旅？",
+    "ctaTitle": "准备开启您的扩张之旅？",
     "ctaBody": "加入数百位使用 BridgeEast 做扩张决策的亚洲餐饮创始人。",
     "ctaButton": "获取优先访问"
   },
   "listings": {
-    "badge": "卖家市场",
-    "title": "浏览已准备扩张的卖家与在架品牌房源",
-    "subtitle": "查看卖家概念、识别已认证商家，并进入卖家主页追踪其扩张计划。",
+    "heroBadge": "专为亚洲餐饮品牌打造",
+    "heroTitle": "像用 Zillow 搜索住宅一样搜索纽约餐饮空间。",
+    "heroSubtitle": "浏览曼哈顿、布鲁克林和皇后区的活跃餐厅与零售房源，专为准备在纽约开店的亚洲餐饮品牌打造。",
+    "searchPlaceholder": "按区域、菜系、品牌概念或关键词搜索",
+    "allCities": "全部区域",
+    "neighborhoodsTitle": "区域筛选",
+    "priceBandsTitle": "租金层级",
+    "filters": {
+      "all": "全部",
+      "restaurant": "餐厅",
+      "cafe": "咖啡店",
+      "bakery": "烘焙",
+      "retail": "零售",
+      "verifiedOnly": "只看已认证"
+    },
+    "priceBands": {
+      "all": "全部预算",
+      "starter": "入门租金",
+      "growth": "成长型区域",
+      "premium": "旗舰级区域"
+    },
+    "pills": {
+      "verified": "熟悉亚洲品牌的经营方",
+      "turnkey": "双语支持",
+      "high-foot-traffic": "纽约市场指南"
+    },
+    "heroStats": {
+      "listingsLabel": "当前房源",
+      "responseLabel": "BridgeEast 优势",
+      "responseTitle": "只有当房源值得继续推进时，再打开双语卖家对话。",
+      "responseValue": "先比较房源，再在真正进入候选名单时查看内嵌翻译的卖家交流内容。"
+    },
+    "badge": "实时房源市场",
+    "title": "面向买家的待售餐厅房源",
+    "subtitle": "以直观的视觉化方式开始你的餐饮收购与市场进入搜索：先看图片、快速理解项目，再在需要尽调时进入卖家资料页。",
+    "resultsCount": "{count, plural, =0 {没有房源} one {# 个房源} other {# 个房源}}",
+    "emptyTitle": "当前没有匹配这些条件的房源。",
+    "emptyBody": "试试其他关键词、放宽区域筛选，或清除品类筛选来扩大搜索范围。",
+    "clearFilters": "清除搜索条件",
     "loading": "房源加载中...",
     "categoryFallback": "未分类",
-    "descriptionFallback": "暂无描述。"
+    "descriptionFallback": "暂无描述。",
+    "mapBadge": "地图视图",
+    "mapTitle": "快速看到买家关注聚集在哪些区域",
+    "mapBody": "通过右侧地图面板快速切换区域，再像处理交易列表一样逐个筛选左侧候选房源。",
+    "mapNeighborhoodLabel": "区域",
+    "mapListingsCount": "{count, plural, =0 {暂无房源} one {# 个房源} other {# 个房源}}",
+    "mapShortlistTitle": "快速候选列表",
+    "mapReset": "重置地图"
   },
   "listingDetail": {
     "badge": "房源详情",
