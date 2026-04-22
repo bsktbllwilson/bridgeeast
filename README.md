@@ -4,6 +4,7 @@ A full-stack web platform helping Asian F&B brands navigate their first NYC loca
 
 ## Overview
 
+
 **BridgeEast** is a comprehensive platform featuring:
 
 1. **Market Data Dashboard** — Neighborhood-level rent benchmarks, foot traffic indicators, and competitive analysis
