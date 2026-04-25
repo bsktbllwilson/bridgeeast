@@ -1,0 +1,200 @@
+'use client'
+
+import Link from 'next/link'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
+import { useState, useEffect } from 'react'
+import { supabase } from '@/lib/supabase'
+
+export default function Home() {
+  const [stats, setStats] = useState({
+    neighborhoods: 0,
+    partners: 0,
+    guides: 0,
+    waitlist: 0
+  })
+  const [previewData, setPreviewData] = useState<any[]>([])
+
+  useEffect(() => {
+    // Temporarily disabled for debugging
+    setStats({
+      neighborhoods: 5,
+      partners: 8,
+      guides: 6,
+      waitlist: 0
+    })
+    setPreviewData([
+      { name: 'Soho', rent: '$45–65' },
+      { name: 'East Village', rent: '$35–50' },
+      { name: 'Sunset Park', rent: '$20–30' },
+      { name: 'Flushing', rent: '$22–35' },
+      { name: 'Midtown Manhattan', rent: '$60–85' },
+    ])
+  }, [])
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-white">
+      <Header />
+      
+      {/* Hero Section */}
+      <section className="container section pt-32 md:pt-40 pb-20">
+        <div className="max-w-3xl">
+          <h1 className="mb-6 leading-tight">
+            Your Market Intelligence for<br />
+            <span className="text-accent">U.S. Market Entry</span>
+          </h1>
+          <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed">
+            BridgeEast connects Asian F&B founders with curated market data, step-by-step guides, and vetted local partners—everything needed to navigate your first expansion move.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link href="/waitlist" className="btn-primary text-center">
+              Join the Waitlist
+            </Link>
+            <Link href="/data" className="btn-secondary text-center">
+              Explore Data
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Bar */}
+      <section className="bg-gray-50 border-y-2 border-gray-200 py-12 md:py-16">
+        <div className="container">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+              <div className="text-4xl font-bold text-accent mb-2">{stats.neighborhoods}</div>
+              <div className="text-sm text-gray-600">Neighborhoods Mapped</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold text-accent mb-2">{stats.partners}</div>
+              <div className="text-sm text-gray-600">Vetted Partners</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold text-accent mb-2">{stats.guides}</div>
+              <div className="text-sm text-gray-600">Expert Guides</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold text-accent mb-2">100%</div>
+              <div className="text-sm text-gray-600">Free to Access</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Three Pillars Section */}
+      <section className="container section">
+        <h2 className="section-title text-center mb-16">Three Pillars of Success</h2>
+        <div className="grid md:grid-cols-3 gap-12">
+          {[
+            {
+              title: 'Market Data',
+              description: 'Neighborhood-level rent benchmarks, foot traffic, and competitive density insights.',
+              href: '/data',
+            },
+            {
+              title: 'Curated Guides',
+              description: 'Phase-based playbooks: visas, permits, leasing, hiring, sourcing, and localization.',
+              href: '/guides',
+            },
+            {
+              title: 'Partner Directory',
+              description: 'Pre-vetted specialists: brokers, attorneys, distributors, PR, accountants.',
+              href: '/partners',
+            },
+          ].map((pillar, idx) => (
+            <Link
+              key={idx}
+              href={pillar.href}
+              className="block p-8 border-2 border-gray-200 hover:border-accent transition-colors group"
+            >
+              <h3 className="text-2xl font-serif font-bold mb-3 group-hover:text-accent transition-colors">
+                {pillar.title}
+              </h3>
+              <p className="text-gray-600 leading-relaxed">{pillar.description}</p>
+              <div className="mt-6 text-accent font-medium">Explore →</div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Data Preview */}
+      <section className="bg-gray-50 section">
+        <div className="container">
+          <h2 className="section-title mb-12">Market Reality Check</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white p-8 border-2 border-gray-200">
+              <h3 className="text-xl font-serif font-bold mb-6">Average Rent by Neighborhood</h3>
+              <div className="space-y-4">
+                {previewData.map((item, idx) => (
+                  <div key={idx} className="flex justify-between pb-3 border-b border-gray-200 last:border-0">
+                    <span className="text-gray-700">{item.name}</span>
+                    <span className="font-semibold text-accent">{item.rent}/sq ft</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-white p-8 border-2 border-gray-200">
+              <h3 className="text-xl font-serif font-bold mb-6">Opening Difficulty Rating</h3>
+              <div className="space-y-4">
+                {[
+                  { task: 'Health Permits', level: 'High' },
+                  { task: 'Liquor License', level: 'Very High' },
+                  { task: 'Lease Negotiation', level: 'Medium' },
+                  { task: 'Staff Hiring', level: 'Medium' },
+                  { task: 'Supply Chain Setup', level: 'Medium' },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex justify-between pb-3 border-b border-gray-200 last:border-0">
+                    <span className="text-gray-700">{item.task}</span>
+                    <span className={`font-semibold ${item.level === 'Very High' ? 'text-red-600' : item.level === 'High' ? 'text-orange-600' : 'text-yellow-600'}`}>
+                      {item.level}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Partners Section */}
+      <section className="container section">
+        <h2 className="section-title mb-12">Meet Your Partners</h2>
+        <div className="grid md:grid-cols-4 gap-6 mb-8">
+          {[
+            { category: 'Real Estate', icon: '🏢' },
+            { category: 'Legal', icon: '⚖️' },
+            { category: 'Distribution', icon: '📦' },
+            { category: 'Marketing', icon: '📢' },
+          ].map((item, idx) => (
+            <div key={idx} className="text-center">
+              <div className="text-4xl mb-3">{item.icon}</div>
+              <h4 className="font-serif font-bold">{item.category}</h4>
+            </div>
+          ))}
+        </div>
+        <div className="text-center">
+          <Link href="/partners" className="btn-outline">
+            View All Partners
+          </Link>
+        </div>
+      </section>
+
+      {/* Waitlist Section */}
+      <section className="bg-accent text-white section">
+        <div className="container text-center max-w-2xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Ready to Expand?</h2>
+          <p className="text-lg opacity-90 mb-10">
+            Get early access to market reports, vetted partners, and expert guides tailored to your brand.
+          </p>
+          <Link href="/waitlist" className="inline-block px-8 py-3 bg-white text-accent font-semibold rounded-lg hover:bg-gray-100 transition-colors">
+            Join Our Waitlist
+          </Link>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  )
+}
