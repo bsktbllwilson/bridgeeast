@@ -212,37 +212,7 @@ export default function WaitlistPage() {
         )}
       </section>
 
-      {/* Info Sections */}
-      <section className="bg-gray-50 section">
-        <div className="container">
-          <h2 className="section-title mb-12 text-center">What You&apos;ll Get</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: '📊',
-                title: 'Market Data',
-                description: 'Neighborhood rent benchmarks, foot traffic analysis, and competitor insights.',
-              },
-              {
-                icon: '📚',
-                title: 'Expert Guides',
-                description: 'Step-by-step playbooks for visas, permits, leasing, hiring, and brand localization.',
-              },
-              {
-                icon: '🤝',
-                title: 'Partner Network',
-                description: 'Direct access to vetted brokers, attorneys, distributors, and marketing specialists.',
-              },
-            ].map((item, idx) => (
-              <div key={idx} className="card bg-white p-8 border-2 border-gray-200">
-                <div className="text-4xl mb-4">{item.icon}</div>
-                <h3 className="text-xl font-serif font-bold mb-3 text-gray-950">{item.title}</h3>
-                <p className="text-gray-600">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* "What You'll Get" 3-card block removed pending signed partner relationships. */}
 
       {/* FAQ */}
       <section className="container section max-w-3xl">
