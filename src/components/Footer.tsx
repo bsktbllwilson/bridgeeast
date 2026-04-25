@@ -35,11 +35,6 @@ export function Footer() {
                   {messages.footer.guides}
                 </Link>
               </li>
-              <li>
-                <Link href={localizePath('/partners', locale)} className="hover:text-accent transition-colors">
-                  {messages.footer.partners}
-                </Link>
-              </li>
             </ul>
           </div>
 
