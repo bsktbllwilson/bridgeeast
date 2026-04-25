@@ -6,10 +6,12 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 
 type FaqItem = { q: string; a: string }
+type WhatYoullGetItem = { icon: string; title: string; description: string }
 
 export default function WaitlistPage() {
   const t = useTranslations('waitlist')
   const faqItems = t.raw('faq') as FaqItem[]
+  const whatYoullGetItems = t.raw('whatYoullGet') as WhatYoullGetItem[]
   const countryKeys = ['China','Japan','Korea','Vietnam','Thailand','India','Philippines','Indonesia','Singapore','Hong Kong','Taiwan','Malaysia','Other'] as const
   const [formData, setFormData] = useState({
     email: '',
@@ -198,7 +200,21 @@ export default function WaitlistPage() {
         )}
       </section>
 
-      {/* "What You'll Get" 3-card block removed pending signed partner relationships. */}
+      {/* What You'll Get */}
+      <section className="bg-gray-50 section">
+        <div className="container">
+          <h2 className="section-title mb-12 text-center">{t('whatYoullGetTitle')}</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {whatYoullGetItems.map((item, idx) => (
+              <div key={idx} className="card bg-white p-8 border-2 border-gray-200">
+                <div className="text-4xl mb-4">{item.icon}</div>
+                <h3 className="text-xl font-serif font-bold mb-3 text-gray-950">{item.title}</h3>
+                <p className="text-gray-600">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* FAQ */}
       <section className="container section max-w-3xl">

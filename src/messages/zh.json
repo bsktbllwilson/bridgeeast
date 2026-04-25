@@ -378,6 +378,24 @@
       "Malaysia": "马来西亚",
       "Other": "其他"
     },
+    "whatYoullGetTitle": "您将获得",
+    "whatYoullGet": [
+      {
+        "icon": "📊",
+        "title": "市场数据",
+        "description": "社区租金基准、人流量分析与竞争对手洞察。"
+      },
+      {
+        "icon": "📚",
+        "title": "专家指南",
+        "description": "覆盖签证、许可、租赁、招聘与品牌本地化的分步操作手册。"
+      },
+      {
+        "icon": "🤝",
+        "title": "合作伙伴网络",
+        "description": "直接对接经过认证的经纪人、律师、分销商与营销专家。"
+      }
+    ],
     "faqTitle": "常见问题",
     "faq": [
       {
