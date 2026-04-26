@@ -38,14 +38,8 @@ function requiresAuth(pathname: string): boolean {
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  if (pathname === '/') {
-    const localeCookie = request.cookies.get('NEXT_LOCALE')?.value
-    const locale =
-      localeCookie && isAppLocale(localeCookie) ? localeCookie : routing.defaultLocale
-    const prefix = locale === routing.defaultLocale ? '' : `/${locale}`
-    return NextResponse.redirect(new URL(`${prefix}/marketplace/browse`, request.url))
-  }
-
+  // `/` is the marketing landing page (rendered by [locale]/page.tsx with
+  // locale=en under localePrefix:'as-needed'). Let next-intl handle it.
   const response = intlMiddleware(request)
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
