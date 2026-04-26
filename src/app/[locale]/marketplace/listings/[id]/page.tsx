@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -6,10 +7,61 @@ import { MapPin } from 'lucide-react'
 
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
+import { JsonLd } from '@/components/JsonLd'
 import { FinancialsPanel } from '@/components/marketplace/FinancialsPanel'
 import { type AppLocale } from '@/i18n/locales'
 import { getBusinessListing } from '@/lib/marketplace/queries'
 import { localizedListingField } from '@/lib/marketplace/types'
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://passtheplate.store'
+
+export async function generateMetadata({
+  params: { locale, id },
+}: {
+  params: { locale: AppLocale; id: string }
+}): Promise<Metadata> {
+  const { listing } = await getBusinessListing(id)
+  if (!listing) {
+    return {
+      title: 'Listing not found',
+      robots: { index: false, follow: true },
+    }
+  }
+  const title = localizedListingField(listing, 'title', locale)
+  const description = (localizedListingField(listing, 'description', locale) || '').slice(
+    0,
+    200
+  )
+  const path =
+    locale === 'en'
+      ? `/marketplace/listings/${listing.id}`
+      : `/${locale}/marketplace/listings/${listing.id}`
+  const ogParams = new URLSearchParams({
+    title,
+    subtitle: description,
+    eyebrow: [listing.city, listing.state].filter(Boolean).join(', '),
+  })
+  const ogImage = `${SITE_URL}/api/og?${ogParams.toString()}`
+
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      type: 'website',
+      title,
+      description,
+      url: `${SITE_URL}${path}`,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+    },
+  }
+}
 
 export default async function MarketplaceListingDetailPage({
   params: { locale, id },
@@ -40,8 +92,38 @@ export default async function MarketplaceListingDetailPage({
   const reasonForSale =
     locale === 'zh' && listing.reason_for_sale_zh ? listing.reason_for_sale_zh : listing.reason_for_sale
 
+  const productJsonLd: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: title,
+    description: description?.slice?.(0, 1000),
+    category: listing.cuisine_type,
+    brand: {
+      '@type': 'Organization',
+      name: 'Pass The Plate',
+      url: SITE_URL,
+    },
+    url:
+      SITE_URL +
+      (locale === 'en'
+        ? `/marketplace/listings/${listing.id}`
+        : `/${locale}/marketplace/listings/${listing.id}`),
+    ...(listing.asking_price
+      ? {
+          offers: {
+            '@type': 'Offer',
+            price: listing.asking_price,
+            priceCurrency: 'USD',
+            availability: 'https://schema.org/InStock',
+            seller: { '@type': 'Organization', name: 'Pass The Plate Marketplace' },
+          },
+        }
+      : {}),
+  }
+
   return (
     <main className="min-h-screen bg-gray-50">
+      <JsonLd data={productJsonLd} />
       <Header />
 
       <section className="container pt-32 md:pt-40">

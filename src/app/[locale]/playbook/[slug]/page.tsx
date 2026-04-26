@@ -1,105 +1,125 @@
-'use client'
-
-import { useEffect, useState } from 'react'
+import type { Metadata } from 'next'
 import Link from 'next/link'
-import { useLocale, useTranslations } from 'next-intl'
+import { notFound } from 'next/navigation'
+import { getTranslations } from 'next-intl/server'
+
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { FindYourNextBigDeal } from '@/components/FindYourNextBigDeal'
 import { BuySellSplit } from '@/components/BuySellSplit'
 import { TranslationBadge } from '@/components/TranslationBadge'
-import { hasSupabaseEnv, supabase } from '@/lib/supabase'
+import { JsonLd } from '@/components/JsonLd'
+import { hasSupabaseAuthEnv, createSupabaseServerClient } from '@/lib/supabase-server'
 import { pickLocalizedField } from '@/lib/i18n-content'
 import { localizePath, type AppLocale } from '@/i18n/locales'
 import {
   PLAYBOOK_FALLBACK_POSTS,
   buildExcerpt,
   coverGradientFor,
+  stripHtml,
   type PlaybookPost,
 } from '../playbook-data'
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://passtheplate.store'
+
 interface PageProps {
-  params: { slug: string }
+  params: { locale: string; slug: string }
 }
 
-export default function PlaybookPostPage({ params }: PageProps) {
-  const locale = useLocale() as AppLocale
-  const t = useTranslations('pages.playbookPage')
-  const [post, setPost] = useState<PlaybookPost | null>(null)
-  const [related, setRelated] = useState<PlaybookPost[]>([])
-  const [loading, setLoading] = useState(true)
-  const [notFound, setNotFound] = useState(false)
-
-  useEffect(() => {
-    const load = async () => {
-      try {
-        if (!hasSupabaseEnv) throw new Error('supabase not configured')
-        const { data, error } = await supabase
-          .from('guides')
-          .select('*')
-          .eq('slug', params.slug)
-          .eq('published', true)
-          .single()
-        if (error) throw error
-        if (!data) {
-          setNotFound(true)
-          return
-        }
-        setPost(data as PlaybookPost)
-
-        const { data: rel } = await supabase
-          .from('guides')
-          .select('*')
-          .eq('published', true)
-          .eq('category', (data as PlaybookPost).category)
-          .neq('slug', params.slug)
-          .limit(3)
-        setRelated((rel as PlaybookPost[] | null) ?? [])
-      } catch (err) {
-        console.error('post fetch failed, using fallback', err)
-        const fallback = PLAYBOOK_FALLBACK_POSTS.find((p) => p.slug === params.slug)
-        if (!fallback) {
-          setNotFound(true)
-          return
-        }
-        setPost(fallback)
-        setRelated(
-          PLAYBOOK_FALLBACK_POSTS.filter(
-            (p) => p.category === fallback.category && p.slug !== fallback.slug
-          ).slice(0, 3)
-        )
-      } finally {
-        setLoading(false)
-      }
-    }
-    load()
-  }, [params.slug])
-
-  if (loading) {
-    return (
-      <main className="min-h-screen bg-cream">
-        <Header />
-        <div className="container section pt-32 md:pt-40 text-center text-gray-500">
-          {t('loadingGuide')}
-        </div>
-        <Footer />
-      </main>
-    )
+async function loadPost(
+  slug: string
+): Promise<{ post: PlaybookPost | null; related: PlaybookPost[] }> {
+  if (!hasSupabaseAuthEnv()) {
+    const fallback = PLAYBOOK_FALLBACK_POSTS.find((p) => p.slug === slug) ?? null
+    const related = fallback
+      ? PLAYBOOK_FALLBACK_POSTS.filter(
+          (p) => p.category === fallback.category && p.slug !== fallback.slug
+        ).slice(0, 3)
+      : []
+    return { post: fallback, related }
   }
 
-  if (notFound || !post) {
-    return (
-      <main className="min-h-screen bg-cream">
-        <Header />
-        <div className="container section pt-32 md:pt-40 text-center">
-          <p className="text-gray-700 mb-6">{t('guideMissingCopy')}</p>
-          <Link href={localizePath('/playbook', locale)} className="btn-primary">
-            {t('backToPlaybook')}
-          </Link>
-        </div>
-        <Footer />
-      </main>
-    )
+  try {
+    const supabase = createSupabaseServerClient()
+    const { data, error } = await supabase
+      .from('guides')
+      .select('*')
+      .eq('slug', slug)
+      .eq('published', true)
+      .maybeSingle()
+    if (error) throw error
+    if (!data) return { post: null, related: [] }
+    const post = data as PlaybookPost
+
+    const { data: rel } = await supabase
+      .from('guides')
+      .select('*')
+      .eq('published', true)
+      .eq('category', post.category)
+      .neq('slug', slug)
+      .limit(3)
+
+    return { post, related: (rel as PlaybookPost[] | null) ?? [] }
+  } catch (err) {
+    console.error('playbook detail fetch failed, using fallback', err)
+    const fallback = PLAYBOOK_FALLBACK_POSTS.find((p) => p.slug === slug) ?? null
+    const related = fallback
+      ? PLAYBOOK_FALLBACK_POSTS.filter(
+          (p) => p.category === fallback.category && p.slug !== fallback.slug
+        ).slice(0, 3)
+      : []
+    return { post: fallback, related }
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = params.locale as AppLocale
+  const { post } = await loadPost(params.slug)
+  if (!post) {
+    return {
+      title: 'Guide not found',
+      robots: { index: false, follow: true },
+    }
+  }
+  const title = pickLocalizedField(post, 'title', locale).value
+  const content = pickLocalizedField(post, 'content', locale).value
+  const description = buildExcerpt(content, 200)
+  const path =
+    locale === 'en' ? `/playbook/${post.slug}` : `/${locale}/playbook/${post.slug}`
+  const ogParams = new URLSearchParams({
+    title,
+    subtitle: description,
+    eyebrow: post.category,
+  })
+  const ogImage = `${SITE_URL}/api/og?${ogParams.toString()}`
+
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      type: 'article',
+      title,
+      description,
+      url: `${SITE_URL}${path}`,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+    },
+  }
+}
+
+export default async function PlaybookPostPage({ params }: PageProps) {
+  const locale = params.locale as AppLocale
+  const t = await getTranslations({ locale, namespace: 'pages.playbookPage' })
+  const { post, related } = await loadPost(params.slug)
+
+  if (!post) {
+    notFound()
   }
 
   const updated = post.updated_at ? new Date(post.updated_at) : null
@@ -107,8 +127,39 @@ export default function PlaybookPostPage({ params }: PageProps) {
   const localizedContent = pickLocalizedField(post, 'content', locale)
   const minRead = Math.max(1, Math.ceil(localizedContent.value.length / 1200))
 
+  const path =
+    locale === 'en' ? `/playbook/${post.slug}` : `/${locale}/playbook/${post.slug}`
+  const ogParams = new URLSearchParams({
+    title: localizedTitle.value,
+    subtitle: stripHtml(localizedContent.value).slice(0, 180),
+    eyebrow: post.category,
+  })
+  const blogJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: localizedTitle.value,
+    description: buildExcerpt(localizedContent.value, 200),
+    datePublished: post.created_at ?? undefined,
+    dateModified: post.updated_at ?? post.created_at ?? undefined,
+    inLanguage: locale,
+    mainEntityOfPage: `${SITE_URL}${path}`,
+    image: `${SITE_URL}/api/og?${ogParams.toString()}`,
+    author: {
+      '@type': 'Organization',
+      name: 'Pass The Plate Editorial',
+      url: SITE_URL,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Pass The Plate',
+      url: SITE_URL,
+    },
+    articleSection: post.category,
+  }
+
   return (
     <main className="min-h-screen bg-cream">
+      <JsonLd data={blogJsonLd} />
       <Header />
 
       <article className="container pt-28 md:pt-36 pb-16">
