@@ -4,8 +4,6 @@ import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import { MapPin } from 'lucide-react'
 
-import { Footer } from '@/components/Footer'
-import { Header } from '@/components/Header'
 import { FinancialsPanel } from '@/components/marketplace/FinancialsPanel'
 import { type AppLocale } from '@/i18n/locales'
 import { getBusinessListing } from '@/lib/marketplace/queries'
@@ -41,8 +39,7 @@ export default async function MarketplaceListingDetailPage({
     locale === 'zh' && listing.reason_for_sale_zh ? listing.reason_for_sale_zh : listing.reason_for_sale
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <Header />
+    <div className="ptp-container ptp-section">
 
       <section className="container pt-32 md:pt-40">
         <Link
@@ -172,8 +169,7 @@ export default async function MarketplaceListingDetailPage({
       </section>
 
       <div className="h-16" />
-      <Footer />
-    </main>
+    </div>
   )
 }
 

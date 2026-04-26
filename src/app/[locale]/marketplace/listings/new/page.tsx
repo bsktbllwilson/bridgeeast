@@ -1,7 +1,5 @@
 import { getTranslations } from 'next-intl/server'
 
-import { Footer } from '@/components/Footer'
-import { Header } from '@/components/Header'
 import { SellerOnboardingStepper } from '@/components/marketplace/SellerOnboardingStepper'
 import { type AppLocale } from '@/i18n/locales'
 
@@ -13,8 +11,7 @@ export default async function NewListingPage({
   const t = await getTranslations({ locale, namespace: 'marketplace.newListing' })
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <Header />
+    <div className="ptp-container ptp-section">
       <section className="container pt-32 md:pt-40">
         <div className="max-w-3xl">
           <h1 className="section-title">{t('title')}</h1>
@@ -25,7 +22,6 @@ export default async function NewListingPage({
         </div>
       </section>
       <div className="h-24" />
-      <Footer />
-    </main>
+    </div>
   )
 }

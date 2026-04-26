@@ -90,4 +90,85 @@
   textarea {
     @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all;
   }
+
+  /* ===== Pass The Plate ===== */
+  .ptp-shell {
+    @apply bg-ptp-cream text-ptp-ink font-body min-h-screen;
+  }
+
+  .ptp-display {
+    @apply font-display font-extrabold tracking-tight;
+  }
+
+  .ptp-h1 {
+    @apply font-display font-extrabold tracking-tight text-5xl md:text-6xl lg:text-7xl leading-[0.95];
+  }
+
+  .ptp-h2 {
+    @apply font-display font-extrabold tracking-tight text-4xl md:text-5xl leading-[1.0];
+  }
+
+  .ptp-h3 {
+    @apply font-display font-bold tracking-tight text-2xl md:text-3xl leading-tight;
+  }
+
+  .ptp-eyebrow {
+    @apply text-xs font-semibold tracking-[0.18em] uppercase;
+  }
+
+  .ptp-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ptp-orange text-white px-6 py-3 font-semibold transition-all duration-150 hover:bg-ptp-orange-dark active:scale-[0.98] shadow-sm;
+  }
+
+  .ptp-btn-dark {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ptp-ink text-white px-6 py-3 font-semibold transition-all duration-150 hover:bg-black active:scale-[0.98];
+  }
+
+  .ptp-btn-yellow {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ptp-yellow text-ptp-ink px-6 py-3 font-semibold transition-all duration-150 hover:bg-ptp-yellow-dark active:scale-[0.98];
+  }
+
+  .ptp-btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-ptp-ink/15 bg-transparent text-ptp-ink px-5 py-2 text-sm font-semibold transition-all duration-150 hover:bg-ptp-ink/5;
+  }
+
+  .ptp-pill {
+    @apply inline-flex items-center justify-center rounded-full border border-ptp-ink/15 bg-white px-4 py-2 text-sm font-medium text-ptp-ink transition hover:border-ptp-ink/40;
+  }
+
+  .ptp-pill-active {
+    @apply inline-flex items-center justify-center rounded-full bg-ptp-yellow border border-ptp-ink/15 px-4 py-2 text-sm font-semibold text-ptp-ink;
+  }
+
+  .ptp-card {
+    @apply bg-white rounded-3xl shadow-sm border border-ptp-ink/5 overflow-hidden;
+  }
+
+  .ptp-card-yellow {
+    @apply bg-ptp-yellow rounded-3xl border border-ptp-ink/10 p-8;
+  }
+
+  .ptp-card-orange {
+    @apply bg-ptp-orange text-white rounded-3xl border border-ptp-orange-dark p-6;
+  }
+
+  .ptp-tag-yellow {
+    @apply inline-flex items-center justify-center rounded-full bg-ptp-yellow text-ptp-ink px-3 py-1 text-xs font-semibold;
+  }
+
+  .ptp-input {
+    @apply w-full bg-ptp-cream-soft border border-transparent rounded-full px-5 py-3 text-ptp-ink placeholder:text-ptp-ink/40 focus:outline-none focus:border-ptp-ink/30 focus:bg-white transition;
+  }
+
+  .ptp-textarea {
+    @apply w-full bg-ptp-cream-soft border border-transparent rounded-2xl px-5 py-4 text-ptp-ink placeholder:text-ptp-ink/40 focus:outline-none focus:border-ptp-ink/30 focus:bg-white transition min-h-[140px];
+  }
+
+  .ptp-section {
+    @apply py-16 md:py-24;
+  }
+
+  .ptp-container {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 md:px-8;
+  }
 }

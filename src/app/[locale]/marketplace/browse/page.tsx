@@ -1,7 +1,5 @@
 import { getTranslations } from 'next-intl/server'
 
-import { Footer } from '@/components/Footer'
-import { Header } from '@/components/Header'
 import { BusinessListingCard } from '@/components/marketplace/BusinessListingCard'
 import { ListingFilters } from '@/components/marketplace/ListingFilters'
 import { type AppLocale } from '@/i18n/locales'
@@ -26,8 +24,7 @@ export default async function BrowsePage({
   const { listings } = await listBusinessListings({ filters, sort })
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <Header />
+    <div className="ptp-container ptp-section">
 
       <section className="container pt-32 md:pt-40">
         <div className="max-w-3xl">
@@ -71,8 +68,6 @@ export default async function BrowsePage({
           </div>
         </div>
       </section>
-
-      <Footer />
-    </main>
+    </div>
   )
 }

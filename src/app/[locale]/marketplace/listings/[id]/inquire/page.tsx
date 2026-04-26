@@ -4,8 +4,6 @@ import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
-import { Footer } from '@/components/Footer'
-import { Header } from '@/components/Header'
 import { NDAGate } from '@/components/marketplace/NDAGate'
 import { type AppLocale, isAppLocale } from '@/i18n/locales'
 
@@ -24,8 +22,7 @@ export default function InquirePage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <Header />
+    <div className="ptp-container ptp-section">
       <section className="container pt-32 md:pt-40">
         <Link
           href={`/${locale}/marketplace/listings/${listingId}`}
@@ -44,7 +41,6 @@ export default function InquirePage() {
         </div>
       </section>
       <div className="h-16" />
-      <Footer />
-    </main>
+    </div>
   )
 }

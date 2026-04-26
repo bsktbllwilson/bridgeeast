@@ -2,8 +2,6 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 
-import { Footer } from '@/components/Footer'
-import { Header } from '@/components/Header'
 import { type AppLocale } from '@/i18n/locales'
 import { formatCurrencyRange } from '@/lib/marketplace/format'
 import { listBuyerProfiles } from '@/lib/marketplace/queries'
@@ -23,8 +21,7 @@ export default async function BuyerDetailPage({
   if (!buyer) notFound()
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <Header />
+    <div className="ptp-container ptp-section">
       <section className="container pt-32 md:pt-40">
         <Link
           href={`/${locale}/marketplace/buyers`}
@@ -54,8 +51,7 @@ export default async function BuyerDetailPage({
         )}
       </section>
       <div className="h-24" />
-      <Footer />
-    </main>
+    </div>
   )
 }
 

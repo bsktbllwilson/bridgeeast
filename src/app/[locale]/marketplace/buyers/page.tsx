@@ -1,8 +1,6 @@
 import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 
-import { Footer } from '@/components/Footer'
-import { Header } from '@/components/Header'
 import { BuyerProfileCard } from '@/components/marketplace/BuyerProfileCard'
 import { type AppLocale } from '@/i18n/locales'
 import { listBuyerProfiles } from '@/lib/marketplace/queries'
@@ -24,8 +22,7 @@ export default async function BuyersPage({
   const businessTypeLabels = Object.fromEntries(BUSINESS_TYPES.map((b) => [b, typeT(b)]))
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <Header />
+    <div className="ptp-container ptp-section">
       <section className="container pt-32 md:pt-40">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-3xl">
@@ -57,7 +54,6 @@ export default async function BuyersPage({
         </div>
       </section>
       <div className="h-24" />
-      <Footer />
-    </main>
+    </div>
   )
 }

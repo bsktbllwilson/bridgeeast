@@ -1,7 +1,5 @@
 import { getTranslations } from 'next-intl/server'
 
-import { Footer } from '@/components/Footer'
-import { Header } from '@/components/Header'
 import { SavedSearchCard } from '@/components/marketplace/SavedSearchCard'
 import { type AppLocale } from '@/i18n/locales'
 import { listSavedSearches } from '@/lib/marketplace/queries'
@@ -19,8 +17,7 @@ export default async function SavedSearchesPage({
   const { searches } = await listSavedSearches(SCAFFOLD_PROFILE_ID)
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <Header />
+    <div className="ptp-container ptp-section">
       <section className="container pt-32 md:pt-40">
         <div className="max-w-3xl">
           <h1 className="section-title">{t('title')}</h1>
@@ -55,7 +52,6 @@ export default async function SavedSearchesPage({
         </div>
       </section>
       <div className="h-24" />
-      <Footer />
-    </main>
+    </div>
   )
 }
