@@ -201,3 +201,65 @@ insert into public.partners (
   'EB-5 regional center work and direct EB-5 for restaurant project sponsors, plus E-2 and L-1 for owner-operators. Mandarin and Cantonese in-house.',
   true, false
 );
+
+-- ---------------------------------------------------------------------------
+-- playbook_posts (6) — one per spec'd category
+-- ---------------------------------------------------------------------------
+
+insert into public.playbook_posts (
+  slug, title, excerpt, body_md, category, author_name, published, published_at
+) values
+(
+  'nyc-launch-pad-asian-fb',
+  'Why New York City Is the Best U.S. Launch Pad for Asian F&B Brands',
+  'Density, diversity, and a built-in customer base make NYC the highest-leverage entry market for restaurants from Asia — but it''s also where the most brands die. Here''s how to weigh it.',
+  E'## The case for NYC\n\nMore than 1.2M people of Asian descent live in the five boroughs, with concentrated communities in Flushing, Sunset Park, and Manhattan Chinatown that act as built-in proof-of-concept audiences. Demand for category-defining Asian F&B is high, food media coverage is dense, and the cost of a single brand-defining write-up (Eater, NYT, Infatuation) can fully change a brand''s national trajectory.\n\n## The case against\n\nNYC is also the most expensive build-out in the country. A 2,000 sq ft full-service restaurant in Manhattan now costs $850K–$1.4M to open from white box, and rent is non-negotiable above $80/sqft in most of the desirable corridors. Labor is tight and getting tighter.\n\n## How to think about it\n\nIf your goal is national brand recognition or US capital, NYC is non-optional. If your goal is steady cash flow, the suburbs of Houston, Atlanta, or LA County are usually a better first-unit choice. Most successful Asian F&B brands open in a secondary market first to prove unit economics, then enter NYC as their second or third location with the marketing benefit of an "from city X" story.',
+  'market_entry',
+  'Pass The Plate Editorial',
+  true, now() - interval '21 days'
+),
+(
+  'e2-vs-l1-visa-restaurant',
+  'E-2 vs L-1: Choosing the Right Visa for Your U.S. Restaurant Move',
+  'The two most common pathways for foreign restaurant owners moving operations to the US — what each requires, what they cost, and which one fits your situation.',
+  E'## E-2 (Treaty Investor)\n\nAvailable to nationals of E-2 treaty countries (includes Japan, Korea, Taiwan, Thailand; not mainland China or Vietnam). Requires a substantial investment in a US business — usually $100K+ for a restaurant, though there is no statutory minimum. Renewable indefinitely in 2-year increments as long as the business remains operational.\n\n**Best for:** Founders from treaty countries who want to actively run the business, including spouses (who can apply for work authorization).\n\n## L-1A (Intracompany Transferee, Manager)\n\nRequires an existing business in your home country and a US affiliate (parent, subsidiary, or branch). You must have worked for the foreign entity in a managerial or executive role for at least 1 year in the preceding 3.\n\n**Best for:** Operators with an established multi-unit brand abroad who are opening a US flagship.\n\n## Cost / time\n\nE-2: $4K–$8K legal, 6–10 weeks at most consulates.\nL-1A: $6K–$12K legal, 8–14 weeks (premium processing available for $2,805 USCIS fee).\n\n## Common pitfall\n\nE-2 investors often under-invest because there''s no minimum. Consulates expect to see 60–80% of total project cost already deployed (lease signed, equipment ordered, etc.) before approving — not just sitting in a US bank account.',
+  'visa_immigration',
+  'Daniel Kim, Kim & Park Immigration Law',
+  true, now() - interval '14 days'
+),
+(
+  'legal-checklist-buying-restaurant',
+  'Buying an Existing Restaurant: The Legal Checklist',
+  'A 14-item due-diligence checklist your attorney should walk through before you sign an asset purchase agreement.',
+  E'## Before LOI\n\n1. **Entity structure.** Is the seller an LLC, S-corp, or sole prop? This affects whether you''re buying assets or equity.\n2. **Lease assignability.** Pull the lease. Look for assignment clauses, landlord consent requirements, and any personal guarantee language.\n3. **Liquor license.** Is it transferable in your state? In NY, you''re looking at 90+ days for an SLA transfer.\n\n## During LOI / due diligence\n\n4. **3 years of tax returns + bank statements.** Reconcile against POS data.\n5. **Health department history.** All inspections from the past 3 years.\n6. **Pending litigation, judgments, or liens.** UCC search and county-level court records.\n7. **Employment classification.** 1099 vs W-2 cooks; tip credit compliance.\n8. **Vendor contracts.** Especially exclusive-supply or volume-commitment agreements.\n9. **Equipment leases.** What''s actually owned vs leased? Coke/Pepsi, ice machines, POS hardware are commonly leased.\n10. **Trademark and DBA filings.** Is the name actually registered, and to whom?\n\n## At close\n\n11. **Bulk sales notification.** Required in some states to notify creditors before an asset sale.\n12. **Sales tax clearance certificate.** Buyer is liable for unpaid seller sales tax in most states.\n13. **Workers comp / unemployment account transfer.** Or fresh registration.\n14. **Escrow holdback.** 5–10% of purchase price for 90–180 days to cover undisclosed liabilities.',
+  'legal',
+  'Pass The Plate Editorial',
+  true, now() - interval '11 days'
+),
+(
+  'sba-7a-loans-restaurant-acquisitions',
+  'How SBA 7(a) Loans Work for Restaurant Acquisitions',
+  'The most common financing path for buying an existing restaurant. Down payment requirements, what underwriters look for, and how to set yourself up to close in under 90 days.',
+  E'## What it is\n\nSBA 7(a) is a partial loan guarantee program — the SBA backs 75–85% of a loan made by an approved private lender. For restaurant acquisitions the typical loan size is $250K–$5M with a 10-year amortization.\n\n## Down payment\n\nMinimum 10% buyer equity injection. Up to 5% of that can be a seller note (on standby for 24+ months) — meaning you can sometimes get into a $1M deal with $50K cash and a $50K seller note.\n\n## What underwriters look for\n\n- **DSCR ≥ 1.25x.** Trailing 12 months of cash flow must cover the proposed debt service with a 25% cushion.\n- **3 years of business tax returns + interim P&L** for the seller.\n- **Buyer industry experience.** First-time restaurant owners are doable but face additional scrutiny — having a GM or operating partner with 5+ years helps.\n- **Buyer credit ≥ 680** (most lenders want 700+).\n- **Liquidity post-close** of at least 2 months of operating expenses.\n\n## Timeline\n\nPrequalification: 1–2 weeks. Full underwriting + closing: 8–12 weeks once a fully-executed APA is in hand. Build this into your purchase agreement as a financing contingency.\n\n## Working with a Preferred Lender (PLP)\n\nPLP lenders can approve loans in-house without going to SBA for sign-off, cutting 2–4 weeks off close. Always ask whether your lender is PLP before applying.',
+  'finance',
+  'Sarah Lin, East Coast Capital Partners',
+  true, now() - interval '7 days'
+),
+(
+  'first-walkthrough-buying',
+  'What to Look For (and Run From) on Your First Walkthrough',
+  'A pragmatic field guide for the first time you tour a restaurant you''re considering buying. Where to point the flashlight, what questions force honest answers, and what should make you walk out.',
+  E'## Before you walk in\n\nDrive by at the actual peak meal time on a Friday and a Sunday — not when the seller schedules the tour. Count covers, watch the door, and time the line.\n\n## Inside the dining room\n\n- Is it loud? Sustained noise is a leading indicator of revenue.\n- Look at the ceiling, the corners, and the bathrooms. These are the parts owners do not maintain when they''ve already mentally checked out.\n- Open the menu. Are there printed-on stickers covering old prices? How long since the last reprint?\n\n## In the kitchen\n\n- Open the walk-in. How organized? FIFO labels? Anything moldy?\n- Pull out the hood filters. Last cleaned when?\n- Lift the floor mats. What''s underneath tells you everything.\n- Check the dish pit drain. Slow drains in a restaurant kitchen mean unaddressed grease trap issues, which can be a $20K+ problem.\n\n## Questions that force honest answers\n\n- "Walk me through your last health inspection — what came up and how did you fix it?"\n- "Who are your top three vendors and how long have you been with them?"\n- "What''s your biggest comp/refund category and why?"\n- "If you could change one thing about the lease, what would it be?"\n\n## Walk out if\n\n- Books are "with my accountant" and not produceable within 48 hours.\n- The seller refuses to introduce you to the head chef privately.\n- The lease has fewer than 3 years remaining and the landlord won''t commit to renewal terms in writing before close.',
+  'buying',
+  'Jenny Zhao, NYC Restaurant Realty',
+  true, now() - interval '5 days'
+),
+(
+  'pricing-restaurant-sale',
+  'Pricing Your Restaurant for Sale: A Seller''s Playbook',
+  'The three valuation methods buyers actually use, what multiple to expect for your concept, and the four-quarter prep work that adds 20–40% to your final close price.',
+  E'## How buyers value restaurants\n\n1. **SDE multiple (most common for owner-operator concepts under $2M revenue).** Seller''s Discretionary Earnings — net income + owner''s salary + add-backs. Typical multiple: 1.8x–3.0x.\n2. **EBITDA multiple (multi-unit or scaled concepts).** Earnings before interest, tax, depreciation, amortization. Typical multiple: 3.5x–5.5x for established Asian concepts in major metros.\n3. **Asset-based.** What the equipment + leasehold improvements + inventory + transferable intangibles are worth. Used as a floor, especially for distressed sales.\n\n## What lifts your multiple\n\n- **Documented systems.** Recipes, schedules, training materials in writing.\n- **A second-in-command.** A GM or chef who has been there 2+ years and is staying through transition.\n- **Diversified revenue.** No single channel (delivery, dine-in, catering) over 60% of top line.\n- **Lease length.** 5+ years remaining including options.\n- **Clean books.** Reconciled monthly, P&L matches tax returns, no large cash deposits unaccounted for.\n\n## What kills your multiple\n\n- Owner is the brand (concept dies if you leave).\n- Heavy cash sales without traceable deposit history.\n- Pending lawsuits, even minor.\n- Equipment near end of life.\n- Lease expires within 24 months with no renewal option.\n\n## The prep timeline\n\nStart 12 months before listing. Quarter 1: clean up books, document SOPs. Quarter 2: trim losing menu items, push profitability. Quarter 3: get a quality-of-earnings review from an outside CPA. Quarter 4: list with a broker who has closed 3+ deals in your category.',
+  'selling',
+  'Pass The Plate Editorial',
+  true, now() - interval '2 days'
+);
