@@ -6,7 +6,7 @@ import { localizePath, type AppLocale } from '@/i18n/locales'
 
 export function FindYourNextBigDeal({ locale }: { locale?: AppLocale } = {}) {
   const t = useTranslations('pages.bottomCtas')
-  const href = localizePath('/listings', locale ?? 'en')
+  const href = localizePath('/marketplace/browse', locale ?? 'en')
   return (
     <section className="bg-cream">
       <div className="container section text-center max-w-3xl">

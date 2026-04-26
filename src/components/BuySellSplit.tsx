@@ -6,8 +6,8 @@ import { localizePath, type AppLocale } from '@/i18n/locales'
 
 export function BuySellSplit({ locale }: { locale?: AppLocale } = {}) {
   const t = useTranslations('pages.bottomCtas')
-  const buyHref = localizePath('/listings', locale ?? 'en')
-  const sellHref = localizePath('/sellers', locale ?? 'en')
+  const buyHref = localizePath('/marketplace/browse', locale ?? 'en')
+  const sellHref = localizePath('/marketplace/listings/new', locale ?? 'en')
 
   return (
     <section className="bg-white">

@@ -327,7 +327,7 @@ export default function PartnersPage() {
         <div className="container text-center max-w-2xl mx-auto">
           <h2 className="section-title">{t('ctaTitle')}</h2>
           <p className="text-gray-600 mb-8">{t('ctaBody')}</p>
-          <Link href={localizePath('/waitlist', locale)} className="btn-primary">
+          <Link href={localizePath('/contact', locale)} className="btn-primary">
             {t('ctaButton')}
           </Link>
         </div>
