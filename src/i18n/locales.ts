@@ -15,19 +15,26 @@ export function getLocaleFromPathname(pathname: string | null | undefined): AppL
   return segment && isAppLocale(segment) ? segment : 'en'
 }
 
+/**
+ * Build a path that respects `localePrefix: 'as-needed'`:
+ * `en` is served at the root (no prefix), other locales are prefixed.
+ */
 export function localizePath(pathname: string | null | undefined, locale: AppLocale) {
+  const prefix = locale === 'en' ? '' : `/${locale}`
+
   if (!pathname || pathname === '/') {
-    return `/${locale}`
+    return prefix || '/'
   }
 
   const segments = pathname.split('/').filter(Boolean)
 
   if (segments.length > 0 && isAppLocale(segments[0])) {
-    segments[0] = locale
-    return `/${segments.join('/')}`
+    segments.shift()
   }
 
-  return `/${locale}/${segments.join('/')}`
+  const rest = segments.length > 0 ? `/${segments.join('/')}` : ''
+  if (!prefix && !rest) return '/'
+  return `${prefix}${rest}`
 }
 
 const localeRotation: AppLocale[] = ['en', 'zh', 'ko', 'vi']
