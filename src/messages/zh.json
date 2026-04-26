@@ -10,7 +10,12 @@
     "language": "语言",
     "switchTo": "切换到{language}",
     "english": "EN",
-    "chinese": "简"
+    "chinese": "简",
+    "products": "产品",
+    "productBridgeEast": "BridgeEast — 进入美国市场",
+    "productBridgeEastTagline": "为新进入者提供市场数据、指南与合作伙伴",
+    "productPassThePlate": "Pass The Plate — 餐饮交易市场",
+    "productPassThePlateTagline": "全美亚洲餐饮品牌买卖平台"
   },
   "footer": {
     "tagline": "为计划进入美国市场的亚洲餐饮品牌提供市场情报与合作资源。",
@@ -498,5 +503,236 @@
       { "phase": "设计与装修", "timeline": "6–12 周", "description": "室内施工与设备安装" },
       { "phase": "员工招聘", "timeline": "4–8 周", "description": "招聘并培训厨房与门店员工" }
     ]
+  },
+  "marketplace": {
+    "brand": "Pass The Plate",
+    "tagline": "亚洲餐饮品牌买卖交易平台。",
+    "nav": {
+      "browse": "浏览房源",
+      "sell": "出售您的店铺",
+      "buyers": "买家需求",
+      "inbox": "消息",
+      "saved": "已保存搜索",
+      "myListings": "我的房源"
+    },
+    "home": {
+      "heroBadge": "面向亚洲餐饮的社区化并购平台",
+      "heroTitle": "买卖亚洲餐厅、咖啡馆或奶茶店。",
+      "heroSubtitle": "从奶茶店到居酒屋再到外卖厨房，Pass The Plate 是专为 2400 亿美元亚洲餐饮交易市场打造的双语买卖平台。",
+      "primaryCta": "浏览房源",
+      "secondaryCta": "出售您的店铺",
+      "stats": {
+        "marketSize": "$2400亿",
+        "marketSizeLabel": "全美亚洲餐饮市场规模",
+        "listings": "在售房源",
+        "buyers": "认证买家",
+        "languages": "支持的语言"
+      },
+      "valueProps": {
+        "title": "为什么选择 Pass The Plate",
+        "items": [
+          {
+            "title": "原生双语",
+            "body": "房源与询盘支持英语、中文、韩语和越南语 — 让您的目标买家用母语阅读。"
+          },
+          {
+            "title": "高质量买家",
+            "body": "运营者、Search Fund、EB-5/E-2 投资人、SBA 借款人 — 联系您前已通过审核。"
+          },
+          {
+            "title": "NDA 保护财务数据",
+            "body": "真实数据保密。买家必须先签署 NDA，才能查看营收、现金流和租金。"
+          },
+          {
+            "title": "免费上架",
+            "body": "上架完全免费。仅在交易成交时收取少量成功费。"
+          }
+        ]
+      },
+      "buyerTypesTitle": "为各类亚洲餐饮买家而生",
+      "buyerTypes": {
+        "operators": "第一代和第二代亚裔美籍运营者",
+        "searchFunds": "Search Fund 与 ETA 买家（$50万–$300万）",
+        "visa": "EB-5 / E-2 移民投资人",
+        "sba": "SBA 贷款首次买家"
+      }
+    },
+    "browse": {
+      "title": "在售亚洲餐饮品牌",
+      "subtitle": "按菜系、业态、市场、价格和签证资格筛选。",
+      "searchPlaceholder": "按城市、菜系或店名搜索",
+      "noResults": "暂无符合条件的房源。请放宽筛选条件，或保存搜索以便有新房源时获得提醒。",
+      "saveSearch": "保存此搜索",
+      "resultsCount": "{count, plural, =0 {无房源} other {# 个房源}}",
+      "sortBy": "排序方式",
+      "sortNewest": "最新优先",
+      "sortPriceLow": "价格：低到高",
+      "sortPriceHigh": "价格：高到低",
+      "sortRevenueHigh": "营收：高到低"
+    },
+    "filters": {
+      "cuisine": "菜系",
+      "businessType": "业态",
+      "state": "州",
+      "city": "城市 / 都会区",
+      "priceRange": "要价",
+      "revenueMin": "最低年营收",
+      "leaseRemaining": "剩余租期（月）",
+      "visaEb5": "EB-5 资格",
+      "visaE2": "E-2 资格",
+      "sba": "SBA 预审通过",
+      "anyCuisine": "全部菜系",
+      "anyType": "全部业态",
+      "anyState": "全部州",
+      "noMin": "无下限",
+      "noMax": "无上限",
+      "clear": "清除筛选"
+    },
+    "cuisines": {
+      "chinese": "中餐",
+      "korean": "韩餐",
+      "japanese": "日餐",
+      "vietnamese": "越南菜",
+      "thai": "泰餐",
+      "filipino": "菲律宾菜",
+      "malaysian": "马来菜",
+      "pan_asian": "泛亚洲",
+      "other": "其他"
+    },
+    "businessTypes": {
+      "restaurant": "正餐餐厅",
+      "coffee_shop": "咖啡店",
+      "bubble_tea": "奶茶店",
+      "bakery": "烘焙店",
+      "izakaya": "居酒屋 / 酒吧",
+      "ghost_kitchen": "云端 / 外卖厨房",
+      "grocery": "超市 / 食品店",
+      "other": "其他"
+    },
+    "listing": {
+      "askingPrice": "要价",
+      "grossRevenue": "年营业额",
+      "cashFlow": "现金流（SDE）",
+      "monthlyRent": "月租金",
+      "leaseRemaining": "剩余租期",
+      "monthsShort": "月",
+      "sqft": "店铺面积（平方英尺）",
+      "employees": "员工",
+      "employeesFt": "全职",
+      "employeesPt": "兼职",
+      "equipment": "随店设备",
+      "reasonForSale": "出售原因",
+      "sellerNotes": "卖家备注",
+      "visaEligibility": "签证与融资资格",
+      "eb5Eligible": "EB-5 资格",
+      "e2Eligible": "E-2 资格",
+      "sbaPrequalified": "SBA 预审通过",
+      "ndaLockedTitle": "财务数据已加密",
+      "ndaLockedBody": "签署卖家 NDA 后即可查看营收、现金流、租金与租约详情。",
+      "ndaCta": "签署 NDA 并询盘",
+      "inquireCta": "询问该店铺",
+      "editCta": "编辑房源",
+      "viewInquiries": "查看询盘",
+      "statusLabel": "状态",
+      "statusDraft": "草稿",
+      "statusPending": "待审核",
+      "statusActive": "已上线",
+      "statusUnderContract": "签约中",
+      "statusSold": "已售出",
+      "statusRemoved": "已下架",
+      "notProvided": "未提供"
+    },
+    "newListing": {
+      "title": "出售您的店铺",
+      "subtitle": "免费上架，成交后才收费。",
+      "steps": {
+        "basics": "基本信息",
+        "location": "位置",
+        "financials": "财务",
+        "story": "故事与设备",
+        "eligibility": "买家资格",
+        "review": "确认并发布"
+      },
+      "fields": {
+        "titleEn": "房源标题（英文）",
+        "titleZh": "房源标题（中文，可选）",
+        "descriptionEn": "描述（英文）",
+        "descriptionZh": "描述（中文，可选）",
+        "askingPrice": "要价（美元）",
+        "grossRevenue": "过去 12 个月年营业额",
+        "cashFlow": "过去 12 个月现金流 / SDE",
+        "monthlyRent": "月租金",
+        "leaseRemaining": "剩余租期月数",
+        "renewalOptions": "续约选项（如 5+5）",
+        "sqft": "店铺面积（平方英尺）",
+        "employeesFt": "全职员工数",
+        "employeesPt": "兼职员工数",
+        "equipment": "随店设备（每行一项）",
+        "reasonForSale": "出售原因",
+        "sellerNotes": "买家应该知道的其他信息",
+        "visaEb5": "符合 EB-5 投资资格",
+        "visaE2": "符合 E-2 签证资格",
+        "sba": "SBA 预审通过",
+        "publishNow": "提交审核",
+        "saveDraft": "保存为草稿"
+      },
+      "next": "下一步",
+      "back": "上一步"
+    },
+    "buyers": {
+      "title": "认证买家需求",
+      "subtitle": "正在寻找类似店铺的买家匿名档案。",
+      "createCta": "创建您的买家档案",
+      "type": "买家类型",
+      "budget": "预算",
+      "targets": "意向区域",
+      "verified": "已认证买家",
+      "newProfileTitle": "创建您的买家档案",
+      "newProfileSubtitle": "告诉卖家您在寻找什么。在您主动联系前，您的联系方式保持私密。"
+    },
+    "buyerTypes": {
+      "operator": "运营者",
+      "search_fund": "Search Fund / ETA",
+      "eb5_e2": "EB-5 / E-2 投资人",
+      "sba": "SBA 借款人",
+      "family_office": "家族办公室",
+      "other": "其他"
+    },
+    "nda": {
+      "title": "保密协议",
+      "intro": "在查看该店铺财务和运营详情之前，请阅读并签署卖家保密协议。",
+      "fullName": "请输入您的法定全名",
+      "agree": "我同意对本房源中分享的所有信息严格保密，仅用于评估潜在收购。",
+      "submit": "签署 NDA 并继续",
+      "signedAt": "{date} 签署",
+      "signedBy": "签署人：{name}"
+    },
+    "inbox": {
+      "title": "消息",
+      "empty": "暂无对话。买家询盘将显示在此处。",
+      "openConversation": "打开对话",
+      "send": "发送",
+      "messagePlaceholder": "输入消息…",
+      "sellerSide": "来自卖家",
+      "buyerSide": "来自买家"
+    },
+    "saved": {
+      "title": "已保存的搜索",
+      "subtitle": "当有新房源符合您的条件时通知您。",
+      "empty": "您尚未保存任何搜索。",
+      "frequency": "提醒频率",
+      "frequencyInstant": "实时",
+      "frequencyDaily": "每日汇总",
+      "frequencyWeekly": "每周汇总",
+      "frequencyNone": "不发送邮件",
+      "delete": "删除",
+      "lastMatch": "上次检查：{when}"
+    },
+    "admin": {
+      "tabBridgeEast": "BridgeEast",
+      "tabPtpListings": "PTP 房源",
+      "tabPtpBuyers": "PTP 买家",
+      "tabPtpInquiries": "PTP 询盘"
+    }
   }
 }

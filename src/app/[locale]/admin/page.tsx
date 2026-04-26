@@ -7,6 +7,13 @@ import { ShieldCheck, ShieldX, Trash2 } from 'lucide-react'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { VerificationBadge } from '@/components/VerificationBadge'
+import {
+  samplePtpBuyers,
+  samplePtpListings,
+  samplePtpThreads,
+} from '@/lib/marketplace/sample-data'
+
+type AdminTab = 'bridgeeast' | 'ptp_listings' | 'ptp_buyers' | 'ptp_inquiries'
 
 interface PendingProfile {
   id: string
@@ -49,12 +56,14 @@ const fallbackAdminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'admin@bridgee
 export default function LocalizedAdminPage() {
   const t = useTranslations('admin')
   const errorT = useTranslations('errors')
+  const ptpAdminT = useTranslations('marketplace.admin')
   const [adminEmail, setAdminEmail] = useState('')
   const [authorized, setAuthorized] = useState(false)
   const [dashboard, setDashboard] = useState<DashboardPayload | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [busyKey, setBusyKey] = useState<string | null>(null)
+  const [activeTab, setActiveTab] = useState<AdminTab>('bridgeeast')
 
   const flaggedCount = useMemo(
     () => dashboard?.moderationQueue.filter((listing) => listing.is_flagged || listing.moderation_status === 'removed').length || 0,
@@ -195,6 +204,34 @@ export default function LocalizedAdminPage() {
         </section>
       ) : (
         <section className="container space-y-10 pb-24">
+          <div className="flex flex-wrap gap-2 border-b border-gray-200">
+            {([
+              { id: 'bridgeeast', label: ptpAdminT('tabBridgeEast') },
+              { id: 'ptp_listings', label: ptpAdminT('tabPtpListings') },
+              { id: 'ptp_buyers', label: ptpAdminT('tabPtpBuyers') },
+              { id: 'ptp_inquiries', label: ptpAdminT('tabPtpInquiries') },
+            ] as { id: AdminTab; label: string }[]).map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={`-mb-px border-b-2 px-4 py-3 text-sm font-semibold transition-colors ${
+                  activeTab === tab.id
+                    ? 'border-accent text-accent'
+                    : 'border-transparent text-gray-500 hover:text-gray-800'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {activeTab !== 'bridgeeast' && (
+            <PtpAdminPanel tab={activeTab} />
+          )}
+
+          {activeTab === 'bridgeeast' && (
+            <>
           <div className="grid gap-6 md:grid-cols-3">
             <div className="card p-6">
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">{t('cards.pending')}</p>
@@ -355,10 +392,106 @@ export default function LocalizedAdminPage() {
               </div>
             )}
           </div>
+            </>
+          )}
         </section>
       )}
 
       <Footer />
     </main>
   )
+}
+
+function PtpAdminPanel({ tab }: { tab: AdminTab }) {
+  if (tab === 'ptp_listings') {
+    return (
+      <div className="card overflow-hidden">
+        <div className="border-b border-gray-200 px-6 py-5">
+          <h2 className="text-2xl font-bold text-gray-950">Pass The Plate · Listings</h2>
+          <p className="text-sm text-gray-500">Approve, flag, or remove business-for-sale listings.</p>
+        </div>
+        <div className="divide-y divide-gray-200">
+          {samplePtpListings.map((listing) => (
+            <div key={listing.id} className="grid gap-4 px-6 py-5 lg:grid-cols-[2fr_1fr_auto] lg:items-center">
+              <div>
+                <p className="text-base font-bold text-gray-950">{listing.title}</p>
+                <p className="text-xs text-gray-500">
+                  {listing.city}, {listing.state} · {listing.cuisine_type} · {listing.business_type}
+                </p>
+              </div>
+              <div className="text-sm text-gray-700">
+                <p>Status: <strong>{listing.status}</strong></p>
+                <p>Asking: ${listing.asking_price?.toLocaleString() ?? '—'}</p>
+              </div>
+              <div className="flex flex-wrap gap-2 lg:justify-end">
+                <button type="button" className="rounded-md border border-amber-300 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700">Flag</button>
+                <button type="button" className="rounded-md bg-gray-950 px-3 py-1.5 text-xs font-semibold text-white">Remove</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (tab === 'ptp_buyers') {
+    return (
+      <div className="card overflow-hidden">
+        <div className="border-b border-gray-200 px-6 py-5">
+          <h2 className="text-2xl font-bold text-gray-950">Pass The Plate · Buyers</h2>
+          <p className="text-sm text-gray-500">Verify proof-of-funds and toggle buyer demand visibility.</p>
+        </div>
+        <div className="divide-y divide-gray-200">
+          {samplePtpBuyers.map((buyer) => (
+            <div key={buyer.id} className="grid gap-4 px-6 py-5 lg:grid-cols-[1fr_2fr_auto] lg:items-center">
+              <div>
+                <p className="text-base font-bold text-gray-950">{buyer.display_handle}</p>
+                <p className="text-xs uppercase tracking-[0.16em] text-gray-500">{buyer.buyer_type}</p>
+              </div>
+              <div className="text-sm text-gray-700">
+                <p>Budget: ${buyer.budget_min?.toLocaleString() ?? '—'} – ${buyer.budget_max?.toLocaleString() ?? '—'}</p>
+                <p>Verification: <strong>{buyer.verification_status}</strong></p>
+              </div>
+              <div className="flex flex-wrap gap-2 lg:justify-end">
+                <button type="button" className="rounded-md bg-green-600 px-3 py-1.5 text-xs font-semibold text-white">Approve</button>
+                <button type="button" className="rounded-md bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white">Reject</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (tab === 'ptp_inquiries') {
+    return (
+      <div className="card overflow-hidden">
+        <div className="border-b border-gray-200 px-6 py-5">
+          <h2 className="text-2xl font-bold text-gray-950">Pass The Plate · Inquiries</h2>
+          <p className="text-sm text-gray-500">Monitor active NDA-gated buyer ↔ seller threads.</p>
+        </div>
+        <div className="divide-y divide-gray-200">
+          {samplePtpThreads.map((thread) => (
+            <div key={thread.id} className="grid gap-4 px-6 py-5 lg:grid-cols-[2fr_1fr_auto] lg:items-center">
+              <div>
+                <p className="text-base font-bold text-gray-950">{thread.subject ?? thread.id}</p>
+                <p className="text-xs text-gray-500">
+                  Listing {thread.listing_id} · Buyer {thread.buyer_profile_id}
+                </p>
+              </div>
+              <div className="text-sm text-gray-700">
+                <p>Status: <strong>{thread.status}</strong></p>
+                <p>Last message: {new Date(thread.last_message_at).toLocaleString()}</p>
+              </div>
+              <div className="flex flex-wrap gap-2 lg:justify-end">
+                <button type="button" className="rounded-md border border-gray-300 px-3 py-1.5 text-xs font-semibold text-gray-700">Archive</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  return null
 }
