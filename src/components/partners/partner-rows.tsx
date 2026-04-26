@@ -8,8 +8,17 @@ import { formatSpecialty } from '@/lib/format'
 import type { Partner } from '@/lib/partners'
 import { cn } from '@/lib/utils'
 
-export function PartnerRows({ partners }: { partners: Partner[] }) {
+import { SendMessageModal, type CurrentUserHint } from './send-message-modal'
+
+export function PartnerRows({
+  partners,
+  currentUser,
+}: {
+  partners: Partner[]
+  currentUser: CurrentUserHint
+}) {
   const [openId, setOpenId] = useState<string | null>(null)
+  const [messagePartner, setMessagePartner] = useState<Partner | null>(null)
 
   if (partners.length === 0) {
     return (
@@ -20,44 +29,62 @@ export function PartnerRows({ partners }: { partners: Partner[] }) {
   }
 
   return (
-    <ul className="space-y-3">
-      {partners.map((p) => {
-        const isOpen = openId === p.id
-        return (
-          <li key={p.id} className="overflow-hidden rounded-3xl bg-white">
-            <button
-              type="button"
-              onClick={() => setOpenId(isOpen ? null : p.id)}
-              aria-expanded={isOpen}
-              className="flex w-full items-center justify-between gap-4 px-6 py-4 text-left transition-colors hover:bg-brand-cream/40"
-            >
-              <span className="flex items-center gap-3 text-sm md:text-base">
-                <span className="font-medium text-brand-ink">{p.full_name}</span>
-                <span className="text-brand-muted">|</span>
-                <span className="text-brand-muted">
-                  {[p.job_title, p.company].filter(Boolean).join(', ') ||
-                    formatSpecialty(p.specialty) ||
-                    '—'}
+    <>
+      <ul className="space-y-3">
+        {partners.map((p) => {
+          const isOpen = openId === p.id
+          return (
+            <li key={p.id} className="overflow-hidden rounded-3xl bg-white">
+              <button
+                type="button"
+                onClick={() => setOpenId(isOpen ? null : p.id)}
+                aria-expanded={isOpen}
+                className="flex w-full items-center justify-between gap-4 px-6 py-4 text-left transition-colors hover:bg-brand-cream/40"
+              >
+                <span className="flex items-center gap-3 text-sm md:text-base">
+                  <span className="font-medium text-brand-ink">{p.full_name}</span>
+                  <span className="text-brand-muted">|</span>
+                  <span className="text-brand-muted">
+                    {[p.job_title, p.company].filter(Boolean).join(', ') ||
+                      formatSpecialty(p.specialty) ||
+                      '—'}
+                  </span>
                 </span>
-              </span>
-              <span className="hidden items-center gap-2 text-sm font-medium text-brand-ink sm:inline-flex">
-                Send A Message
-                <ChevronDown
-                  className={cn('h-4 w-4 transition-transform', isOpen && 'rotate-180')}
-                  aria-hidden="true"
-                />
-              </span>
-            </button>
+                <span className="hidden items-center gap-2 text-sm font-medium text-brand-ink sm:inline-flex">
+                  Send A Message
+                  <ChevronDown
+                    className={cn('h-4 w-4 transition-transform', isOpen && 'rotate-180')}
+                    aria-hidden="true"
+                  />
+                </span>
+              </button>
 
-            {isOpen ? <ExpandedPanel partner={p} /> : null}
-          </li>
-        )
-      })}
-    </ul>
+              {isOpen ? (
+                <ExpandedPanel partner={p} onSendMessage={() => setMessagePartner(p)} />
+              ) : null}
+            </li>
+          )
+        })}
+      </ul>
+
+      <SendMessageModal
+        open={messagePartner !== null}
+        onClose={() => setMessagePartner(null)}
+        partnerId={messagePartner?.id ?? null}
+        partnerName={messagePartner?.full_name ?? null}
+        currentUser={currentUser}
+      />
+    </>
   )
 }
 
-function ExpandedPanel({ partner }: { partner: Partner }) {
+function ExpandedPanel({
+  partner,
+  onSendMessage,
+}: {
+  partner: Partner
+  onSendMessage: () => void
+}) {
   const meta: { label: string; value: string }[] = []
   if (partner.specialty)
     meta.push({ label: 'Specialty', value: formatSpecialty(partner.specialty) ?? '' })
@@ -92,11 +119,11 @@ function ExpandedPanel({ partner }: { partner: Partner }) {
         </div>
 
         <div className="lg:self-start">
-          <Button type="button" variant="primary" arrow className="w-full" disabled>
+          <Button type="button" variant="primary" arrow className="w-full" onClick={onSendMessage}>
             Send A Message
           </Button>
           <p className="mt-3 text-xs text-brand-muted">
-            Messaging unlocks in the next deploy. {partner.email ? `Email: ${partner.email}` : ''}
+            We&rsquo;ll forward your note to {partner.full_name.split(' ')[0]} via email.
           </p>
         </div>
       </div>

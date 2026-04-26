@@ -4,8 +4,10 @@ import { FindYourNextBigDeal } from '@/components/marketing/find-your-next-big-d
 import { FeaturedPartners } from '@/components/partners/featured-partners'
 import { PartnerRows } from '@/components/partners/partner-rows'
 import { PartnersFilterBar } from '@/components/partners/partners-filter-bar'
+import type { CurrentUserHint } from '@/components/partners/send-message-modal'
 import { Pagination } from '@/components/marketplace/pagination'
 import { Container } from '@/components/ui/container'
+import { getCurrentProfile } from '@/lib/auth'
 import { getPartners, type PartnerSort } from '@/lib/partners'
 
 export const metadata = {
@@ -42,7 +44,13 @@ export default async function PartnersPage({ searchParams }: { searchParams: Sea
     perPage: 12,
   }
 
-  const { rows, totalCount, totalPages, page } = await getPartners(filters)
+  const [{ rows, totalCount, totalPages, page }, profile] = await Promise.all([
+    getPartners(filters),
+    getCurrentProfile(),
+  ])
+  const currentUser: CurrentUserHint = profile
+    ? { email: profile.email, fullName: profile.full_name }
+    : null
 
   return (
     <>
@@ -57,12 +65,12 @@ export default async function PartnersPage({ searchParams }: { searchParams: Sea
               ? 'No partners match your filters.'
               : `${totalCount} ${totalCount === 1 ? 'partner' : 'partners'}`}
           </p>
-          <PartnerRows partners={rows} />
+          <PartnerRows partners={rows} currentUser={currentUser} />
           <Pagination page={page} totalPages={totalPages} searchParams={searchParams} />
         </Container>
       </section>
 
-      <FeaturedPartners />
+      <FeaturedPartners currentUser={currentUser} />
       <BecomePartnerBand />
       <FindYourNextBigDeal />
       <BuySellSplit />
