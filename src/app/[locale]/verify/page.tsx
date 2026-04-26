@@ -42,7 +42,7 @@ export default async function VerifyPage({ params }: { params: { locale: string 
           {status === 'verified' ? (
             <div className="rounded-2xl bg-white border border-black/5 p-8 md:p-10 text-center">
               <p className="text-gray-700 mb-6">{t('verifiedBody')}</p>
-              <Link href={localizePath('/listings', locale)} className="btn-primary">
+              <Link href={localizePath('/marketplace/browse', locale)} className="btn-primary">
                 {t('browseListings')}
               </Link>
             </div>

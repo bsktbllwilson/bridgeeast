@@ -5,15 +5,13 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://passtheplate.store
 
 const STATIC_PATHS: Array<{ path: string; priority: number; change: 'daily' | 'weekly' | 'monthly' }> = [
   { path: '/', priority: 1.0, change: 'weekly' },
-  { path: '/listings', priority: 0.9, change: 'daily' },
-  { path: '/marketplace/browse', priority: 0.9, change: 'daily' },
+  { path: '/marketplace/browse', priority: 0.95, change: 'daily' },
   { path: '/playbook', priority: 0.8, change: 'weekly' },
   { path: '/partners', priority: 0.8, change: 'weekly' },
   { path: '/about', priority: 0.6, change: 'monthly' },
   { path: '/contact', priority: 0.6, change: 'monthly' },
   { path: '/sign-up', priority: 0.7, change: 'monthly' },
   { path: '/sign-in', priority: 0.5, change: 'monthly' },
-  { path: '/waitlist', priority: 0.5, change: 'monthly' },
 ]
 
 const LOCALES = ['en', 'zh', 'ko', 'vi'] as const

@@ -5,5 +5,6 @@ export default function LocalizedHomePage({
 }: {
   params: { locale: string }
 }) {
-  redirect(`/${params.locale}/listings`)
+  const prefix = params.locale === 'en' ? '' : `/${params.locale}`
+  redirect(`${prefix}/marketplace/browse`)
 }

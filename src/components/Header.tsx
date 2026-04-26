@@ -2,8 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { useState } from 'react'
 
 import {
   getLocaleFromPathname,
@@ -16,99 +15,36 @@ import { UserMenu } from '@/components/UserMenu'
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
-  const [productsOpen, setProductsOpen] = useState(false)
-  const productsRef = useRef<HTMLDivElement | null>(null)
   const pathname = usePathname()
   const locale = getLocaleFromPathname(pathname)
   const alternateLocale = getOppositeLocale(locale)
   const messages = getStaticMessages(locale)
   const homeHref = localizePath('/marketplace/browse', locale)
-  const isInMarketplace = (pathname ?? '').includes('/marketplace')
-  // passtheplate.store presents itself as the Pass The Plate brand by default;
-  // BridgeEast remains accessible via the Products dropdown.
   const brandLabel = messages.marketplace.brand
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (productsRef.current && !productsRef.current.contains(event.target as Node)) {
-        setProductsOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
 
   const handleLocaleSwitch = () => {
     document.cookie = `NEXT_LOCALE=${alternateLocale}; path=/; max-age=31536000; samesite=lax`
   }
 
-  const productOptions = [
-    {
-      href: '/listings',
-      label: messages.nav.productBridgeEast,
-      tagline: messages.nav.productBridgeEastTagline,
-    },
-    {
-      href: '/marketplace',
-      label: messages.nav.productPassThePlate,
-      tagline: messages.nav.productPassThePlateTagline,
-    },
-  ]
-
-  const bridgeEastLinks = [
-    { href: '/data', label: messages.nav.marketData },
-    { href: '/listings', label: messages.nav.listings },
-    { href: '/guides', label: messages.nav.guides },
-    { href: '/partners', label: messages.nav.partners },
-  ]
-
-  const marketplaceLinks = [
+  const navLinks = [
     { href: '/marketplace/browse', label: messages.marketplace.nav.browse },
     { href: '/marketplace/listings/new', label: messages.marketplace.nav.sell },
-    { href: '/marketplace/buyers', label: messages.marketplace.nav.buyers },
-    { href: '/marketplace/inbox', label: messages.marketplace.nav.inbox },
-    { href: '/marketplace/saved', label: messages.marketplace.nav.saved },
+    { href: '/playbook', label: messages.nav.guides },
+    { href: '/partners', label: messages.nav.partners },
   ]
-
-  const navLinks = isInMarketplace ? marketplaceLinks : bridgeEastLinks
 
   return (
     <header className="border-b border-gray-200 sticky top-0 bg-white/95 backdrop-blur z-50 shadow-sm">
       <div className="container flex items-center justify-between h-18 md:h-20">
-        <Link href={homeHref} className="text-2xl md:text-3xl font-serif font-bold text-gray-950 hover:text-accent transition-colors">
+        <Link
+          href={homeHref}
+          className="text-2xl md:text-3xl font-serif font-bold text-gray-950 hover:text-accent transition-colors"
+        >
           {brandLabel}
         </Link>
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center gap-8 lg:gap-12">
-          <div ref={productsRef} className="relative">
-            <button
-              type="button"
-              onClick={() => setProductsOpen((open) => !open)}
-              aria-haspopup="menu"
-              aria-expanded={productsOpen}
-              className="inline-flex items-center gap-1 text-gray-600 hover:text-accent transition-colors font-medium text-sm"
-            >
-              {messages.nav.products}
-              <ChevronDown className={`h-4 w-4 transition-transform ${productsOpen ? 'rotate-180' : ''}`} />
-            </button>
-            {productsOpen && (
-              <div className="absolute left-0 top-full mt-2 w-80 rounded-xl border border-gray-200 bg-white p-2 shadow-lg">
-                {productOptions.map((option) => (
-                  <Link
-                    key={option.href}
-                    href={localizePath(option.href, locale)}
-                    onClick={() => setProductsOpen(false)}
-                    className="block rounded-lg px-3 py-2 hover:bg-accent/5"
-                  >
-                    <p className="text-sm font-semibold text-gray-950">{option.label}</p>
-                    <p className="text-xs text-gray-500">{option.tagline}</p>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -118,12 +54,6 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-
-          {!isInMarketplace && (
-            <Link href={localizePath('/waitlist', locale)} className="btn-primary text-sm">
-              {messages.nav.waitlist}
-            </Link>
-          )}
 
           <Link
             href={localizePath(pathname, alternateLocale)}
@@ -143,9 +73,15 @@ export function Header() {
           onClick={() => setIsOpen(!isOpen)}
           aria-label={messages.nav.toggleMenu}
         >
-          <span className={`h-0.5 w-full bg-accent rounded transition-all ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
-          <span className={`h-0.5 w-full bg-accent rounded transition-all ${isOpen ? 'opacity-0' : ''}`} />
-          <span className={`h-0.5 w-full bg-accent rounded transition-all ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          <span
+            className={`h-0.5 w-full bg-accent rounded transition-all ${isOpen ? 'rotate-45 translate-y-2' : ''}`}
+          />
+          <span
+            className={`h-0.5 w-full bg-accent rounded transition-all ${isOpen ? 'opacity-0' : ''}`}
+          />
+          <span
+            className={`h-0.5 w-full bg-accent rounded transition-all ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}
+          />
         </button>
 
         {/* Mobile Menu */}
@@ -153,21 +89,6 @@ export function Header() {
           <div className="absolute top-18 left-0 right-0 bg-white border-b border-gray-200 md:hidden shadow-lg">
             <div className="container py-4 space-y-3 flex flex-col">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400 pt-2">
-                {messages.nav.products}
-              </p>
-              {productOptions.map((option) => (
-                <Link
-                  key={option.href}
-                  href={localizePath(option.href, locale)}
-                  className="block rounded-lg border border-gray-200 px-3 py-3"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <p className="text-sm font-semibold text-gray-950">{option.label}</p>
-                  <p className="text-xs text-gray-500">{option.tagline}</p>
-                </Link>
-              ))}
-
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400 pt-3">
                 {brandLabel}
               </p>
               {navLinks.map((link) => (
@@ -180,11 +101,6 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-              {!isInMarketplace && (
-                <Link href={localizePath('/waitlist', locale)} className="btn-primary text-center py-2.5" onClick={() => setIsOpen(false)}>
-                  {messages.nav.waitlist}
-                </Link>
-              )}
               <Link
                 href={localizePath(pathname, alternateLocale)}
                 onClick={() => {
