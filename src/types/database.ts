@@ -462,6 +462,10 @@ export type Database = {
         Args: { p_id: string }
         Returns: undefined
       }
+      increment_listing_inquiries: {
+        Args: { p_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
