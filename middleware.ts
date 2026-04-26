@@ -41,7 +41,8 @@ export default async function middleware(request: NextRequest) {
     const localeCookie = request.cookies.get('NEXT_LOCALE')?.value
     const locale =
       localeCookie && isAppLocale(localeCookie) ? localeCookie : routing.defaultLocale
-    return NextResponse.redirect(new URL(`/${locale}/listings`, request.url))
+    const prefix = locale === routing.defaultLocale ? '' : `/${locale}`
+    return NextResponse.redirect(new URL(`${prefix}/listings`, request.url))
   }
 
   const response = intlMiddleware(request)
@@ -70,9 +71,10 @@ export default async function middleware(request: NextRequest) {
 
   if (!user && requiresAuth(pathname)) {
     const { locale } = stripLocale(pathname)
+    const prefix = locale === routing.defaultLocale ? '' : `/${locale}`
     const nextParam = encodeURIComponent(pathname + (request.nextUrl.search ?? ''))
     return NextResponse.redirect(
-      new URL(`/${locale}/sign-in?next=${nextParam}`, request.url)
+      new URL(`${prefix}/sign-in?next=${nextParam}`, request.url)
     )
   }
 

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { localizePath, type AppLocale } from '@/i18n/locales'
 import { SignInForm } from './sign-in-form'
 
 export const metadata = { title: 'Sign In — Pass The Plate' }
@@ -17,12 +18,12 @@ const ERROR_COPY: Record<string, string> = {
 }
 
 export default function SignInPage({ params, searchParams }: PageProps) {
+  const locale = params.locale as AppLocale
   const next = searchParams.next ?? null
   const initialError = searchParams.error ? (ERROR_COPY[searchParams.error] ?? null) : null
-  const signUpHref = next
-    ? `/${params.locale}/sign-up?next=${encodeURIComponent(next)}`
-    : `/${params.locale}/sign-up`
-  const forgotHref = `/${params.locale}/forgot-password`
+  const signUpBase = localizePath('/sign-up', locale)
+  const signUpHref = next ? `${signUpBase}?next=${encodeURIComponent(next)}` : signUpBase
+  const forgotHref = localizePath('/forgot-password', locale)
 
   return (
     <main className="min-h-screen bg-cream">

@@ -6,7 +6,9 @@ import { isAppLocale } from '@/i18n/locales'
 import { routing } from '@/i18n/routing'
 
 function safeNext(raw: string | null, locale: string): string {
-  if (!raw) return `/${locale}/account`
+  const prefix = locale === routing.defaultLocale ? '' : `/${locale}`
+  const fallback = `${prefix}/account`
+  if (!raw) return fallback
   try {
     const decoded = decodeURIComponent(raw)
     if (decoded.startsWith('/') && !decoded.startsWith('//')) {
@@ -15,7 +17,7 @@ function safeNext(raw: string | null, locale: string): string {
   } catch {
     // fall through
   }
-  return `/${locale}/account`
+  return fallback
 }
 
 export async function GET(request: NextRequest) {
@@ -30,12 +32,13 @@ export async function GET(request: NextRequest) {
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  const signInPrefix = locale === routing.defaultLocale ? '' : `/${locale}`
   if (!supabaseUrl || !supabaseAnonKey) {
-    return NextResponse.redirect(new URL(`/${locale}/sign-in?error=missing_env`, url))
+    return NextResponse.redirect(new URL(`${signInPrefix}/sign-in?error=missing_env`, url))
   }
 
   if (!code) {
-    return NextResponse.redirect(new URL(`/${locale}/sign-in?error=missing_code`, url))
+    return NextResponse.redirect(new URL(`${signInPrefix}/sign-in?error=missing_code`, url))
   }
 
   const cookieStore = cookies()
@@ -56,7 +59,7 @@ export async function GET(request: NextRequest) {
   const { error } = await supabase.auth.exchangeCodeForSession(code)
   if (error) {
     console.error('exchangeCodeForSession failed', error)
-    return NextResponse.redirect(new URL(`/${locale}/sign-in?error=callback_failed`, url))
+    return NextResponse.redirect(new URL(`${signInPrefix}/sign-in?error=callback_failed`, url))
   }
 
   return NextResponse.redirect(new URL(next, url))

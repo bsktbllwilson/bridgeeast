@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { localizePath, type AppLocale } from '@/i18n/locales'
 import { getCurrentProfile } from '@/lib/auth'
 import { VerifyForm } from './verify-form'
 
@@ -64,7 +65,7 @@ export default async function VerifyPage({ params }: { params: { locale: string 
               <p className="text-gray-700 mb-6">
                 You’re cleared to inquire on listings across the marketplace.
               </p>
-              <Link href={`/${params.locale}/listings`} className="btn-primary">
+              <Link href={localizePath('/listings', params.locale as AppLocale)} className="btn-primary">
                 Browse Listings →
               </Link>
             </div>

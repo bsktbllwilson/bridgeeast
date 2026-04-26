@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { localizePath, type AppLocale } from '@/i18n/locales'
 import { ForgotPasswordForm } from './forgot-password-form'
 
 export const metadata = { title: 'Reset password — Pass The Plate' }
 
 export default function ForgotPasswordPage({ params }: { params: { locale: string } }) {
+  const locale = params.locale as AppLocale
   return (
     <main className="min-h-screen bg-cream">
       <Header />
@@ -25,7 +27,7 @@ export default function ForgotPasswordPage({ params }: { params: { locale: strin
 
           <p className="text-center text-sm text-gray-700 mt-6">
             Remembered it?{' '}
-            <Link href={`/${params.locale}/sign-in`} className="underline hover:text-black">
+            <Link href={localizePath('/sign-in', locale)} className="underline hover:text-black">
               Back to sign in →
             </Link>
           </p>

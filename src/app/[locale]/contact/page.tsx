@@ -3,6 +3,7 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { FindYourNextBigDeal } from '@/components/FindYourNextBigDeal'
 import { BuySellSplit } from '@/components/BuySellSplit'
+import { localizePath, type AppLocale } from '@/i18n/locales'
 import { getFaqsForContact } from '@/data/faqs'
 import { ContactForm } from './contact-form'
 import { FaqAccordion } from './faq-accordion'
@@ -15,7 +16,7 @@ export const metadata = {
 
 export default function ContactPage({ params }: { params: { locale: string } }) {
   const faqs = getFaqsForContact()
-  const playbookHref = `/${params.locale}/playbook`
+  const playbookHref = localizePath('/playbook', params.locale as AppLocale)
 
   return (
     <main className="min-h-screen bg-cream">

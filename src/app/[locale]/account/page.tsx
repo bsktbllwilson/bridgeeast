@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { localizePath, type AppLocale } from '@/i18n/locales'
 import { getCurrentProfile } from '@/lib/auth'
 import { createSupabaseServerClient, hasSupabaseAuthEnv } from '@/lib/supabase-server'
 import { AccountSettings } from './account-settings'
@@ -73,6 +74,8 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
   const profile = await getCurrentProfile()
   // Middleware redirects unauthenticated users; this guard is for the rare
   // race where the profile row hasn't been created yet.
+  const locale = params.locale as AppLocale
+
   if (!profile) {
     return (
       <main className="min-h-screen bg-cream">
@@ -81,7 +84,7 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
           <p className="text-gray-700 mb-6">
             We couldn’t load your profile. Try signing out and back in.
           </p>
-          <Link href={`/${params.locale}/sign-in`} className="btn-primary">
+          <Link href={localizePath('/sign-in', locale)} className="btn-primary">
             Back to sign in
           </Link>
         </div>
@@ -129,7 +132,7 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
             <p className="text-sm tracking-widest uppercase text-gray-600">Account</p>
             {isBuyer && proofStatus !== 'verified' && (
               <Link
-                href={`/${params.locale}/verify`}
+                href={localizePath('/verify', locale)}
                 className="text-sm font-medium underline text-gray-700 hover:text-black"
               >
                 {proofStatus === 'pending'
@@ -151,7 +154,7 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
                 return (
                   <Link
                     key={t.key}
-                    href={`/${params.locale}/account?tab=${t.key}`}
+                    href={`${localizePath('/account', locale)}?tab=${t.key}`}
                     className={`whitespace-nowrap px-4 py-3 text-sm font-medium border-b-2 -mb-px transition-colors ${
                       active
                         ? 'border-black text-black'
@@ -166,11 +169,11 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
 
           {/* Panels */}
           {activeTab === 'listings' && (
-            <ListingsPanel listings={listings} locale={params.locale} />
+            <ListingsPanel listings={listings} locale={locale} />
           )}
 
           {activeTab === 'inquiries' && (
-            <InquiriesPanel inquiries={inquiries} locale={params.locale} />
+            <InquiriesPanel inquiries={inquiries} locale={locale} />
           )}
 
           {activeTab === 'membership' && (
@@ -197,7 +200,7 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
   )
 }
 
-function ListingsPanel({ listings, locale }: { listings: ListingRow[]; locale: string }) {
+function ListingsPanel({ listings, locale }: { listings: ListingRow[]; locale: AppLocale }) {
   if (listings.length === 0) {
     return (
       <div className="rounded-2xl bg-white border border-black/5 p-8 md:p-10 text-center">
@@ -205,7 +208,7 @@ function ListingsPanel({ listings, locale }: { listings: ListingRow[]; locale: s
         <p className="text-gray-700 mb-6">
           Post your operating business in front of qualified buyers — free to list.
         </p>
-        <Link href={`/${locale}/marketplace/listings/new`} className="btn-primary">
+        <Link href={localizePath('/marketplace/listings/new', locale)} className="btn-primary">
           Create a listing →
         </Link>
       </div>
@@ -217,7 +220,7 @@ function ListingsPanel({ listings, locale }: { listings: ListingRow[]; locale: s
       {listings.map((l) => (
         <Link
           key={l.id}
-          href={`/${locale}/marketplace/listings/${l.id}`}
+          href={localizePath(`/marketplace/listings/${l.id}`, locale)}
           className="block rounded-2xl bg-white border border-black/5 p-5 md:p-6 hover:shadow-md transition-shadow"
         >
           <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -244,7 +247,7 @@ function ListingsPanel({ listings, locale }: { listings: ListingRow[]; locale: s
   )
 }
 
-function InquiriesPanel({ inquiries, locale }: { inquiries: InquiryRow[]; locale: string }) {
+function InquiriesPanel({ inquiries, locale }: { inquiries: InquiryRow[]; locale: AppLocale }) {
   if (inquiries.length === 0) {
     return (
       <div className="rounded-2xl bg-white border border-black/5 p-8 md:p-10 text-center">
@@ -252,7 +255,7 @@ function InquiriesPanel({ inquiries, locale }: { inquiries: InquiryRow[]; locale
         <p className="text-gray-700 mb-6">
           Browse the marketplace and reach out to sellers whose businesses match your search.
         </p>
-        <Link href={`/${locale}/marketplace/browse`} className="btn-primary">
+        <Link href={localizePath('/marketplace/browse', locale)} className="btn-primary">
           Browse listings →
         </Link>
       </div>
@@ -264,7 +267,7 @@ function InquiriesPanel({ inquiries, locale }: { inquiries: InquiryRow[]; locale
       {inquiries.map((q) => (
         <Link
           key={q.id}
-          href={`/${locale}/marketplace/inbox/${q.id}`}
+          href={localizePath(`/marketplace/inbox/${q.id}`, locale)}
           className="block rounded-2xl bg-white border border-black/5 p-5 md:p-6 hover:shadow-md transition-shadow"
         >
           <div className="flex items-start justify-between gap-4 flex-wrap">
