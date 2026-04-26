@@ -1,0 +1,18 @@
+# Minimal Supabase config. Project ref is stored in .supabase/ after `supabase link`.
+project_id = "passtheplate"
+
+[db]
+# Local Postgres port for `supabase start`. Not used in this repo's CI pipeline
+# (we deploy migrations to the hosted project), but harmless to keep.
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+
+[api]
+enabled = true
+schemas = ["public"]
+extra_search_path = ["public"]
