@@ -1,193 +1,189 @@
-'use client'
-
-import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import { useLocale, useTranslations } from 'next-intl'
-import { MapPin, Store } from 'lucide-react'
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import { getTranslations } from 'next-intl/server'
+import { MapPin } from 'lucide-react'
 
-import { Footer } from '@/components/Footer'
-import { Header } from '@/components/Header'
-import { InlineTranslation } from '@/components/InlineTranslation'
-import { VerificationBadge } from '@/components/VerificationBadge'
-import { findSampleListing, findSampleProfile, getListingImageUrl, type SellerListing, type SellerProfile } from '@/lib/marketplace'
-import { supabase } from '@/lib/supabase'
+import { FinancialsPanel } from '@/components/marketplace/FinancialsPanel'
+import { type AppLocale } from '@/i18n/locales'
+import { getBusinessListing } from '@/lib/marketplace/queries'
+import { localizedListingField } from '@/lib/marketplace/types'
 
-interface ListingDetail extends SellerListing {
-  profiles?: Pick<SellerProfile, 'id' | 'full_name' | 'business_name' | 'verification_status' | 'bio'> | null
-}
+export default async function MarketplaceListingDetailPage({
+  params: { locale, id },
+  searchParams,
+}: {
+  params: { locale: AppLocale; id: string }
+  searchParams: Record<string, string | string[] | undefined>
+}) {
+  const { listing } = await getBusinessListing(id)
+  if (!listing) notFound()
 
-function normalizeListing(listing: any): ListingDetail {
-  const profile = Array.isArray(listing.profiles) ? listing.profiles[0] : listing.profiles
+  const t = await getTranslations({ locale, namespace: 'marketplace.listing' })
+  const cuisineT = await getTranslations({ locale, namespace: 'marketplace.cuisines' })
+  const typeT = await getTranslations({ locale, namespace: 'marketplace.businessTypes' })
+  const commonT = await getTranslations({ locale, namespace: 'common' })
 
-  return {
-    id: listing.id,
-    profile_id: listing.profile_id,
-    title: listing.title,
-    category: listing.category,
-    city: listing.city,
-    description: listing.description,
-    image_url: listing.image_url,
-    moderation_status: listing.moderation_status,
-    is_flagged: Boolean(listing.is_flagged),
-    flag_reason: listing.flag_reason,
-    created_at: listing.created_at,
-    profiles: profile
-      ? {
-          id: profile.id,
-          full_name: profile.full_name,
-          business_name: profile.business_name,
-          verification_status: profile.verification_status,
-          bio: profile.bio,
-        }
-      : null,
-  }
-}
+  // For the scaffold, we treat ?nda=signed as the unlocked state.
+  // Once auth is wired, this becomes a server-side check against ptp_nda_acceptances.
+  const ndaParam = Array.isArray(searchParams.nda) ? searchParams.nda[0] : searchParams.nda
+  const unlocked = ndaParam === 'signed'
+  const ndaCtaHref = `/${locale}/marketplace/listings/${listing.id}/inquire`
+  const inquireHref = ndaCtaHref
 
-export default function ListingDetailPage({ params }: { params: { id: string } }) {
-  const t = useTranslations('listingDetail')
-  const commonT = useTranslations('common')
-  const locale = useLocale()
-  const [listing, setListing] = useState<ListingDetail | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchListing = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('listings')
-          .select('id, profile_id, title, category, city, description, image_url, moderation_status, is_flagged, flag_reason, created_at, profiles(id, full_name, business_name, verification_status, bio)')
-          .eq('id', params.id)
-          .single()
-
-        if (error) {
-          throw error
-        }
-
-        setListing(normalizeListing(data))
-      } catch {
-        const fallbackListing = findSampleListing(params.id)
-        const fallbackProfile = fallbackListing ? findSampleProfile(fallbackListing.profile_id) : null
-        setListing(
-          fallbackListing
-            ? {
-                ...fallbackListing,
-                profiles: fallbackProfile
-                  ? {
-                      id: fallbackProfile.id,
-                      full_name: fallbackProfile.full_name,
-                      business_name: fallbackProfile.business_name,
-                      verification_status: fallbackProfile.verification_status,
-                      bio: fallbackProfile.bio,
-                    }
-                  : null,
-              }
-            : null,
-        )
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    void fetchListing()
-  }, [params.id])
-
-  if (loading) {
-    return (
-      <main className="min-h-screen bg-white">
-        <Header />
-        <section className="container section pt-32 md:pt-40">
-          <div className="card p-10 text-center text-gray-500">{t('loading')}</div>
-        </section>
-        <Footer />
-      </main>
-    )
-  }
-
-  if (!listing) {
-    return (
-      <main className="min-h-screen bg-white">
-        <Header />
-        <section className="container section pt-32 md:pt-40">
-          <div className="card space-y-4 p-10 text-center text-gray-500">
-            <p>{t('notFound')}</p>
-            <Link href={`/${locale}/listings`} className="btn-primary inline-flex">
-              {commonT('backToListings')}
-            </Link>
-          </div>
-        </section>
-        <Footer />
-      </main>
-    )
-  }
+  const title = localizedListingField(listing, 'title', locale)
+  const description = localizedListingField(listing, 'description', locale)
+  const sellerNotes =
+    locale === 'zh' && listing.seller_notes_zh ? listing.seller_notes_zh : listing.seller_notes
+  const reasonForSale =
+    locale === 'zh' && listing.reason_for_sale_zh ? listing.reason_for_sale_zh : listing.reason_for_sale
 
   return (
-    <main className="min-h-screen bg-white">
-      <Header />
+    <div className="ptp-container ptp-section">
 
-      <section className="container section pb-16 pt-32 md:pt-40">
-        <div className="grid gap-10 lg:grid-cols-[1.3fr_0.7fr]">
-          <div>
-            <p className="badge mb-6">{t('badge')}</p>
-            <div className="mb-8 overflow-hidden rounded-3xl bg-gray-100">
-              <div className="relative h-[320px] w-full">
-                <Image src={getListingImageUrl(listing)} alt={listing.title} fill className="object-cover" sizes="(min-width: 1024px) 66vw, 100vw" />
+      <section className="container pt-32 md:pt-40">
+        <Link
+          href={`/${locale}/marketplace/browse`}
+          className="text-sm font-semibold text-accent hover:text-accent-dark"
+        >
+          ← {commonT('backToListings')}
+        </Link>
+
+        <div className="mt-6 grid gap-8 lg:grid-cols-[2fr_1fr]">
+          <div className="space-y-6">
+            <div>
+              <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
+                <span className="rounded-full bg-accent/10 px-3 py-1 text-accent">
+                  {cuisineT(listing.cuisine_type)}
+                </span>
+                <span className="rounded-full bg-gray-200 px-3 py-1 text-gray-800">
+                  {typeT(listing.business_type)}
+                </span>
+                <span className="rounded-full border border-gray-300 px-3 py-1 text-gray-700">
+                  {t(`status${capitalize(listing.status)}` as 'statusActive')}
+                </span>
               </div>
+              <h1 className="mt-4 text-4xl font-bold text-gray-950 md:text-5xl">{title}</h1>
+              <p className="mt-3 flex items-center gap-2 text-sm text-gray-600">
+                <MapPin className="h-4 w-4" />
+                {listing.neighborhood ? `${listing.neighborhood}, ` : ''}
+                {listing.city}, {listing.state}
+              </p>
             </div>
-            <div className="mb-6 flex items-start justify-between gap-4">
-              <div>
-                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-accent">{listing.category}</p>
-                <h1 className="mb-4 text-4xl font-bold text-gray-950 md:text-5xl">{listing.title}</h1>
+
+            {listing.cover_image_url && (
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-gray-100">
+                <Image
+                  src={listing.cover_image_url}
+                  alt={title}
+                  fill
+                  sizes="(min-width: 1024px) 800px, 100vw"
+                  className="object-cover"
+                />
               </div>
-              <Store className="mt-1 h-7 w-7 text-accent" />
+            )}
+
+            <div className="card p-6">
+              <h2 className="text-2xl font-bold text-gray-950">{description.split('\n')[0]}</h2>
+              <p className="mt-3 whitespace-pre-line leading-relaxed text-gray-700">{description}</p>
             </div>
 
-            <div className="mb-6 flex items-center gap-3 text-gray-500">
-              <MapPin className="h-5 w-5" />
-              <span>{listing.city}</span>
-            </div>
+            <FinancialsPanel
+              listing={listing}
+              locale={locale}
+              unlocked={unlocked}
+              ndaCtaHref={ndaCtaHref}
+              labels={{
+                askingPrice: t('askingPrice'),
+                grossRevenue: t('grossRevenue'),
+                cashFlow: t('cashFlow'),
+                monthlyRent: t('monthlyRent'),
+                leaseRemaining: t('leaseRemaining'),
+                monthsShort: t('monthsShort'),
+                sqft: t('sqft'),
+                employeesFt: t('employeesFt'),
+                employeesPt: t('employeesPt'),
+                notProvided: t('notProvided'),
+                ndaLockedTitle: t('ndaLockedTitle'),
+                ndaLockedBody: t('ndaLockedBody'),
+                ndaCta: t('ndaCta'),
+              }}
+            />
 
-            <div className="card p-8">
-              <h2 className="mb-4 text-2xl font-bold text-gray-950">{t('descriptionTitle')}</h2>
-              <p className="leading-relaxed text-gray-600">{listing.description}</p>
-              <InlineTranslation text={listing.description} />
-            </div>
+            {listing.equipment_included.length > 0 && (
+              <div className="card p-6">
+                <h3 className="text-xl font-bold text-gray-950">{t('equipment')}</h3>
+                <ul className="mt-3 grid gap-2 text-sm text-gray-700 sm:grid-cols-2">
+                  {listing.equipment_included.map((item) => (
+                    <li key={item} className="rounded-md bg-gray-50 px-3 py-2">
+                      • {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {(reasonForSale || sellerNotes) && (
+              <div className="card p-6">
+                {reasonForSale && (
+                  <>
+                    <h3 className="text-xl font-bold text-gray-950">{t('reasonForSale')}</h3>
+                    <p className="mt-2 leading-relaxed text-gray-700">{reasonForSale}</p>
+                  </>
+                )}
+                {sellerNotes && (
+                  <>
+                    <h3 className="mt-6 text-xl font-bold text-gray-950">{t('sellerNotes')}</h3>
+                    <p className="mt-2 leading-relaxed text-gray-700">{sellerNotes}</p>
+                  </>
+                )}
+              </div>
+            )}
           </div>
 
-          <aside className="space-y-6">
+          <aside className="space-y-4">
             <div className="card p-6">
-              <h2 className="mb-4 text-2xl font-bold text-gray-950">{t('sellerTitle')}</h2>
-              {listing.profiles ? (
-                <div className="space-y-3">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <p className="font-semibold text-gray-950">{listing.profiles.business_name}</p>
-                      <p className="text-sm text-gray-500">{listing.profiles.full_name}</p>
-                    </div>
-                    {listing.profiles.verification_status === 'verified' && <VerificationBadge status="verified" />}
-                  </div>
-                  {listing.profiles.bio && <p className="text-sm leading-relaxed text-gray-600">{listing.profiles.bio}</p>}
-                  <Link href={`/${locale}/sellers/${listing.profile_id}`} className="btn-secondary w-full text-center">
-                    {commonT('viewSellerProfile')}
-                  </Link>
-                </div>
-              ) : (
-                <p className="text-sm text-gray-500">{t('notFound')}</p>
+              {listing.profiles && (
+                <>
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gray-500">Seller</p>
+                  <p className="mt-1 text-lg font-bold text-gray-950">{listing.profiles.business_name}</p>
+                  <p className="text-sm text-gray-600">{listing.profiles.full_name}</p>
+                </>
               )}
+
+              <Link href={inquireHref} className="btn-primary mt-5 w-full text-center">
+                {t('inquireCta')}
+              </Link>
             </div>
 
             <div className="card p-6">
-              <h2 className="mb-4 text-2xl font-bold text-gray-950">{t('sidebarTitle')}</h2>
-              <p className="mb-5 text-sm leading-relaxed text-gray-600">{t('sidebarBody')}</p>
-              <Link href={`/${locale}/listings/${listing.id}/inquiries`} className="btn-primary w-full text-center">
-                {commonT('viewInquiryThread')}
-              </Link>
+              <h3 className="text-base font-bold text-gray-950">{t('visaEligibility')}</h3>
+              <ul className="mt-3 space-y-2 text-sm">
+                <EligibilityRow label={t('eb5Eligible')} value={listing.visa_eligible_eb5} />
+                <EligibilityRow label={t('e2Eligible')} value={listing.visa_eligible_e2} />
+                <EligibilityRow label={t('sbaPrequalified')} value={listing.sba_prequalified} />
+              </ul>
             </div>
           </aside>
         </div>
       </section>
 
-      <Footer />
-    </main>
+      <div className="h-16" />
+    </div>
   )
+}
+
+function EligibilityRow({ label, value }: { label: string; value: boolean }) {
+  return (
+    <li className="flex items-center justify-between rounded-md bg-gray-50 px-3 py-2">
+      <span className="text-gray-700">{label}</span>
+      <span className={`text-xs font-bold ${value ? 'text-emerald-700' : 'text-gray-400'}`}>
+        {value ? '✓' : '—'}
+      </span>
+    </li>
+  )
+}
+
+function capitalize(value: string): string {
+  return value.charAt(0).toUpperCase() + value.slice(1)
 }

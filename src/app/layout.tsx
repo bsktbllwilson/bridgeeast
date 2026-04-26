@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, DM_Sans } from 'next/font/google'
+import { Playfair_Display, DM_Sans, Bricolage_Grotesque, Inter } from 'next/font/google'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -10,6 +10,17 @@ const playfair = Playfair_Display({
 const dmSans = DM_Sans({
   subsets: ['latin'],
   variable: '--font-dmsans',
+})
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ['latin'],
+  variable: '--font-display',
+  weight: ['400', '600', '700', '800'],
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-body',
 })
 
 export const metadata: Metadata = {
@@ -52,7 +63,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${playfair.variable} ${dmSans.variable} font-sans antialiased`}>
+      <body className={`${playfair.variable} ${dmSans.variable} ${bricolage.variable} ${inter.variable} font-sans antialiased`}>
         {children}
       </body>
     </html>

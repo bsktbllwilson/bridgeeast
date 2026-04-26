@@ -2,6 +2,8 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 
+import { PtpFooter } from '@/components/ptp/PtpFooter'
+import { PtpHeader } from '@/components/ptp/PtpHeader'
 import { routing } from '@/i18n/routing'
 
 export function generateStaticParams() {
@@ -23,7 +25,11 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={params.locale} messages={messages}>
-      {children}
+      <div className="ptp-shell">
+        <PtpHeader />
+        <main>{children}</main>
+        <PtpFooter />
+      </div>
     </NextIntlClientProvider>
   )
 }
