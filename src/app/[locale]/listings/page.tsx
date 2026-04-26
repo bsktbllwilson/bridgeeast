@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { MapPin, Search, SlidersHorizontal, Sparkles } from 'lucide-react'
 
+import { CtaButton } from '@/components/CtaButton'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { ListingCard } from '@/components/ListingCard'
@@ -153,6 +154,11 @@ export default function LocalizedListingsPage() {
             </p>
             <h1 className="heading-hero mb-6 max-w-4xl text-white">{t('heroTitle')}</h1>
             <p className="text-lead max-w-3xl text-white/78">{t('heroSubtitle')}</p>
+            <div className="mt-8">
+              <CtaButton href={`/${locale}/waitlist`} variant="primary">
+                {t('heroCta')}
+              </CtaButton>
+            </div>
           </div>
 
           <div className="mt-10 rounded-[28px] border border-white/15 bg-white/95 p-4 shadow-[0_40px_100px_-40px_rgba(15,23,42,0.85)] backdrop-blur md:p-5">
@@ -294,18 +300,12 @@ export default function LocalizedListingsPage() {
           <div className="flex flex-col items-start justify-center gap-8 px-6 py-16 sm:px-10 md:px-14 lg:px-20 xl:px-28">
             <h1 className="heading-hero not-italic">{t('splitTitle')}</h1>
             <div className="flex flex-wrap gap-3">
-              <Link
-                href={`/${locale}/listings`}
-                className="inline-flex items-center justify-center rounded-full bg-accent px-7 py-3 font-sans text-sm font-semibold not-italic text-white transition-colors hover:bg-accent-dark"
-              >
+              <CtaButton href={`/${locale}/listings`} variant="primary">
                 {t('splitBuyerCta')}
-              </Link>
-              <Link
-                href={`/${locale}/waitlist`}
-                className="inline-flex items-center justify-center rounded-full border-2 border-gray-950 bg-white px-7 py-3 font-sans text-sm font-semibold not-italic text-gray-950 transition-colors hover:bg-gray-950 hover:text-white"
-              >
+              </CtaButton>
+              <CtaButton href={`/${locale}/waitlist`} variant="outline">
                 {t('splitSellerCta')}
-              </Link>
+              </CtaButton>
             </div>
           </div>
         </div>
