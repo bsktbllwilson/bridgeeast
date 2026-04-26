@@ -43,7 +43,7 @@ export default async function middleware(request: NextRequest) {
     const locale =
       localeCookie && isAppLocale(localeCookie) ? localeCookie : routing.defaultLocale
     const prefix = locale === routing.defaultLocale ? '' : `/${locale}`
-    return NextResponse.redirect(new URL(`${prefix}/listings`, request.url))
+    return NextResponse.redirect(new URL(`${prefix}/marketplace/browse`, request.url))
   }
 
   const response = intlMiddleware(request)
