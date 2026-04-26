@@ -95,3 +95,109 @@ Stall comes with a 5-year sub-license from Industry City management at favorable
   40.6457, -74.0107, 58000000, 74000000, 16000000,
   2009, 10, 1300, '/images/brand/IMG_2672.JPG'
 );
+
+-- ---------------------------------------------------------------------------
+-- partners (12) — yellow-pages directory
+-- All seeded as approved=true so they appear in the public partner list.
+-- ---------------------------------------------------------------------------
+
+insert into public.partners (
+  full_name, job_title, company, email, phone, website, address,
+  specialty, languages, bio, approved, featured
+) values
+(
+  'Sarah Lin', 'Senior SBA Loan Officer', 'East Coast Capital Partners',
+  'sarah.lin@eccpartners.com', '+1-212-555-0142', 'https://eccpartners.com',
+  '230 Park Ave, Suite 1500, New York, NY 10169',
+  'sba_lender', '{en,zh}',
+  'Closes ~$45M in SBA 7(a) and 504 loans annually with a focus on first-generation immigrant operators in the F&B space. Native Mandarin speaker; comfortable underwriting deals where books are still being formalized.',
+  true, true
+),
+(
+  'Daniel Kim', 'Managing Partner', 'Kim & Park Immigration Law',
+  'dkim@kimparklaw.com', '+1-212-555-0118', 'https://kimparklaw.com',
+  '420 Lexington Ave, Suite 2200, New York, NY 10170',
+  'immigration_attorney', '{en,ko}',
+  '17 years of E-2, L-1, and EB-5 visa work, primarily for Korean restaurant owners moving operations to the US. AILA member; bilingual office staff handle intake in Korean.',
+  true, true
+),
+(
+  'Mei Wong', 'Principal Broker', 'Pacific Realty NYC',
+  'mei@pacificrealtynyc.com', '+1-718-555-0193', 'https://pacificrealtynyc.com',
+  '37-15 Main Street, Flushing, NY 11354',
+  'bilingual_broker', '{en,zh}',
+  'Specializes in restaurant and grocery commercial leases across Queens and Brooklyn. Average 12-15 closings per year; deep relationships with Chinatown landlords. Cantonese and Mandarin.',
+  true, false
+),
+(
+  'Tuan Nguyen', 'CPA, Tax Director', 'Nguyen CPA Group',
+  'tuan@nguyencpa.com', '+1-718-555-0167', 'https://nguyencpa.com',
+  '5403 8th Ave, Brooklyn, NY 11220',
+  'accountant', '{en,vi}',
+  '25+ years working with Vietnamese-owned restaurants in the tri-state area. QuickBooks ProAdvisor; handles cash-basis bookkeeping cleanups for sale-readiness.',
+  true, false
+),
+(
+  'Marcus Chen', 'Commercial Insurance Broker', 'Bay Insurance Brokers',
+  'marcus.chen@bayinsbrokers.com', '+1-212-555-0184', 'https://bayinsbrokers.com',
+  '11 Broadway, Suite 615, New York, NY 10004',
+  'insurance', '{en,zh}',
+  'GL, workers comp, liquor liability, and cyber for restaurant groups in NYC and Northern NJ. Direct appointments with Chubb, Hartford, and Liberty Mutual; can quote within 48 hours.',
+  true, false
+),
+(
+  'Jisoo Park', 'Immigration Attorney', 'Park Immigration LLP',
+  'jisoo@parkimmigration.com', '+1-212-555-0156', 'https://parkimmigration.com',
+  '1500 Broadway, Suite 1801, New York, NY 10036',
+  'immigration_attorney', '{en,ko}',
+  'Focused on E-2 treaty investor visas for Korean F&B founders, including spouses-of-investor work authorization. Has filed 200+ E-2 petitions with a 96% approval rate.',
+  true, false
+),
+(
+  'Linda Park', 'SBA Underwriter', 'Pacific National Bank',
+  'lpark@pacnatbank.com', '+1-201-555-0173', 'https://pacnatbank.com',
+  '88 Pine Street, 22nd Floor, New York, NY 10005',
+  'sba_lender', '{en,ko}',
+  'Underwrites SBA 7(a) loans up to $5M with a specialty in Korean BBQ and pojangmacha concepts. Average time-to-close 11 weeks. Will pre-screen deals at no cost.',
+  true, false
+),
+(
+  'Jenny Zhao', 'Founder, Restaurant Broker', 'NYC Restaurant Realty',
+  'jenny@nycrestaurantrealty.com', '+1-917-555-0135', 'https://nycrestaurantrealty.com',
+  '139 Centre Street, Suite 410, New York, NY 10013',
+  'bilingual_broker', '{en,zh}',
+  'Restaurant-only commercial brokerage covering Manhattan and Western Queens. Confidential listings only; works with both buyers and sellers but never the same deal. Mandarin native.',
+  true, true
+),
+(
+  'Diana Vu', 'Tax Accountant', 'Vu & Associates',
+  'diana@vuassociates.com', '+1-714-555-0189', 'https://vuassociates.com',
+  '9550 Bolsa Ave, Suite 200, Westminster, CA 92683',
+  'accountant', '{en,vi}',
+  'CA-licensed CPA serving Vietnamese F&B operators on the West Coast and remote tri-state clients. Focus on quality-of-earnings prep for restaurant sale transactions.',
+  true, false
+),
+(
+  'Robert Tran', 'Risk Advisor', 'Tran Risk Advisors',
+  'robert@tranrisk.com', '+1-713-555-0148', 'https://tranrisk.com',
+  '11231 Bellaire Blvd, Suite C, Houston, TX 77072',
+  'insurance', '{en,vi}',
+  'Multi-unit restaurant insurance programs (GL, property, workers comp, EPLI). Active in Houston, Dallas, NYC, and San Jose Vietnamese restaurant markets.',
+  true, false
+),
+(
+  'Steven Zhang', 'SBA Lending Director', 'Empire SBA Loans',
+  'szhang@empiresba.com', '+1-212-555-0179', 'https://empiresba.com',
+  '60 Wall Street, 14th Floor, New York, NY 10005',
+  'sba_lender', '{en,zh}',
+  'Direct SBA lender (preferred lender status) — keeps loans in-house rather than brokering out. Comfortable with $750K-$5M restaurant acquisition deals; 9-week average close.',
+  true, false
+),
+(
+  'Anna Huang', 'Immigration Counsel', 'Huang Immigration Group',
+  'anna@huangimmigration.com', '+1-212-555-0162', 'https://huangimmigration.com',
+  '370 Lexington Ave, Suite 808, New York, NY 10017',
+  'immigration_attorney', '{en,zh}',
+  'EB-5 regional center work and direct EB-5 for restaurant project sponsors, plus E-2 and L-1 for owner-operators. Mandarin and Cantonese in-house.',
+  true, false
+);
