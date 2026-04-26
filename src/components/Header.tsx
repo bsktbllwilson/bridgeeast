@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 
 import {
   getLocaleFromPathname,
@@ -11,7 +12,6 @@ import {
 } from '@/i18n/locales'
 import { getStaticMessages } from '@/i18n/static-messages'
 import { UserMenu } from '@/components/UserMenu'
-import { useState } from 'react'
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
