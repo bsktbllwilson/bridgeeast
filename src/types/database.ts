@@ -6,6 +6,11 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
 export type Database = {
+  // supabase-js uses this to pick the typed PostgREST overload set.
+  // Keep in sync with whatever `supabase gen types` emits for your project.
+  __InternalSupabase: {
+    PostgrestVersion: '12'
+  }
   public: {
     Tables: {
       profiles: {
@@ -453,10 +458,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      is_admin: {
-        Args: Record<string, never>
-        Returns: boolean
-      }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never
