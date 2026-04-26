@@ -282,6 +282,35 @@ export default function LocalizedListingsPage() {
         </div>
       </section>
 
+      <section className="bg-white">
+        <div className="grid w-full lg:grid-cols-2">
+          <div className="relative aspect-[4/5] w-full lg:aspect-auto lg:min-h-[560px]">
+            <img
+              src="/noodles-hero.jpg"
+              alt={t('splitImageAlt')}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
+          <div className="flex flex-col items-start justify-center gap-8 px-6 py-16 sm:px-10 md:px-14 lg:px-20 xl:px-28">
+            <h1 className="heading-hero not-italic">{t('splitTitle')}</h1>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href={`/${locale}/listings`}
+                className="inline-flex items-center justify-center rounded-full bg-accent px-7 py-3 font-sans text-sm font-semibold not-italic text-white transition-colors hover:bg-accent-dark"
+              >
+                {t('splitBuyerCta')}
+              </Link>
+              <Link
+                href={`/${locale}/waitlist`}
+                className="inline-flex items-center justify-center rounded-full border-2 border-gray-950 bg-white px-7 py-3 font-sans text-sm font-semibold not-italic text-gray-950 transition-colors hover:bg-gray-950 hover:text-white"
+              >
+                {t('splitSellerCta')}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="border-b border-gray-200 bg-stone-50 py-8">
         <div className="container flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
