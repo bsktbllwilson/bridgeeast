@@ -82,10 +82,10 @@ export default function WaitlistPage() {
       <Header />
 
       <section className="container section pt-16 md:pt-24 max-w-2xl">
-        <h1 className="text-5xl md:text-6xl font-serif font-bold leading-tight mb-6 text-gray-950">
+        <h1 className="heading-hero mb-6">
           {t('heroTitlePrefix')} <span className="text-accent">{t('heroBrand')}</span> {t('heroTitleSuffix')}
         </h1>
-        <p className="text-lg md:text-xl text-gray-600 mb-12 leading-relaxed">{t('heroSubtitle')}</p>
+        <p className="text-lead mb-12">{t('heroSubtitle')}</p>
 
         {status && (
           <div
@@ -104,9 +104,9 @@ export default function WaitlistPage() {
         {submitted ? (
           <div className="card bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-200 p-12 text-center">
             <div className="text-6xl mb-6">✓</div>
-            <h2 className="text-3xl font-serif font-bold text-green-900 mb-4">{t('successTitle')}</h2>
-            <p className="text-green-800 text-lg mb-6 leading-relaxed max-w-xl mx-auto">{t('successBody')}</p>
-            <p className="text-sm text-green-700 mb-8 font-medium">{t('successCheckEmail')}</p>
+            <h2 className="heading-section text-green-900 mb-4">{t('successTitle')}</h2>
+            <p className="text-lead text-green-800 mb-6 max-w-xl mx-auto">{t('successBody')}</p>
+            <p className="text-meta text-green-700 mb-8 font-medium">{t('successCheckEmail')}</p>
 
             <a
               href={stripeProductUrl}
@@ -203,13 +203,13 @@ export default function WaitlistPage() {
       {/* What You'll Get */}
       <section className="bg-gray-50 section">
         <div className="container">
-          <h2 className="section-title mb-12 text-center">{t('whatYoullGetTitle')}</h2>
+          <h2 className="heading-section mb-12 text-center">{t('whatYoullGetTitle')}</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {whatYoullGetItems.map((item, idx) => (
               <div key={idx} className="card bg-white p-8 border-2 border-gray-200">
                 <div className="text-4xl mb-4">{item.icon}</div>
-                <h3 className="text-xl font-serif font-bold mb-3 text-gray-950">{item.title}</h3>
-                <p className="text-gray-600">{item.description}</p>
+                <h3 className="heading-subsection mb-3">{item.title}</h3>
+                <p className="text-body">{item.description}</p>
               </div>
             ))}
           </div>
@@ -218,12 +218,12 @@ export default function WaitlistPage() {
 
       {/* FAQ */}
       <section className="container section max-w-3xl">
-        <h2 className="section-title mb-12">{t('faqTitle')}</h2>
+        <h2 className="heading-section mb-12">{t('faqTitle')}</h2>
         <div className="space-y-8">
           {faqItems.map((faq, idx) => (
             <div key={idx} className="py-6 border-b border-gray-200 last:border-0">
-              <h3 className="text-lg font-serif font-bold text-gray-950 mb-3">{faq.q}</h3>
-              <p className="text-gray-600 leading-relaxed">{faq.a}</p>
+              <h3 className="heading-card mb-3">{faq.q}</h3>
+              <p className="text-body">{faq.a}</p>
             </div>
           ))}
         </div>

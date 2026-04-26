@@ -172,15 +172,15 @@ export default function PartnersPage() {
       <Header />
 
       <section className="container section pt-32 md:pt-40 pb-20">
-        <h1 className="mb-6">{t('titleLine1')}<br /><span className="text-accent">{t('titleHighlight')}</span></h1>
-        <p className="text-lg text-gray-600 max-w-2xl">{t('subtitle')}</p>
+        <h1 className="heading-hero mb-6">{t('titleLine1')}<br /><span className="text-accent">{t('titleHighlight')}</span></h1>
+        <p className="text-lead max-w-2xl">{t('subtitle')}</p>
       </section>
 
       {/* Filters */}
       <section className="border-y-2 border-gray-200 py-8">
         <div className="container space-y-6">
           <div>
-            <h3 className="font-semibold text-gray-700 mb-3">{t('filterCategoryTitle')}</h3>
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">{t('filterCategoryTitle')}</h3>
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setSelectedCategory(null)}
@@ -209,7 +209,7 @@ export default function PartnersPage() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-gray-700 mb-3">{t('languagesTitle')}</h3>
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">{t('languagesTitle')}</h3>
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setSelectedLanguage(null)}
@@ -262,8 +262,8 @@ export default function PartnersPage() {
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="text-xl font-serif font-bold text-gray-900">{partner.name}</h3>
-                  <p className="text-sm text-gray-600">{partner.firm}</p>
+                  <h3 className="heading-subsection">{partner.name}</h3>
+                  <p className="text-meta mt-1">{partner.firm}</p>
                 </div>
                 {partner.verified && (
                   <span className="text-xs font-semibold text-white bg-green-600 px-2 py-1 rounded">

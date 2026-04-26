@@ -150,8 +150,8 @@ export default function LocalizedListingsPage() {
             <p className="mb-6 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/85 backdrop-blur">
               {t('heroBadge')}
             </p>
-            <h1 className="mb-6 max-w-4xl text-5xl font-bold leading-tight text-white md:text-6xl">{t('heroTitle')}</h1>
-            <p className="max-w-3xl text-lg leading-relaxed text-white/78 md:text-xl">{t('heroSubtitle')}</p>
+            <h1 className="heading-hero mb-6 max-w-4xl text-white">{t('heroTitle')}</h1>
+            <p className="text-lead max-w-3xl text-white/78">{t('heroSubtitle')}</p>
           </div>
 
           <div className="mt-10 rounded-[28px] border border-white/15 bg-white/95 p-4 shadow-[0_40px_100px_-40px_rgba(15,23,42,0.85)] backdrop-blur md:p-5">
@@ -284,11 +284,11 @@ export default function LocalizedListingsPage() {
       <section className="border-b border-gray-200 bg-stone-50 py-8">
         <div className="container flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">{t('badge')}</p>
-            <h2 className="mt-2 text-3xl font-bold text-gray-950 md:text-4xl">{t('title')}</h2>
+            <p className="text-eyebrow">{t('badge')}</p>
+            <h2 className="heading-section mt-2">{t('title')}</h2>
           </div>
           <div className="max-w-2xl">
-            <p className="text-sm leading-relaxed text-gray-600 md:text-base">{t('subtitle')}</p>
+            <p className="text-body">{t('subtitle')}</p>
             <p className="mt-3 text-sm font-semibold text-gray-900">
               {loading ? t('loading') : t('resultsCount', {count: filteredListings.length})}
             </p>
@@ -301,8 +301,8 @@ export default function LocalizedListingsPage() {
           <div className="card p-10 text-center text-gray-500">{t('loading')}</div>
         ) : filteredListings.length === 0 ? (
           <div className="card p-10 text-center">
-            <h3 className="text-xl font-bold text-gray-950">{t('emptyTitle')}</h3>
-            <p className="mt-3 text-gray-600">{t('emptyBody')}</p>
+            <h3 className="heading-subsection">{t('emptyTitle')}</h3>
+            <p className="text-body mt-3">{t('emptyBody')}</p>
             <button
               type="button"
               onClick={() => {
@@ -337,11 +337,11 @@ export default function LocalizedListingsPage() {
             <aside className="xl:sticky xl:top-28 xl:self-start">
               <div className="overflow-hidden rounded-[28px] border border-gray-200 bg-white shadow-[0_30px_60px_-30px_rgba(15,23,42,0.4)]">
                 <div className="border-b border-gray-200 px-6 py-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">{t('mapBadge')}</p>
+                  <p className="text-eyebrow">{t('mapBadge')}</p>
                   <div className="mt-2 flex items-start justify-between gap-4">
                     <div>
-                      <h3 className="text-2xl font-bold text-gray-950">{t('mapTitle')}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-gray-600">{t('mapBody')}</p>
+                      <h3 className="heading-subsection">{t('mapTitle')}</h3>
+                      <p className="text-body mt-2 text-sm">{t('mapBody')}</p>
                     </div>
                     <Sparkles className="mt-1 h-5 w-5 shrink-0 text-accent" />
                   </div>

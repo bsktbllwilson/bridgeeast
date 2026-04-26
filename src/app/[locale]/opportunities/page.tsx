@@ -115,8 +115,8 @@ export default function OpportunitiesPage() {
       <section className="px-4 py-12 md:py-16">
         <div className="mx-auto max-w-2xl space-y-10">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">{t('title')}</h1>
-            <p className="mt-1 text-gray-500">{t('subtitle')}</p>
+            <h1 className="heading-hero">{t('title')}</h1>
+            <p className="text-lead mt-3">{t('subtitle')}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5 rounded-xl bg-white p-6 shadow-sm">
@@ -174,7 +174,7 @@ export default function OpportunitiesPage() {
 
           {zones.length > 0 && (
             <div className="space-y-4">
-              <h2 className="text-lg font-semibold text-gray-800">{t('resultsTitle')}</h2>
+              <h2 className="heading-subsection">{t('resultsTitle')}</h2>
               {zones.map((zone, i) => (
                 <OpportunityCard key={`${zone.neighborhood}-${i}`} zone={zone} index={i} />
               ))}
