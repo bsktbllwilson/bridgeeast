@@ -136,8 +136,8 @@ export default function ListingDetailPage({ params }: { params: { id: string } }
             </div>
             <div className="mb-6 flex items-start justify-between gap-4">
               <div>
-                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-accent">{listing.category}</p>
-                <h1 className="mb-4 text-4xl font-bold text-gray-950 md:text-5xl">{listing.title}</h1>
+                <p className="text-eyebrow mb-3">{listing.category}</p>
+                <h1 className="heading-hero mb-4">{listing.title}</h1>
               </div>
               <Store className="mt-1 h-7 w-7 text-accent" />
             </div>
@@ -148,15 +148,15 @@ export default function ListingDetailPage({ params }: { params: { id: string } }
             </div>
 
             <div className="card p-8">
-              <h2 className="mb-4 text-2xl font-bold text-gray-950">{t('descriptionTitle')}</h2>
-              <p className="leading-relaxed text-gray-600">{listing.description}</p>
+              <h2 className="heading-subsection mb-4">{t('descriptionTitle')}</h2>
+              <p className="text-body">{listing.description}</p>
               <InlineTranslation text={listing.description} />
             </div>
           </div>
 
           <aside className="space-y-6">
             <div className="card p-6">
-              <h2 className="mb-4 text-2xl font-bold text-gray-950">{t('sellerTitle')}</h2>
+              <h2 className="heading-subsection mb-4">{t('sellerTitle')}</h2>
               {listing.profiles ? (
                 <div className="space-y-3">
                   <div className="flex items-start justify-between gap-3">
@@ -166,7 +166,7 @@ export default function ListingDetailPage({ params }: { params: { id: string } }
                     </div>
                     {listing.profiles.verification_status === 'verified' && <VerificationBadge status="verified" />}
                   </div>
-                  {listing.profiles.bio && <p className="text-sm leading-relaxed text-gray-600">{listing.profiles.bio}</p>}
+                  {listing.profiles.bio && <p className="text-meta">{listing.profiles.bio}</p>}
                   <Link href={`/${locale}/sellers/${listing.profile_id}`} className="btn-secondary w-full text-center">
                     {commonT('viewSellerProfile')}
                   </Link>
@@ -177,8 +177,8 @@ export default function ListingDetailPage({ params }: { params: { id: string } }
             </div>
 
             <div className="card p-6">
-              <h2 className="mb-4 text-2xl font-bold text-gray-950">{t('sidebarTitle')}</h2>
-              <p className="mb-5 text-sm leading-relaxed text-gray-600">{t('sidebarBody')}</p>
+              <h2 className="heading-subsection mb-4">{t('sidebarTitle')}</h2>
+              <p className="text-meta mb-5">{t('sidebarBody')}</p>
               <Link href={`/${locale}/listings/${listing.id}/inquiries`} className="btn-primary w-full text-center">
                 {commonT('viewInquiryThread')}
               </Link>

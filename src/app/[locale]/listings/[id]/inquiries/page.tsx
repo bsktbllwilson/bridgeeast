@@ -24,8 +24,8 @@ export default function InquiryThreadPage({ params }: { params: { id: string } }
       <section className="container section pb-16 pt-32 md:pt-40">
         <div className="mb-8 max-w-3xl">
           <p className="badge mb-6">{t('badge')}</p>
-          <h1 className="mb-4 text-4xl font-bold text-gray-950 md:text-5xl">{t('title')}</h1>
-          <p className="text-lg leading-relaxed text-gray-600">{t('subtitle')}</p>
+          <h1 className="heading-hero mb-4">{t('title')}</h1>
+          <p className="text-lead">{t('subtitle')}</p>
         </div>
 
         <div className="mb-8 flex flex-wrap items-center gap-4">
@@ -61,7 +61,7 @@ export default function InquiryThreadPage({ params }: { params: { id: string } }
                     </p>
                   </div>
 
-                  <p className="leading-relaxed text-gray-700">{message.body}</p>
+                  <p className="text-body">{message.body}</p>
 
                   {isSeller && <InlineTranslation text={message.body} />}
                 </article>

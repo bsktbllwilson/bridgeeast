@@ -224,13 +224,13 @@ export default function DataPage() {
       {/* Hero Section */}
       <section className="container section pt-32 md:pt-40 pb-20">
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="mb-6 text-5xl md:text-7xl font-serif font-bold leading-tight">
+          <h1 className="heading-hero mb-6">
             {t('heroTitleLine1')}<br />
             <span className="text-accent bg-gradient-to-r from-accent to-accent-dark bg-clip-text text-transparent">
               {t('heroTitleHighlight')}
             </span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">{t('heroSubtitle')}</p>
+          <p className="text-lead max-w-2xl mx-auto">{t('heroSubtitle')}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <div className="badge">{t('badgeRealtime')}</div>
             <div className="badge">{t('badgeFocus')}</div>
@@ -243,8 +243,8 @@ export default function DataPage() {
       <section className="bg-white section">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="section-title mb-4">{t('searchTitle')}</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t('searchSubtitle')}</p>
+            <h2 className="heading-section mb-4">{t('searchTitle')}</h2>
+            <p className="text-lead max-w-2xl mx-auto">{t('searchSubtitle')}</p>
           </div>
 
           {/* Search Input */}
@@ -299,7 +299,7 @@ export default function DataPage() {
               <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
                 <div className="p-8">
                   <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-3xl font-serif font-bold text-gray-900 flex items-center">
+                    <h3 className="heading-section flex items-center">
                       <MapPin className="w-8 h-8 text-accent mr-3" />
                       {selectedLocation ? `${selectedLocation.name} - ${selectedNeighborhood.name}` : selectedNeighborhood.name}
                     </h3>
@@ -403,7 +403,7 @@ export default function DataPage() {
           {/* Selected Location Data */}
           {selectedNeighborhood && (
             <div id="detailed-analysis" className="bg-gradient-to-r from-accent/5 to-accent/10 p-8 border-2 border-accent/20 rounded-2xl shadow-lg">
-              <h3 className="text-2xl font-serif font-bold mb-6 flex items-center text-gray-900">
+              <h3 className="heading-subsection mb-6 flex items-center">
                 <TrendingUp className="w-7 h-7 text-accent mr-3" />
                 {selectedNeighborhood.name} {t('modalMarketAnalysisSuffix')}
               </h3>
@@ -481,8 +481,8 @@ export default function DataPage() {
       <section className="bg-gradient-to-r from-gray-50 to-white section">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="section-title mb-4">{t('rentChartTitle')}</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t('rentChartSubtitle')}</p>
+            <h2 className="heading-section mb-4">{t('rentChartTitle')}</h2>
+            <p className="text-lead max-w-2xl mx-auto">{t('rentChartSubtitle')}</p>
           </div>
           <div className="bg-white p-8 border-2 border-gray-200 rounded-2xl shadow-lg">
             {loading ? (
@@ -550,8 +550,8 @@ export default function DataPage() {
       {/* Detailed Metrics Table */}
       <section className="container section">
         <div className="text-center mb-12">
-          <h2 className="section-title mb-4">{t('tableTitle')}</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t('tableSubtitle')}</p>
+          <h2 className="heading-section mb-4">{t('tableTitle')}</h2>
+          <p className="text-lead max-w-2xl mx-auto">{t('tableSubtitle')}</p>
         </div>
         <div className="overflow-x-auto border-2 border-gray-200 rounded-2xl shadow-lg">
           {loading ? (
@@ -620,12 +620,12 @@ export default function DataPage() {
       <section className="bg-gradient-to-r from-gray-50 to-white section">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="section-title mb-4">{t('difficultyTitle')}</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t('difficultySubtitle')}</p>
+            <h2 className="heading-section mb-4">{t('difficultyTitle')}</h2>
+            <p className="text-lead max-w-2xl mx-auto">{t('difficultySubtitle')}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-white p-8 border-2 border-gray-200 rounded-2xl shadow-lg">
-              <h3 className="text-2xl font-serif font-bold mb-8 flex items-center text-gray-900">
+              <h3 className="heading-subsection mb-8 flex items-center">
                 <TrendingUp className="w-6 h-6 text-accent mr-3" />
                 {t('byHurdle')}
               </h3>
@@ -652,7 +652,7 @@ export default function DataPage() {
             </div>
 
             <div className="bg-white p-8 border-2 border-gray-200 rounded-2xl shadow-lg">
-              <h3 className="text-2xl font-serif font-bold mb-8 flex items-center text-gray-900">
+              <h3 className="heading-subsection mb-8 flex items-center">
                 <Users className="w-6 h-6 text-accent mr-3" />
                 {t('timelineExpectations')}
               </h3>

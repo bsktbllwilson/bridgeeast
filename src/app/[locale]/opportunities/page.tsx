@@ -112,12 +112,22 @@ export default function OpportunitiesPage() {
     <main className="min-h-screen bg-gray-50">
       <Header />
 
+      <section className="relative isolate overflow-hidden bg-slate-950 text-white">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "linear-gradient(180deg, rgba(15, 23, 42, 0.35) 0%, rgba(15, 23, 42, 0.6) 55%, rgba(248, 250, 252, 0.95) 100%), url('/images/dinner-spread.jpg')",
+          }}
+        />
+        <div className="relative z-10 mx-auto max-w-2xl px-4 pb-8 pt-24 md:pb-10 md:pt-32">
+          <h1 className="heading-hero text-white">{t('title')}</h1>
+          <p className="text-lead mt-3 text-white/80">{t('subtitle')}</p>
+        </div>
+      </section>
+
       <section className="px-4 py-12 md:py-16">
         <div className="mx-auto max-w-2xl space-y-10">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">{t('title')}</h1>
-            <p className="mt-1 text-gray-500">{t('subtitle')}</p>
-          </div>
 
           <form onSubmit={handleSubmit} className="space-y-5 rounded-xl bg-white p-6 shadow-sm">
             <div>
@@ -174,7 +184,7 @@ export default function OpportunitiesPage() {
 
           {zones.length > 0 && (
             <div className="space-y-4">
-              <h2 className="text-lg font-semibold text-gray-800">{t('resultsTitle')}</h2>
+              <h2 className="heading-subsection">{t('resultsTitle')}</h2>
               {zones.map((zone, i) => (
                 <OpportunityCard key={`${zone.neighborhood}-${i}`} zone={zone} index={i} />
               ))}

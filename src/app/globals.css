@@ -52,15 +52,53 @@
 
 @layer components {
   .container {
-    @apply max-w-7xl mx-auto px-4 md:px-8;
+    @apply w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24;
   }
 
   .section {
     @apply py-16 md:py-24;
   }
 
+  .heading-hero {
+    @apply text-4xl sm:text-5xl md:text-6xl font-serif font-bold leading-tight tracking-tight text-gray-950;
+  }
+
+  .heading-section,
   .section-title {
-    @apply text-4xl md:text-5xl font-serif font-bold text-gray-950 leading-tight;
+    @apply text-3xl md:text-4xl font-serif font-bold leading-tight text-gray-950;
+  }
+
+  .heading-subsection {
+    @apply text-xl md:text-2xl font-serif font-bold leading-snug text-gray-950;
+  }
+
+  .heading-card {
+    @apply text-lg font-serif font-bold leading-snug text-gray-950;
+  }
+
+  .text-lead {
+    @apply text-lg md:text-xl leading-relaxed text-gray-600;
+  }
+
+  .text-body {
+    @apply text-base leading-relaxed text-gray-700;
+  }
+
+  .text-meta {
+    @apply text-sm leading-relaxed text-gray-500;
+  }
+
+  .text-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-accent;
+  }
+
+  .marquee-track {
+    animation: marquee-x 60s linear infinite;
+  }
+
+  .marquee-track:hover,
+  .marquee-track:focus-within {
+    animation-play-state: paused;
   }
 
   .btn-primary {
@@ -89,5 +127,20 @@
   select,
   textarea {
     @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all;
+  }
+}
+
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
   }
 }

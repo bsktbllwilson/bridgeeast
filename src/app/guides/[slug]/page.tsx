@@ -187,10 +187,10 @@ export default function GuidePage({ params }: PageProps) {
             </span>
             <span className="text-sm text-gray-500">{guide.phase} Phase</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">
+          <h1 className="heading-hero mb-6">
             {guide.title}
           </h1>
-          <div className="flex items-center gap-6 text-sm text-gray-500">
+          <div className="flex items-center gap-6 text-meta">
             <span>{Math.ceil(guide.content.length / 1000)} min read</span>
             <span>Last updated {new Date(guide.updated_at).toLocaleDateString('en-US', {
               year: 'numeric',

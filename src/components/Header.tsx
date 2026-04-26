@@ -23,7 +23,6 @@ export function Header() {
     { href: '/data', label: messages.nav.marketData },
     { href: '/listings', label: messages.nav.listings },
     { href: '/guides', label: messages.nav.guides },
-    { href: '/partners', label: messages.nav.partners },
   ]
 
   return (

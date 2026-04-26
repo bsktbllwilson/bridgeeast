@@ -132,14 +132,14 @@ export default function GuidesPage() {
       <Header />
 
       <section className="container section pt-32 md:pt-40 pb-20">
-        <h1 className="mb-6">{t('titleLine1')}<br /><span className="text-accent">{t('titleHighlight')}</span></h1>
-        <p className="text-lg text-gray-600 max-w-2xl">{t('subtitle')}</p>
+        <h1 className="heading-hero mb-6">{t('titleLine1')}<br /><span className="text-accent">{t('titleHighlight')}</span></h1>
+        <p className="text-lead max-w-2xl">{t('subtitle')}</p>
       </section>
 
       {/* Category Filter */}
       <section className="border-y-2 border-gray-200 py-8">
         <div className="container">
-          <h3 className="font-semibold text-gray-700 mb-4">{t('filterTitle')}</h3>
+          <h3 className="text-sm font-semibold text-gray-700 mb-4">{t('filterTitle')}</h3>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => setSelectedCategory(null)}
@@ -192,15 +192,15 @@ export default function GuidesPage() {
                   </span>
                   <span className="text-xs text-gray-500">{labelForPhase(guide.phase)}</span>
                 </div>
-                <h3 className="text-2xl font-serif font-bold mb-3 group-hover:text-accent transition-colors">
+                <h3 className="heading-subsection mb-3 group-hover:text-accent transition-colors">
                   {guide.title}
                 </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
+                <p className="text-body mb-6">
                   {guide.content.length > 150
                     ? `${guide.content.substring(0, 150)}...`
                     : guide.content}
                 </p>
-                <div className="flex items-center justify-between text-sm text-gray-500">
+                <div className="flex items-center justify-between text-meta">
                   <span>{t('minRead', {count: Math.ceil(guide.content.length / 1000)})}</span>
                   <span className="text-accent font-semibold group-hover:translate-x-1 transition-transform">
                     {t('read')}

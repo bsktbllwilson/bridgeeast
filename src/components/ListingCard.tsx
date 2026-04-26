@@ -41,22 +41,22 @@ export function ListingCard({
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col p-6">
-        <h2 className="text-2xl font-bold text-gray-950">{listing.title}</h2>
+      <div className="flex flex-1 flex-col p-6 not-italic">
+        <h2 className="heading-subsection not-italic">{listing.title}</h2>
 
-        <div className="mb-4 mt-4 flex items-center gap-2 text-sm text-gray-500">
+        <div className="mb-4 mt-4 flex items-center gap-2 text-meta not-italic">
           <MapPin className="h-4 w-4" />
           <span>{listing.city}</span>
         </div>
 
-        <p className="mb-6 flex-1 leading-relaxed text-gray-600">{listing.description || descriptionFallback}</p>
+        <p className="text-body not-italic mb-6 flex-1">{listing.description || descriptionFallback}</p>
 
         {listing.profiles && (
           <div className="mb-5 rounded-lg border border-gray-200 bg-gray-50 p-4">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <p className="font-semibold text-gray-900">{listing.profiles.business_name}</p>
-                <p className="text-sm text-gray-500">{listing.profiles.full_name}</p>
+                <p className="font-semibold not-italic text-gray-900">{listing.profiles.business_name}</p>
+                <p className="text-sm not-italic text-gray-500">{listing.profiles.full_name}</p>
               </div>
               {listing.profiles.verification_status === 'verified' && <VerificationBadge status="verified" />}
             </div>

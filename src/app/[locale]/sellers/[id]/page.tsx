@@ -147,19 +147,19 @@ export default function LocalizedSellerProfilePage({ params }: { params: { id: s
             <div>
               <p className="badge mb-6">{t('badge')}</p>
               <div className="mb-6 flex flex-wrap items-center gap-4">
-                <h1 className="mb-0">{profile.business_name}</h1>
+                <h1 className="heading-hero mb-0">{profile.business_name}</h1>
                 <VerificationBadge status={profile.verification_status} />
               </div>
-              <p className="mb-3 text-lg font-medium text-gray-700">{profile.full_name}</p>
-              <p className="max-w-3xl text-lg leading-relaxed text-gray-600">{profile.bio}</p>
+              <p className="text-body mb-3 font-medium text-gray-700">{profile.full_name}</p>
+              <p className="text-lead max-w-3xl">{profile.bio}</p>
             </div>
 
             <div className="card p-6">
               <div className="mb-4 flex items-center gap-3">
                 <Shield className="h-5 w-5 text-accent" />
-                <h2 className="text-2xl font-bold text-gray-950">{t('verificationTitle')}</h2>
+                <h2 className="heading-subsection">{t('verificationTitle')}</h2>
               </div>
-              <p className="mb-4 text-sm leading-relaxed text-gray-600">{t('verificationBody')}</p>
+              <p className="text-meta mb-4">{t('verificationBody')}</p>
               <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600">
                 <p><strong>{commonT('status')}:</strong> {profile.verification_status}</p>
                 <p><strong>{commonT('email')}:</strong> {profile.email}</p>
@@ -177,7 +177,7 @@ export default function LocalizedSellerProfilePage({ params }: { params: { id: s
           <section className="container pb-16">
             <div className="mb-8 flex items-center gap-3">
               <FileCheck2 className="h-5 w-5 text-accent" />
-              <h2 className="text-3xl font-bold text-gray-950">{t('activeListings')}</h2>
+              <h2 className="heading-section">{t('activeListings')}</h2>
             </div>
 
             <div className="grid gap-5 md:grid-cols-2">
@@ -189,13 +189,13 @@ export default function LocalizedSellerProfilePage({ params }: { params: { id: s
                   <div className="p-6">
                     <div className="mb-4 flex items-start justify-between gap-4">
                       <div>
-                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">{listing.category}</p>
-                        <h3 className="mt-2 text-2xl font-bold text-gray-950">{listing.title}</h3>
+                        <p className="text-eyebrow">{listing.category}</p>
+                        <h3 className="heading-subsection mt-2">{listing.title}</h3>
                       </div>
                       {profile.verification_status === 'verified' && <VerificationBadge status="verified" />}
                     </div>
-                    <p className="mb-3 text-sm text-gray-500">{listing.city}</p>
-                    <p className="mb-5 leading-relaxed text-gray-600">{listing.description}</p>
+                    <p className="text-meta mb-3">{listing.city}</p>
+                    <p className="text-body mb-5">{listing.description}</p>
                     <Link href={`/${locale}/listings/${listing.id}`} className="text-sm font-semibold text-accent transition-colors hover:text-accent-dark">
                       {commonT('viewListingDetails')}
                     </Link>
@@ -209,8 +209,8 @@ export default function LocalizedSellerProfilePage({ params }: { params: { id: s
             <div className="container grid gap-10 lg:grid-cols-[1fr_1.1fr]">
               <div>
                 <p className="badge mb-6">{t('getVerifiedBadge')}</p>
-                <h2 className="mb-4 text-4xl font-bold text-gray-950">{t('getVerifiedTitle')}</h2>
-                <p className="text-lg leading-relaxed text-gray-600">{t('getVerifiedBody')}</p>
+                <h2 className="heading-section mb-4">{t('getVerifiedTitle')}</h2>
+                <p className="text-lead">{t('getVerifiedBody')}</p>
               </div>
 
               <form onSubmit={handleVerificationSubmit} className="card space-y-5 p-8">
