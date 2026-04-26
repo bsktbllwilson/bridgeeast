@@ -29,11 +29,11 @@ const CARDS = [
   },
 ] as const
 
-export function ValueProps() {
+export function ValueProps({ heading = 'Our Plates Are Full' }: { heading?: string } = {}) {
   return (
     <section className="py-16 md:py-24">
       <Container>
-        <h2 className="font-display text-4xl text-brand-ink md:text-5xl">Our Plates Are Full</h2>
+        <h2 className="font-display text-4xl text-brand-ink md:text-5xl">{heading}</h2>
       </Container>
 
       <div className="mt-10 overflow-x-auto pb-2">
