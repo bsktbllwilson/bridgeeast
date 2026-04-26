@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { signUpAction, type AuthFormResult } from '@/lib/auth-actions'
+import { trackSignup } from '@/lib/analytics'
 
 interface Props {
   next: string | null
@@ -32,6 +33,9 @@ export function SignUpForm({ next }: Props) {
     const r = await signUpAction(undefined, fd)
     setPending(false)
     setResult(r)
+    if (r.ok) {
+      trackSignup({ role, method: 'password' })
+    }
   }
 
   if (result?.ok) {

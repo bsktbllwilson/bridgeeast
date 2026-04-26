@@ -9,6 +9,7 @@ import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { JsonLd } from '@/components/JsonLd'
 import { FinancialsPanel } from '@/components/marketplace/FinancialsPanel'
+import { ListingViewTracker } from '@/components/marketplace/ListingViewTracker'
 import { type AppLocale } from '@/i18n/locales'
 import { getBusinessListing } from '@/lib/marketplace/queries'
 import { localizedListingField } from '@/lib/marketplace/types'
@@ -124,6 +125,11 @@ export default async function MarketplaceListingDetailPage({
   return (
     <main className="min-h-screen bg-gray-50">
       <JsonLd data={productJsonLd} />
+      <ListingViewTracker
+        listingId={listing.id}
+        cuisine={listing.cuisine_type}
+        city={listing.city ?? undefined}
+      />
       <Header />
 
       <section className="container pt-32 md:pt-40">

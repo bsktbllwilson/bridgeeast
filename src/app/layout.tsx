@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Playfair_Display, DM_Sans } from 'next/font/google'
+import { AnalyticsProviders } from '@/components/AnalyticsProviders'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -99,6 +100,7 @@ export default function RootLayout({
       </head>
       <body className={`${playfair.variable} ${dmSans.variable} font-sans antialiased`}>
         {children}
+        <AnalyticsProviders />
       </body>
     </html>
   )
