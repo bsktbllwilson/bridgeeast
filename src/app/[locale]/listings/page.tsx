@@ -142,7 +142,7 @@ export default function LocalizedListingsPage() {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              "linear-gradient(180deg, rgba(15, 23, 42, 0.15) 0%, rgba(15, 23, 42, 0.52) 45%, rgba(15, 23, 42, 0.84) 100%), url('https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1800&q=80')",
+              "linear-gradient(180deg, rgba(15, 23, 42, 0.15) 0%, rgba(15, 23, 42, 0.52) 45%, rgba(15, 23, 42, 0.84) 100%), url('/images/hands-noodle-bowls.jpg')",
           }}
         />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(216,90,48,0.28),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.12),transparent_28%)]" />
@@ -292,7 +292,7 @@ export default function LocalizedListingsPage() {
         <div className="grid w-full lg:grid-cols-2">
           <div className="relative aspect-[4/5] w-full lg:aspect-auto lg:min-h-[560px]">
             <img
-              src="/noodles-hero.jpg"
+              src="/images/noodle-pull.jpg"
               alt={t('splitImageAlt')}
               className="absolute inset-0 h-full w-full object-cover"
             />

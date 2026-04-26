@@ -30,16 +30,16 @@ export interface SellerListing {
 }
 
 const listingCategoryImages: Record<string, string> = {
-  restaurant: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80',
-  food: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80',
-  'quick service': 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80',
-  cafe: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=80',
-  bakery: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=1200&q=80',
-  retail: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80',
-  wellness: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1200&q=80',
+  restaurant: '/images/feast-spread.jpg',
+  food: '/images/noodle-spread.jpg',
+  'quick service': '/images/dumplings.jpg',
+  cafe: '/images/pastries-matcha.jpg',
+  bakery: '/images/pastries-matcha.jpg',
+  retail: '/images/restaurant-blue-tiles.jpg',
+  wellness: '/images/friends-dining.jpg',
 }
 
-const defaultListingImage = 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80'
+const defaultListingImage = '/images/noodle-spread.jpg'
 
 export function getListingImageUrl(listing: Pick<SellerListing, 'category' | 'image_url'>) {
   if (listing.image_url) {
@@ -101,7 +101,7 @@ export const sampleListings: SellerListing[] = [
     category: 'Quick Service',
     city: 'Brooklyn',
     description: 'Seeking a 900-1,200 sq ft corner storefront with strong lunch traffic and venting potential.',
-    image_url: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80',
+    image_url: '/images/dumplings.jpg',
     moderation_status: 'active',
     is_flagged: false,
     profiles: {
@@ -118,7 +118,7 @@ export const sampleListings: SellerListing[] = [
     category: 'Cafe',
     city: 'Manhattan',
     description: 'Compact beverage-led concept targeting office density and afternoon snack demand.',
-    image_url: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=80',
+    image_url: '/images/pastries-matcha.jpg',
     moderation_status: 'active',
     is_flagged: true,
     flag_reason: 'Needs a closer review of marketing claims and listing imagery.',
@@ -136,7 +136,7 @@ export const sampleListings: SellerListing[] = [
     category: 'Bakery',
     city: 'Queens',
     description: 'Production bakery concept with a retail counter and commissary capacity for wholesale expansion.',
-    image_url: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=1200&q=80',
+    image_url: '/images/pastries-matcha.jpg',
     moderation_status: 'active',
     is_flagged: false,
     profiles: {
