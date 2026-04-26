@@ -3,21 +3,6 @@
 import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 
-const FIELDS_LEFT = [
-  { name: 'fullName', label: 'Full Name', type: 'text' },
-  { name: 'phone', label: 'Phone No.', type: 'tel' },
-  { name: 'company', label: 'Company', type: 'text' },
-  { name: 'address', label: 'Address', type: 'text' },
-  { name: 'specialty', label: 'Specialty', type: 'text' },
-] as const
-
-const FIELDS_RIGHT = [
-  { name: 'jobTitle', label: 'Job Title', type: 'text' },
-  { name: 'email', label: 'Email', type: 'email' },
-  { name: 'website', label: 'Website', type: 'url' },
-  { name: 'referral', label: 'Referral', type: 'text' },
-] as const
-
 export function PartnerForm() {
   const [submitted, setSubmitted] = useState(false)
 
@@ -41,20 +26,35 @@ export function PartnerForm() {
 
   return (
     <form onSubmit={handleSubmit} className="mt-10 space-y-5">
+      {/* Row 1: Full Name | Job Title */}
       <div className="grid gap-5 md:grid-cols-2 md:gap-x-10">
-        <div className="space-y-5">
-          {FIELDS_LEFT.map((field) => (
-            <FieldRow key={field.name} {...field} />
-          ))}
-        </div>
-        <div className="space-y-5">
-          {FIELDS_RIGHT.map((field) => (
-            <FieldRow key={field.name} {...field} />
-          ))}
-        </div>
+        <FieldRow name="fullName" label="Full Name" type="text" />
+        <FieldRow name="jobTitle" label="Job Title" type="text" />
       </div>
 
-      <FieldRow name="bio" label="Bio" textarea />
+      {/* Row 2: Phone No. | Email */}
+      <div className="grid gap-5 md:grid-cols-2 md:gap-x-10">
+        <FieldRow name="phone" label="Phone No." type="tel" />
+        <FieldRow name="email" label="Email" type="email" />
+      </div>
+
+      {/* Row 3: Company | Website */}
+      <div className="grid gap-5 md:grid-cols-2 md:gap-x-10">
+        <FieldRow name="company" label="Company" type="text" />
+        <FieldRow name="website" label="Website" type="url" />
+      </div>
+
+      {/* Row 4: Address (full width) */}
+      <FieldRow name="address" label="Address" type="text" wide />
+
+      {/* Row 5: Specialty | Referral */}
+      <div className="grid gap-5 md:grid-cols-2 md:gap-x-10">
+        <FieldRow name="specialty" label="Specialty" type="text" />
+        <FieldRow name="referral" label="Referral" type="text" />
+      </div>
+
+      {/* Row 6: Bio (full width textarea) */}
+      <FieldRow name="bio" label="Bio" textarea wide />
 
       <div className="pt-4">
         <button type="submit" className="ptp-btn-primary w-full justify-center">
@@ -71,17 +71,21 @@ function FieldRow({
   label,
   type = 'text',
   textarea = false,
+  wide = false,
 }: {
   name: string
   label: string
   type?: string
   textarea?: boolean
+  wide?: boolean
 }) {
+  const labelClass = wide
+    ? 'ptp-display w-20 shrink-0 text-sm font-bold leading-[2.75rem] text-ptp-ink'
+    : 'ptp-display w-28 shrink-0 text-sm font-bold leading-[2.75rem] text-ptp-ink'
+
   return (
     <label className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-4">
-      <span className="ptp-display w-28 shrink-0 text-sm font-bold leading-[2.75rem] text-ptp-ink">
-        {label}
-      </span>
+      <span className={labelClass}>{label}</span>
       {textarea ? (
         <textarea name={name} className="ptp-textarea" />
       ) : (
