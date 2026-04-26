@@ -47,3 +47,7 @@ yarn-error.log*
 # One-off bundles for downloading the project out of the sandbox.
 # Not source — never commit.
 *.tar.gz
+
+# Editor / shell auto-saves of env files
+*.save
+.env.local.save
