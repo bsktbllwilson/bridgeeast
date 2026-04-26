@@ -3,15 +3,13 @@ export type PtpRoute = {
   label: string
 }
 
-export const PTP_BASE = '/marketplace'
-
 export function ptpRoute(path: string, locale: string) {
   const cleanPath = path.startsWith('/') ? path : `/${path}`
-  return `/${locale}${PTP_BASE}${cleanPath}`
+  return `/${locale}${cleanPath}`
 }
 
 export function ptpHome(locale: string) {
-  return `/${locale}${PTP_BASE}`
+  return `/${locale}`
 }
 
 export const ptpPrimaryNav: PtpRoute[] = [
