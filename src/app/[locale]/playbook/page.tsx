@@ -7,7 +7,9 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { FindYourNextBigDeal } from '@/components/FindYourNextBigDeal'
 import { BuySellSplit } from '@/components/BuySellSplit'
+import { TranslationBadge } from '@/components/TranslationBadge'
 import { hasSupabaseEnv, supabase } from '@/lib/supabase'
+import { pickLocalizedField } from '@/lib/i18n-content'
 import { localizePath, type AppLocale } from '@/i18n/locales'
 import {
   PLAYBOOK_CATEGORIES,
@@ -164,6 +166,8 @@ function interleaveSubscribe(posts: PlaybookPost[]): GridItem[] {
 
 function PostCard({ post, locale }: { post: PlaybookPost; locale: AppLocale }) {
   const t = useTranslations('pages.playbookPage')
+  const localizedTitle = pickLocalizedField(post, 'title', locale)
+  const localizedContent = pickLocalizedField(post, 'content', locale)
   return (
     <Link
       href={localizePath(`/playbook/${post.slug}`, locale)}
@@ -178,10 +182,17 @@ function PostCard({ post, locale }: { post: PlaybookPost; locale: AppLocale }) {
         </span>
       </div>
       <div className="p-7 flex flex-col flex-grow">
-        <h3 className="font-display text-2xl md:text-[28px] font-bold mb-3 leading-tight group-hover:text-accent transition-colors">
-          {post.title}
-        </h3>
-        <p className="text-gray-700 text-sm mb-6 line-clamp-3">{buildExcerpt(post.content)}</p>
+        <div className="flex items-start gap-2 mb-3">
+          <h3 className="font-display text-2xl md:text-[28px] font-bold leading-tight group-hover:text-accent transition-colors flex-1">
+            {localizedTitle.value}
+          </h3>
+        </div>
+        {localizedTitle.reason === 'fallback' && (
+          <TranslationBadge reason="fallback" className="mb-3 self-start" />
+        )}
+        <p className="text-gray-700 text-sm mb-6 line-clamp-3">
+          {buildExcerpt(localizedContent.value)}
+        </p>
         <span className="mt-auto text-sm font-semibold text-black group-hover:translate-x-1 transition-transform">
           {t('readGuide')}
         </span>

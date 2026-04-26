@@ -8,6 +8,12 @@ export interface PlaybookPost {
   published: boolean
   created_at?: string
   updated_at?: string
+  title_zh?: string | null
+  title_ko?: string | null
+  title_vi?: string | null
+  content_zh?: string | null
+  content_ko?: string | null
+  content_vi?: string | null
 }
 
 export const PLAYBOOK_FALLBACK_POSTS: PlaybookPost[] = [

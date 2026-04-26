@@ -13,6 +13,7 @@ const AUTH_REQUIRED_PATTERNS: RegExp[] = [
   /^\/account(\/.*)?$/,
   /^\/verify(\/.*)?$/,
   /^\/sell\/new$/,
+  /^\/admin\/translations(\/.*)?$/,
   /^\/marketplace\/listings\/[^/]+\/inquire$/,
   /^\/marketplace\/listings\/new$/,
   /^\/marketplace\/listings\/[^/]+\/edit$/,
