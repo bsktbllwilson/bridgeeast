@@ -171,9 +171,18 @@ export default function PartnersPage() {
     <main className="min-h-screen bg-white">
       <Header />
 
-      <section className="container section pt-32 md:pt-40 pb-20">
-        <h1 className="heading-hero mb-6">{t('titleLine1')}<br /><span className="text-accent">{t('titleHighlight')}</span></h1>
-        <p className="text-lead max-w-2xl">{t('subtitle')}</p>
+      <section className="relative isolate overflow-hidden bg-slate-950 pt-24 text-white md:pt-28">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "linear-gradient(180deg, rgba(15, 23, 42, 0.25) 0%, rgba(15, 23, 42, 0.55) 50%, rgba(15, 23, 42, 0.85) 100%), url('/images/restaurant-neon.jpg')",
+          }}
+        />
+        <div className="container relative z-10 py-20 md:py-28">
+          <h1 className="heading-hero mb-6 text-white">{t('titleLine1')}<br /><span className="text-accent">{t('titleHighlight')}</span></h1>
+          <p className="text-lead max-w-2xl text-white/80">{t('subtitle')}</p>
+        </div>
       </section>
 
       {/* Filters */}
@@ -323,13 +332,22 @@ export default function PartnersPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-gray-50 section">
-        <div className="container text-center max-w-2xl mx-auto">
-          <h2 className="section-title">{t('ctaTitle')}</h2>
-          <p className="text-gray-600 mb-8">{t('ctaBody')}</p>
-          <Link href={localizePath('/waitlist', locale)} className="btn-primary">
-            {t('ctaButton')}
-          </Link>
+      <section className="bg-gray-50">
+        <div className="grid w-full lg:grid-cols-2">
+          <div className="relative aspect-[4/3] w-full lg:aspect-auto lg:min-h-[420px]">
+            <img
+              src="/images/restaurant-blue-tiles.jpg"
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
+          <div className="flex flex-col items-start justify-center gap-6 px-6 py-16 sm:px-10 md:px-14 lg:px-20">
+            <h2 className="section-title">{t('ctaTitle')}</h2>
+            <p className="text-gray-600">{t('ctaBody')}</p>
+            <Link href={localizePath('/waitlist', locale)} className="btn-primary">
+              {t('ctaButton')}
+            </Link>
+          </div>
         </div>
       </section>
 

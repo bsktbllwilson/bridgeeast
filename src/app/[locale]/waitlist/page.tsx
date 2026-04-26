@@ -200,6 +200,25 @@ export default function WaitlistPage() {
         )}
       </section>
 
+      <section aria-hidden="true" className="bg-white">
+        <div className="grid w-full md:grid-cols-2">
+          <div className="relative aspect-[4/5] w-full md:aspect-[3/4]">
+            <img
+              src="/images/eating-closeup.jpg"
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
+          <div className="relative aspect-[4/5] w-full md:aspect-[3/4]">
+            <img
+              src="/images/friends-dining.jpg"
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* What You'll Get */}
       <section className="bg-gray-50 section">
         <div className="container">
