@@ -40,3 +40,6 @@ pnpm-debug.log*
 
 # Vercel
 .vercel
+
+# Supabase CLI link state (project ref, db creds)
+.supabase
