@@ -92,6 +92,15 @@
     @apply text-xs font-semibold uppercase tracking-[0.2em] text-accent;
   }
 
+  .marquee-track {
+    animation: marquee-x 60s linear infinite;
+  }
+
+  .marquee-track:hover,
+  .marquee-track:focus-within {
+    animation-play-state: paused;
+  }
+
   .btn-primary {
     @apply px-8 py-3 bg-accent hover:bg-accent-dark text-white font-medium rounded-md transition-all duration-200 inline-block shadow-md hover:shadow-lg hover:shadow-accent/40 active:scale-95;
   }
@@ -118,5 +127,20 @@
   select,
   textarea {
     @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all;
+  }
+}
+
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
   }
 }

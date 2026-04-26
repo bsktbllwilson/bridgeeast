@@ -122,8 +122,8 @@
       "responseValue": "Compare listings first, then open bilingual seller conversations inline when a space makes the shortlist."
     },
     "badge": "Live marketplace",
-    "title": "Restaurant listings ready for buyer review",
-    "subtitle": "A visual starting point for restaurant acquisition and market-entry scouting: scan the image, read the story, and move into the seller profile when you want diligence.",
+    "title": "Business for Sale",
+    "viewListingsCta": "View Listings",
     "resultsCount": "{count, plural, =0 {No listings} one {# listing} other {# listings}}",
     "emptyTitle": "No listings match these filters yet.",
     "emptyBody": "Try another keyword, open up the borough filter, or clear the category chips to widen the search.",
