@@ -1,18 +1,21 @@
-import { Container } from '@/components/ui/container'
-import { MarketingShell } from '@/components/marketing/marketing-shell'
+import { BuySellSplit } from '@/components/marketing/buy-sell-split'
+import { FindYourNextBigDeal } from '@/components/marketing/find-your-next-big-deal'
+import { Hero } from '@/components/marketing/hero'
+import { LogosStrip } from '@/components/marketing/logos-strip'
+import { StatsBand } from '@/components/marketing/stats-band'
+import { TrendingHotspots } from '@/components/marketing/trending-hotspots'
+import { ValueProps } from '@/components/marketing/value-props'
 
 export default function Home() {
   return (
-    <MarketingShell>
-      <Container className="py-24 md:py-32">
-        <h1 className="font-display text-5xl leading-[1.05] md:text-7xl">
-          The marketplace for Asian F&amp;B business sales.
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg text-brand-muted">
-          Browse vetted restaurants, bakeries, and food businesses for sale across the country — or
-          list your own and find the right operator to take it forward.
-        </p>
-      </Container>
-    </MarketingShell>
+    <>
+      <Hero />
+      <TrendingHotspots />
+      <ValueProps />
+      <BuySellSplit />
+      <StatsBand />
+      <LogosStrip />
+      <FindYourNextBigDeal />
+    </>
   )
 }
