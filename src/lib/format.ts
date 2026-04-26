@@ -27,3 +27,17 @@ export function formatCuisine(cuisine: string | null | undefined): string | null
   if (!cuisine) return null
   return CUISINE_LABEL[cuisine] ?? cuisine
 }
+
+const SPECIALTY_LABEL: Record<string, string> = {
+  sba_lender: 'SBA Lender',
+  immigration_attorney: 'Immigration Attorney',
+  bilingual_broker: 'Bilingual Broker',
+  accountant: 'Accountant',
+  insurance: 'Insurance',
+  other: 'Other',
+}
+
+export function formatSpecialty(specialty: string | null | undefined): string | null {
+  if (!specialty) return null
+  return SPECIALTY_LABEL[specialty] ?? specialty
+}
