@@ -22,8 +22,11 @@ export function Header() {
   const locale = getLocaleFromPathname(pathname)
   const alternateLocale = getOppositeLocale(locale)
   const messages = getStaticMessages(locale)
-  const homeHref = localizePath('/listings', locale)
+  const homeHref = localizePath('/marketplace/browse', locale)
   const isInMarketplace = (pathname ?? '').includes('/marketplace')
+  // passtheplate.store presents itself as the Pass The Plate brand by default;
+  // BridgeEast remains accessible via the Products dropdown.
+  const brandLabel = messages.marketplace.brand
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -73,7 +76,7 @@ export function Header() {
     <header className="border-b border-gray-200 sticky top-0 bg-white/95 backdrop-blur z-50 shadow-sm">
       <div className="container flex items-center justify-between h-18 md:h-20">
         <Link href={homeHref} className="text-2xl md:text-3xl font-serif font-bold text-gray-950 hover:text-accent transition-colors">
-          {isInMarketplace ? messages.marketplace.brand : 'BridgeEast'}
+          {brandLabel}
         </Link>
 
         {/* Desktop Menu */}
@@ -165,7 +168,7 @@ export function Header() {
               ))}
 
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400 pt-3">
-                {isInMarketplace ? messages.marketplace.brand : 'BridgeEast'}
+                {brandLabel}
               </p>
               {navLinks.map((link) => (
                 <Link
