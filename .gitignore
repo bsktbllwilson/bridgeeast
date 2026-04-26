@@ -43,3 +43,7 @@ yarn-error.log*
 .vscode/
 .vercel
 .env*.local
+
+# One-off bundles for downloading the project out of the sandbox.
+# Not source — never commit.
+*.tar.gz
