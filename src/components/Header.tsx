@@ -12,6 +12,7 @@ import {
   localizePath,
 } from '@/i18n/locales'
 import { getStaticMessages } from '@/i18n/static-messages'
+import { UserMenu } from '@/components/UserMenu'
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -129,6 +130,8 @@ export function Header() {
           >
             {localeLabels[alternateLocale]}
           </Link>
+
+          <UserMenu locale={locale} />
         </nav>
 
         {/* Mobile Menu Button */}
@@ -189,6 +192,9 @@ export function Header() {
               >
                 {localeLabels[alternateLocale]}
               </Link>
+              <div className="pt-2 border-t border-gray-100 mt-2">
+                <UserMenu locale={locale} />
+              </div>
             </div>
           </div>
         )}
