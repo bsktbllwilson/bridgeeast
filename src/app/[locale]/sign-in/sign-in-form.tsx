@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import {
   signInWithMagicLinkAction,
   signInWithPasswordAction,
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export function SignInForm({ next, initialError }: Props) {
+  const t = useTranslations('pages.auth')
   const [mode, setMode] = useState<'password' | 'magic'>('password')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -54,7 +56,7 @@ export function SignInForm({ next, initialError }: Props) {
             mode === 'password' ? 'bg-white shadow' : 'text-gray-600'
           }`}
         >
-          Password
+          {t('passwordTab')}
         </button>
         <button
           type="button"
@@ -63,13 +65,13 @@ export function SignInForm({ next, initialError }: Props) {
             mode === 'magic' ? 'bg-white shadow' : 'text-gray-600'
           }`}
         >
-          Magic link
+          {t('magicTab')}
         </button>
       </div>
 
       <div>
         <label htmlFor="signin-email" className="block text-sm font-medium text-gray-800 mb-2">
-          Email
+          {t('emailLabel')}
         </label>
         <input
           id="signin-email"
@@ -88,7 +90,7 @@ export function SignInForm({ next, initialError }: Props) {
             htmlFor="signin-password"
             className="block text-sm font-medium text-gray-800 mb-2"
           >
-            Password
+            {t('passwordLabel')}
           </label>
           <input
             id="signin-password"
@@ -114,11 +116,11 @@ export function SignInForm({ next, initialError }: Props) {
       >
         {pending
           ? mode === 'password'
-            ? 'Signing in…'
-            : 'Sending link…'
+            ? t('signInPending')
+            : t('magicPending')
           : mode === 'password'
-            ? 'Sign In →'
-            : 'Send Magic Link →'}
+            ? t('signInButton')
+            : t('magicSendButton')}
       </button>
 
       <button
@@ -127,7 +129,7 @@ export function SignInForm({ next, initialError }: Props) {
         title="Coming soon"
         className="w-full bg-white border border-gray-300 text-gray-500 px-6 py-3 rounded-md font-medium cursor-not-allowed"
       >
-        Continue with Google (coming soon)
+        {t('googleStub')}
       </button>
     </form>
   )

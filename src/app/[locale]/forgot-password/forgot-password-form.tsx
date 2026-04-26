@@ -1,9 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { requestPasswordResetAction, type AuthFormResult } from '@/lib/auth-actions'
 
 export function ForgotPasswordForm() {
+  const t = useTranslations('pages.auth')
   const [email, setEmail] = useState('')
   const [pending, setPending] = useState(false)
   const [result, setResult] = useState<AuthFormResult | null>(null)
@@ -22,8 +24,8 @@ export function ForgotPasswordForm() {
   if (result?.ok) {
     return (
       <div className="text-center">
-        <div className="font-display text-2xl font-bold mb-3">Check your inbox</div>
-        <p className="text-gray-700">{result.message}</p>
+        <div className="font-display text-2xl font-bold mb-3">{t('checkInboxHeading')}</div>
+        <p className="text-gray-700">{result.message ?? t('checkInboxReset')}</p>
       </div>
     )
   }
@@ -32,7 +34,7 @@ export function ForgotPasswordForm() {
     <form onSubmit={onSubmit} className="space-y-5">
       <div>
         <label htmlFor="forgot-email" className="block text-sm font-medium text-gray-800 mb-2">
-          Email
+          {t('emailLabel')}
         </label>
         <input
           id="forgot-email"
@@ -50,7 +52,7 @@ export function ForgotPasswordForm() {
         disabled={pending}
         className="w-full bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-900 transition-colors disabled:opacity-60"
       >
-        {pending ? 'Sending…' : 'Send Reset Link →'}
+        {pending ? t('resetPending') : t('resetButton')}
       </button>
     </form>
   )

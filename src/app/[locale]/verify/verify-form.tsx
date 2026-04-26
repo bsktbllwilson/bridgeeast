@@ -1,11 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { submitProofOfFundsAction } from './actions'
 
 type Kind = 'bank_statement' | 'sba_pre_qual'
 
 export function VerifyForm({ initialKind = 'bank_statement' as Kind }) {
+  const t = useTranslations('pages.verifyPage')
   const [kind, setKind] = useState<Kind>(initialKind)
   const [file, setFile] = useState<File | null>(null)
   const [pending, setPending] = useState(false)
@@ -35,11 +37,8 @@ export function VerifyForm({ initialKind = 'bank_statement' as Kind }) {
   if (success) {
     return (
       <div className="rounded-2xl bg-white border border-black/5 p-8 md:p-10 text-center">
-        <div className="font-display text-2xl font-bold mb-3">Submitted for review</div>
-        <p className="text-gray-700">
-          Thanks — our team manually reviews proof-of-funds within 1–2 business days. You’ll get
-          an email when your buyer status flips to verified.
-        </p>
+        <div className="font-display text-2xl font-bold mb-3">{t('successHeading')}</div>
+        <p className="text-gray-700">{t('successBody')}</p>
       </div>
     )
   }
@@ -47,28 +46,26 @@ export function VerifyForm({ initialKind = 'bank_statement' as Kind }) {
   return (
     <form onSubmit={onSubmit} className="rounded-2xl bg-white border border-black/5 p-8 md:p-10 space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-800 mb-3">
-          What are you uploading?
-        </label>
+        <label className="block text-sm font-medium text-gray-800 mb-3">{t('kindLabel')}</label>
         <div className="grid sm:grid-cols-2 gap-3">
           <KindCard
             active={kind === 'bank_statement'}
             onClick={() => setKind('bank_statement')}
-            title="Bank statement"
-            sub="Recent statement or asset summary showing available capital."
+            title={t('kindBankTitle')}
+            sub={t('kindBankSub')}
           />
           <KindCard
             active={kind === 'sba_pre_qual'}
             onClick={() => setKind('sba_pre_qual')}
-            title="SBA pre-qual letter"
-            sub="Pre-qualification letter from your SBA lender."
+            title={t('kindSbaTitle')}
+            sub={t('kindSbaSub')}
           />
         </div>
       </div>
 
       <div>
         <label htmlFor="pof-file" className="block text-sm font-medium text-gray-800 mb-2">
-          File (PDF, PNG, JPG · 10 MB max)
+          {t('fileLabel')}
         </label>
         <input
           id="pof-file"
@@ -80,7 +77,7 @@ export function VerifyForm({ initialKind = 'bank_statement' as Kind }) {
         />
         {file && (
           <p className="text-xs text-gray-600 mt-2">
-            Selected: {file.name} ({Math.round(file.size / 1024)} KB)
+            {file.name} ({Math.round(file.size / 1024)} KB)
           </p>
         )}
       </div>
@@ -92,13 +89,10 @@ export function VerifyForm({ initialKind = 'bank_statement' as Kind }) {
         disabled={pending || !file}
         className="w-full bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-900 transition-colors disabled:opacity-60"
       >
-        {pending ? 'Uploading…' : 'Submit for Review →'}
+        {pending ? t('submitPending') : t('submitButton')}
       </button>
 
-      <p className="text-xs text-gray-600">
-        Your document is uploaded to a private bucket. Only Pass The Plate admins can view it
-        during the review.
-      </p>
+      <p className="text-xs text-gray-600">{t('privacyNote')}</p>
     </form>
   )
 }

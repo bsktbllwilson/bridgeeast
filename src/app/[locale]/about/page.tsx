@@ -1,7 +1,9 @@
+import { getTranslations } from 'next-intl/server'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { FindYourNextBigDeal } from '@/components/FindYourNextBigDeal'
 import { BuySellSplit } from '@/components/BuySellSplit'
+import type { AppLocale } from '@/i18n/locales'
 
 export const metadata = {
   title: 'Who We Are — Pass The Plate',
@@ -62,7 +64,9 @@ const TEAM = [
 
 const PRESS = ['World Journal', 'The Korea Times', 'Eater', 'Restaurant Dive', 'Sing Tao Daily', 'Người Việt']
 
-export default function AboutPage() {
+export default async function AboutPage({ params }: { params: { locale: string } }) {
+  const locale = params.locale as AppLocale
+  const t = await getTranslations({ locale, namespace: 'pages.aboutPage' })
   return (
     <main className="min-h-screen bg-cream">
       <Header />
@@ -70,10 +74,10 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="container pt-24 md:pt-32 pb-12 md:pb-16 text-center">
         <p className="text-sm md:text-base tracking-widest uppercase text-gray-600 mb-5">
-          About Pass The Plate
+          {t('kicker')}
         </p>
         <h1 className="font-display text-5xl md:text-7xl xl:text-[120px] font-bold leading-none">
-          Who We Are
+          {t('heading')}
         </h1>
       </section>
 
@@ -139,7 +143,7 @@ export default function AboutPage() {
       {/* Our Story timeline */}
       <section className="container section">
         <h2 className="font-display text-4xl md:text-6xl font-bold text-center mb-14">
-          Our Story
+          {t('ourStory')}
         </h2>
         <div className="max-w-4xl mx-auto space-y-10">
           {TIMELINE.map((m) => (
@@ -163,7 +167,7 @@ export default function AboutPage() {
       <section className="bg-white border-y border-black/5">
         <div className="container py-16 md:py-24">
           <h2 className="font-display text-4xl md:text-6xl font-bold text-center mb-14">
-            The Team
+            {t('theTeam')}
           </h2>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {TEAM.map((t) => (
@@ -186,7 +190,7 @@ export default function AboutPage() {
       {/* Press strip */}
       <section className="container py-14">
         <p className="text-center text-xs md:text-sm uppercase tracking-widest text-gray-600 mb-6">
-          As Featured In
+          {t('asFeaturedIn')}
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
           {PRESS.map((name) => (
@@ -200,8 +204,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <FindYourNextBigDeal />
-      <BuySellSplit />
+      <FindYourNextBigDeal locale={locale} />
+      <BuySellSplit locale={locale} />
       <Footer />
     </main>
   )

@@ -1,11 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { submitContactMessage } from './actions'
 
 const TOPICS = ['Buying', 'Selling', 'Membership', 'Partnership', 'Press', 'Other'] as const
 
 export function ContactForm() {
+  const t = useTranslations('pages.contactPage')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [topic, setTopic] = useState<string>('Buying')
@@ -33,7 +35,9 @@ export function ContactForm() {
   if (status === 'success') {
     return (
       <div className="rounded-2xl bg-white border border-black/5 p-8 md:p-10">
-        <h3 className="font-display text-2xl md:text-3xl font-bold mb-3">Thanks — message received.</h3>
+        <h3 className="font-display text-2xl md:text-3xl font-bold mb-3">
+          {t('formSuccessHeading')}
+        </h3>
         <p className="text-gray-700">
           We read every note and reply within one business day. If it’s urgent, email
           {' '}<a className="text-accent underline" href="mailto:hello@passtheplate.store">hello@passtheplate.store</a>{' '}
@@ -43,7 +47,7 @@ export function ContactForm() {
           onClick={() => setStatus('idle')}
           className="mt-6 text-sm font-medium text-gray-700 underline hover:text-black"
         >
-          Send another message
+          {t('formAnother')}
         </button>
       </div>
     )
@@ -56,7 +60,7 @@ export function ContactForm() {
     >
       <div>
         <label htmlFor="contact-name" className="block text-sm font-medium text-gray-800 mb-2">
-          Your name
+          {t('formName')}
         </label>
         <input
           id="contact-name"
@@ -69,7 +73,7 @@ export function ContactForm() {
       </div>
       <div>
         <label htmlFor="contact-email" className="block text-sm font-medium text-gray-800 mb-2">
-          Email
+          {t('formEmail')}
         </label>
         <input
           id="contact-email"
@@ -82,7 +86,7 @@ export function ContactForm() {
       </div>
       <div>
         <label htmlFor="contact-topic" className="block text-sm font-medium text-gray-800 mb-2">
-          Topic
+          {t('formTopic')}
         </label>
         <select
           id="contact-topic"
@@ -99,7 +103,7 @@ export function ContactForm() {
       </div>
       <div>
         <label htmlFor="contact-message" className="block text-sm font-medium text-gray-800 mb-2">
-          Message
+          {t('formMessage')}
         </label>
         <textarea
           id="contact-message"
@@ -118,7 +122,7 @@ export function ContactForm() {
         disabled={status === 'submitting'}
         className="w-full bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-900 transition-colors disabled:opacity-60"
       >
-        {status === 'submitting' ? 'Sending…' : 'Send Message →'}
+        {status === 'submitting' ? t('formPending') : t('formSubmit')}
       </button>
     </form>
   )

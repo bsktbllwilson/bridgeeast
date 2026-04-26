@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { localizePath, type AppLocale } from '@/i18n/locales'
@@ -71,21 +72,18 @@ async function fetchInquiries(profileId: string): Promise<InquiryRow[]> {
 }
 
 export default async function AccountPage({ params, searchParams }: PageProps) {
-  const profile = await getCurrentProfile()
-  // Middleware redirects unauthenticated users; this guard is for the rare
-  // race where the profile row hasn't been created yet.
   const locale = params.locale as AppLocale
+  const t = await getTranslations({ locale, namespace: 'pages.accountPage' })
+  const profile = await getCurrentProfile()
 
   if (!profile) {
     return (
       <main className="min-h-screen bg-cream">
         <Header />
         <div className="container pt-32 pb-24 text-center">
-          <p className="text-gray-700 mb-6">
-            We couldn’t load your profile. Try signing out and back in.
-          </p>
+          <p className="text-gray-700 mb-6">{t('loadFailed')}</p>
           <Link href={localizePath('/sign-in', locale)} className="btn-primary">
-            Back to sign in
+            {t('loadFailedCta')}
           </Link>
         </div>
         <Footer />
@@ -114,10 +112,10 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
   ])
 
   const tabs: { key: Tab; label: string; show: boolean }[] = [
-    { key: 'listings', label: 'My Listings', show: isSeller },
-    { key: 'inquiries', label: 'Inquiries Sent', show: isBuyer },
-    { key: 'membership', label: 'Membership', show: true },
-    { key: 'settings', label: 'Settings', show: true },
+    { key: 'listings', label: t('tabListings'), show: isSeller },
+    { key: 'inquiries', label: t('tabInquiries'), show: isBuyer },
+    { key: 'membership', label: t('tabMembership'), show: true },
+    { key: 'settings', label: t('tabSettings'), show: true },
   ]
 
   const greeting = profile.full_name?.trim() || profile.email
@@ -129,39 +127,37 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
       <section className="container pt-24 md:pt-32 pb-20">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-baseline justify-between flex-wrap gap-4 mb-2">
-            <p className="text-sm tracking-widest uppercase text-gray-600">Account</p>
+            <p className="text-sm tracking-widest uppercase text-gray-600">{t('kicker')}</p>
             {isBuyer && proofStatus !== 'verified' && (
               <Link
                 href={localizePath('/verify', locale)}
                 className="text-sm font-medium underline text-gray-700 hover:text-black"
               >
-                {proofStatus === 'pending'
-                  ? 'Verification under review →'
-                  : 'Verify proof of funds →'}
+                {proofStatus === 'pending' ? t('verifyPendingCta') : t('verifyCta')}
               </Link>
             )}
           </div>
           <h1 className="font-display text-4xl md:text-5xl font-bold mb-10">
-            Hi, {greeting}
+            {locale === 'en' ? `Hi, ${greeting}` : greeting}
           </h1>
 
           {/* Tabs */}
           <nav className="flex gap-2 overflow-x-auto no-scrollbar mb-8 border-b border-black/10">
             {tabs
-              .filter((t) => t.show)
-              .map((t) => {
-                const active = t.key === activeTab
+              .filter((tab) => tab.show)
+              .map((tab) => {
+                const active = tab.key === activeTab
                 return (
                   <Link
-                    key={t.key}
-                    href={`${localizePath('/account', locale)}?tab=${t.key}`}
+                    key={tab.key}
+                    href={`${localizePath('/account', locale)}?tab=${tab.key}`}
                     className={`whitespace-nowrap px-4 py-3 text-sm font-medium border-b-2 -mb-px transition-colors ${
                       active
                         ? 'border-black text-black'
                         : 'border-transparent text-gray-600 hover:text-black'
                     }`}
                   >
-                    {t.label}
+                    {tab.label}
                   </Link>
                 )
               })}
@@ -200,16 +196,21 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
   )
 }
 
-function ListingsPanel({ listings, locale }: { listings: ListingRow[]; locale: AppLocale }) {
+async function ListingsPanel({
+  listings,
+  locale,
+}: {
+  listings: ListingRow[]
+  locale: AppLocale
+}) {
+  const t = await getTranslations({ locale, namespace: 'pages.accountPage' })
   if (listings.length === 0) {
     return (
       <div className="rounded-2xl bg-white border border-black/5 p-8 md:p-10 text-center">
-        <h3 className="font-display text-2xl font-bold mb-2">No listings yet</h3>
-        <p className="text-gray-700 mb-6">
-          Post your operating business in front of qualified buyers — free to list.
-        </p>
+        <h3 className="font-display text-2xl font-bold mb-2">{t('noListingsHeading')}</h3>
+        <p className="text-gray-700 mb-6">{t('noListingsBody')}</p>
         <Link href={localizePath('/marketplace/listings/new', locale)} className="btn-primary">
-          Create a listing →
+          {t('noListingsCta')}
         </Link>
       </div>
     )
@@ -247,16 +248,21 @@ function ListingsPanel({ listings, locale }: { listings: ListingRow[]; locale: A
   )
 }
 
-function InquiriesPanel({ inquiries, locale }: { inquiries: InquiryRow[]; locale: AppLocale }) {
+async function InquiriesPanel({
+  inquiries,
+  locale,
+}: {
+  inquiries: InquiryRow[]
+  locale: AppLocale
+}) {
+  const t = await getTranslations({ locale, namespace: 'pages.accountPage' })
   if (inquiries.length === 0) {
     return (
       <div className="rounded-2xl bg-white border border-black/5 p-8 md:p-10 text-center">
-        <h3 className="font-display text-2xl font-bold mb-2">No inquiries yet</h3>
-        <p className="text-gray-700 mb-6">
-          Browse the marketplace and reach out to sellers whose businesses match your search.
-        </p>
+        <h3 className="font-display text-2xl font-bold mb-2">{t('noInquiriesHeading')}</h3>
+        <p className="text-gray-700 mb-6">{t('noInquiriesBody')}</p>
         <Link href={localizePath('/marketplace/browse', locale)} className="btn-primary">
-          Browse listings →
+          {t('noInquiriesCta')}
         </Link>
       </div>
     )

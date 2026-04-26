@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import type { User } from '@supabase/supabase-js'
 import { createSupabaseBrowserClient } from '@/lib/supabase-browser'
 import { signOutAction } from '@/lib/auth-actions'
@@ -18,6 +19,7 @@ function initialFor(user: User): string {
 }
 
 export function UserMenu({ locale }: Props) {
+  const t = useTranslations('pages.userMenu')
   const [user, setUser] = useState<User | null>(null)
   const [ready, setReady] = useState(false)
   const [open, setOpen] = useState(false)
@@ -71,7 +73,7 @@ export function UserMenu({ locale }: Props) {
         href={localizePath('/sign-in', locale)}
         className="rounded-full border border-gray-300 px-4 py-2 text-xs font-semibold tracking-[0.12em] text-gray-700 hover:border-accent hover:text-accent transition-colors"
       >
-        SIGN IN
+        {t('signIn')}
       </Link>
     )
   }
@@ -93,7 +95,7 @@ export function UserMenu({ locale }: Props) {
           className="absolute right-0 mt-2 w-56 bg-white border border-black/10 rounded-xl shadow-lg overflow-hidden z-50"
         >
           <div className="px-4 py-3 border-b border-black/5">
-            <p className="text-xs text-gray-500">Signed in as</p>
+            <p className="text-xs text-gray-500">{t('signedInAs')}</p>
             <p className="text-sm font-medium text-gray-900 truncate">{user.email}</p>
           </div>
           <Link
@@ -101,28 +103,28 @@ export function UserMenu({ locale }: Props) {
             onClick={() => setOpen(false)}
             className="block px-4 py-2.5 text-sm hover:bg-gray-50"
           >
-            Account
+            {t('account')}
           </Link>
           <Link
             href={localizePath('/account?tab=listings', locale)}
             onClick={() => setOpen(false)}
             className="block px-4 py-2.5 text-sm hover:bg-gray-50"
           >
-            My Listings
+            {t('myListings')}
           </Link>
           <Link
             href={localizePath('/verify', locale)}
             onClick={() => setOpen(false)}
             className="block px-4 py-2.5 text-sm hover:bg-gray-50"
           >
-            Verification
+            {t('verification')}
           </Link>
           <form action={signOutAction}>
             <button
               type="submit"
               className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 border-t border-black/5"
             >
-              Sign out
+              {t('signOut')}
             </button>
           </form>
         </div>

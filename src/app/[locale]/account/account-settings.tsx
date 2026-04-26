@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import {
   changePasswordAction,
   updateProfileAction,
@@ -20,6 +21,7 @@ export function AccountSettings({
   initialLanguage,
   email,
 }: Props) {
+  const t = useTranslations('pages.accountPage')
   const [fullName, setFullName] = useState(initialFullName)
   const [phone, setPhone] = useState(initialPhone)
   const [language, setLanguage] = useState<'en' | 'zh' | 'ko' | 'vi'>(initialLanguage)
@@ -61,22 +63,20 @@ export function AccountSettings({
         onSubmit={onSaveProfile}
         className="rounded-2xl bg-white border border-black/5 p-6 md:p-8 space-y-5"
       >
-        <h3 className="font-display text-2xl font-bold mb-2">Profile</h3>
+        <h3 className="font-display text-2xl font-bold mb-2">{t('settingsProfile')}</h3>
 
         <div>
           <label htmlFor="set-email" className="block text-sm font-medium text-gray-800 mb-2">
             Email
           </label>
           <input id="set-email" type="email" disabled value={email} className="!bg-gray-50" />
-          <p className="text-xs text-gray-600 mt-1">
-            Email changes coming soon — contact support to update.
-          </p>
+          <p className="text-xs text-gray-600 mt-1">{t('settingsEmailHelp')}</p>
         </div>
 
         <div className="grid sm:grid-cols-2 gap-5">
           <div>
             <label htmlFor="set-name" className="block text-sm font-medium text-gray-800 mb-2">
-              Full name
+              {t('settingsName')}
             </label>
             <input
               id="set-name"
@@ -88,7 +88,7 @@ export function AccountSettings({
           </div>
           <div>
             <label htmlFor="set-phone" className="block text-sm font-medium text-gray-800 mb-2">
-              Phone
+              {t('settingsPhone')}
             </label>
             <input
               id="set-phone"
@@ -102,7 +102,7 @@ export function AccountSettings({
 
         <div>
           <label htmlFor="set-lang" className="block text-sm font-medium text-gray-800 mb-2">
-            Preferred language
+            {t('settingsLanguage')}
           </label>
           <select
             id="set-lang"
@@ -118,14 +118,16 @@ export function AccountSettings({
         </div>
 
         {profileResult?.error && <p className="text-sm text-red-700">{profileResult.error}</p>}
-        {profileResult?.ok && <p className="text-sm text-green-800">{profileResult.message}</p>}
+        {profileResult?.ok && (
+          <p className="text-sm text-green-800">{profileResult.message ?? t('settingsSaved')}</p>
+        )}
 
         <button
           type="submit"
           disabled={profilePending}
           className="bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-900 transition-colors disabled:opacity-60"
         >
-          {profilePending ? 'Saving…' : 'Save changes'}
+          {profilePending ? t('settingsSaving') : t('settingsSave')}
         </button>
       </form>
 
@@ -133,11 +135,11 @@ export function AccountSettings({
         onSubmit={onChangePassword}
         className="rounded-2xl bg-white border border-black/5 p-6 md:p-8 space-y-5"
       >
-        <h3 className="font-display text-2xl font-bold mb-2">Change password</h3>
+        <h3 className="font-display text-2xl font-bold mb-2">{t('passwordHeading')}</h3>
 
         <div>
           <label htmlFor="set-pw" className="block text-sm font-medium text-gray-800 mb-2">
-            New password (8+ characters)
+            {t('passwordLabel')}
           </label>
           <input
             id="set-pw"
@@ -151,14 +153,16 @@ export function AccountSettings({
         </div>
 
         {pwResult?.error && <p className="text-sm text-red-700">{pwResult.error}</p>}
-        {pwResult?.ok && <p className="text-sm text-green-800">{pwResult.message}</p>}
+        {pwResult?.ok && (
+          <p className="text-sm text-green-800">{pwResult.message ?? t('passwordSaved')}</p>
+        )}
 
         <button
           type="submit"
           disabled={pwPending || password.length < 8}
           className="bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-900 transition-colors disabled:opacity-60"
         >
-          {pwPending ? 'Updating…' : 'Update password'}
+          {pwPending ? t('passwordSaving') : t('passwordSave')}
         </button>
       </form>
     </div>

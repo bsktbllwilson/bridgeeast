@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { FindYourNextBigDeal } from '@/components/FindYourNextBigDeal'
@@ -14,9 +15,11 @@ export const metadata = {
     'Get in touch about buying, selling, membership, or partnership. We respond within one business day.',
 }
 
-export default function ContactPage({ params }: { params: { locale: string } }) {
+export default async function ContactPage({ params }: { params: { locale: string } }) {
+  const locale = params.locale as AppLocale
+  const t = await getTranslations({ locale, namespace: 'pages.contactPage' })
   const faqs = getFaqsForContact()
-  const playbookHref = localizePath('/playbook', params.locale as AppLocale)
+  const playbookHref = localizePath('/playbook', locale)
 
   return (
     <main className="min-h-screen bg-cream">
@@ -25,15 +28,12 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
       {/* Hero */}
       <section className="container pt-24 md:pt-32 pb-12 md:pb-16 text-center">
         <p className="text-sm md:text-base tracking-widest uppercase text-gray-600 mb-5">
-          Talk to us
+          {t('kicker')}
         </p>
         <h1 className="font-display text-5xl md:text-7xl xl:text-[110px] font-bold leading-[1.02]">
-          Questions We Get A Lot
+          {t('heading')}
         </h1>
-        <p className="mt-6 text-base md:text-lg text-gray-700 max-w-2xl mx-auto">
-          Whether you’re buying, selling, joining as a partner, or just curious — drop us a line
-          and we’ll get back within one business day.
-        </p>
+        <p className="mt-6 text-base md:text-lg text-gray-700 max-w-2xl mx-auto">{t('intro')}</p>
       </section>
 
       {/* Form + side panel */}
@@ -42,10 +42,12 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
           <ContactForm />
 
           <aside className="rounded-2xl bg-playbook-yellow p-8 md:p-10 space-y-6">
-            <h2 className="font-display text-2xl md:text-3xl font-bold">Other ways to reach us</h2>
+            <h2 className="font-display text-2xl md:text-3xl font-bold">{t('asideHeading')}</h2>
 
             <div>
-              <p className="text-xs uppercase tracking-widest text-gray-700 mb-1">Email</p>
+              <p className="text-xs uppercase tracking-widest text-gray-700 mb-1">
+                {t('asideEmail')}
+              </p>
               <a
                 className="text-lg font-medium text-black hover:underline"
                 href="mailto:hello@passtheplate.store"
@@ -55,24 +57,30 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
             </div>
 
             <div>
-              <p className="text-xs uppercase tracking-widest text-gray-700 mb-1">Phone</p>
+              <p className="text-xs uppercase tracking-widest text-gray-700 mb-1">
+                {t('asidePhone')}
+              </p>
               <a className="text-lg font-medium text-black hover:underline" href="tel:+19294550000">
                 (929) 455-0000
               </a>
             </div>
 
             <div>
-              <p className="text-xs uppercase tracking-widest text-gray-700 mb-1">Office hours</p>
-              <p className="text-base text-gray-800">Mon – Fri · 9am – 6pm ET</p>
+              <p className="text-xs uppercase tracking-widest text-gray-700 mb-1">
+                {t('asideOfficeHours')}
+              </p>
+              <p className="text-base text-gray-800">{t('asideOfficeHoursValue')}</p>
             </div>
 
             <div className="pt-4 border-t border-black/15 space-y-2">
-              <p className="text-xs uppercase tracking-widest text-gray-700 mb-1">Self-serve</p>
+              <p className="text-xs uppercase tracking-widest text-gray-700 mb-1">
+                {t('asideSelfServe')}
+              </p>
               <Link href="#contact-faqs" className="block text-base font-medium hover:underline">
-                Common questions ↓
+                {t('asideFaqLink')}
               </Link>
               <Link href={playbookHref} className="block text-base font-medium hover:underline">
-                The Playbook →
+                {t('asidePlaybookLink')}
               </Link>
             </div>
           </aside>
@@ -83,14 +91,14 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
       <section id="contact-faqs" className="bg-white border-y border-black/5 scroll-mt-24">
         <div className="container py-16 md:py-24">
           <h2 className="font-display text-4xl md:text-6xl font-bold text-center mb-12">
-            Common Questions
+            {t('commonQuestions')}
           </h2>
           <FaqAccordion items={faqs} />
         </div>
       </section>
 
-      <FindYourNextBigDeal />
-      <BuySellSplit />
+      <FindYourNextBigDeal locale={locale} />
+      <BuySellSplit locale={locale} />
       <Footer />
     </main>
   )

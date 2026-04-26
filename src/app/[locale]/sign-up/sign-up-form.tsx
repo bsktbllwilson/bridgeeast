@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { signUpAction, type AuthFormResult } from '@/lib/auth-actions'
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export function SignUpForm({ next }: Props) {
+  const t = useTranslations('pages.auth')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
@@ -35,12 +37,9 @@ export function SignUpForm({ next }: Props) {
   if (result?.ok) {
     return (
       <div className="text-center">
-        <div className="font-display text-2xl font-bold mb-3">Check your inbox</div>
-        <p className="text-gray-700">{result.message}</p>
-        <p className="text-sm text-gray-600 mt-6">
-          Sent to <span className="font-medium">{email}</span>. The confirmation link
-          will sign you in and bring you back here.
-        </p>
+        <div className="font-display text-2xl font-bold mb-3">{t('checkInboxHeading')}</div>
+        <p className="text-gray-700">{result.message ?? t('checkInboxConfirm')}</p>
+        <p className="text-sm text-gray-600 mt-6">{t('checkInboxSent', { email })}</p>
       </div>
     )
   }
@@ -48,26 +47,26 @@ export function SignUpForm({ next }: Props) {
   return (
     <form onSubmit={onSubmit} className="space-y-5">
       <div>
-        <label className="block text-sm font-medium text-gray-800 mb-2">I want to…</label>
+        <label className="block text-sm font-medium text-gray-800 mb-2">{t('roleLabel')}</label>
         <div className="grid grid-cols-2 gap-3">
           <RoleCard
             active={role === 'buyer'}
             onClick={() => setRole('buyer')}
-            label="Buy a business"
-            sub="Browse listings, save searches, send inquiries."
+            label={t('roleBuy')}
+            sub={t('roleBuyHelp')}
           />
           <RoleCard
             active={role === 'seller'}
             onClick={() => setRole('seller')}
-            label="Sell a business"
-            sub="List my operating business in front of buyers."
+            label={t('roleSell')}
+            sub={t('roleSellHelp')}
           />
         </div>
       </div>
 
       <div>
         <label htmlFor="signup-name" className="block text-sm font-medium text-gray-800 mb-2">
-          Your name <span className="text-gray-500">(optional)</span>
+          {t('fullNameLabel')} <span className="text-gray-500">{t('fullNameOptional')}</span>
         </label>
         <input
           id="signup-name"
@@ -81,7 +80,7 @@ export function SignUpForm({ next }: Props) {
 
       <div>
         <label htmlFor="signup-email" className="block text-sm font-medium text-gray-800 mb-2">
-          Email
+          {t('emailLabel')}
         </label>
         <input
           id="signup-email"
@@ -96,7 +95,7 @@ export function SignUpForm({ next }: Props) {
 
       <div>
         <label htmlFor="signup-password" className="block text-sm font-medium text-gray-800 mb-2">
-          Password <span className="text-gray-500">(8+ characters)</span>
+          {t('newPasswordLabel')}
         </label>
         <input
           id="signup-password"
@@ -117,7 +116,7 @@ export function SignUpForm({ next }: Props) {
         disabled={pending}
         className="w-full bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-900 transition-colors disabled:opacity-60"
       >
-        {pending ? 'Creating account…' : 'Create Account →'}
+        {pending ? t('signUpPending') : t('signUpButton')}
       </button>
 
       <button
@@ -126,12 +125,10 @@ export function SignUpForm({ next }: Props) {
         title="Coming soon"
         className="w-full bg-white border border-gray-300 text-gray-500 px-6 py-3 rounded-md font-medium cursor-not-allowed"
       >
-        Continue with Google (coming soon)
+        {t('googleStub')}
       </button>
 
-      <p className="text-xs text-gray-600 text-center pt-2">
-        By creating an account you agree to our terms and privacy policy.
-      </p>
+      <p className="text-xs text-gray-600 text-center pt-2">{t('termsCopy')}</p>
     </form>
   )
 }

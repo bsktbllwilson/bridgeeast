@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { FindYourNextBigDeal } from '@/components/FindYourNextBigDeal'
@@ -22,6 +22,7 @@ const PAGE_SIZE = 12
 
 export default function PlaybookIndexPage() {
   const locale = useLocale() as AppLocale
+  const t = useTranslations('pages.playbookPage')
   const [posts, setPosts] = useState<PlaybookPost[]>([])
   const [loading, setLoading] = useState(true)
   const [activeCategory, setActiveCategory] = useState<string>('Read All')
@@ -78,10 +79,10 @@ export default function PlaybookIndexPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20" />
         <div className="relative h-full container flex flex-col justify-end pb-10 md:pb-14">
           <p className="text-cream/80 text-sm md:text-base tracking-widest uppercase mb-3">
-            Operator Guides
+            {t('kicker')}
           </p>
           <h1 className="font-display text-cream text-6xl md:text-9xl xl:text-[10rem] font-bold leading-none">
-            The Playbook
+            {t('heading')}
           </h1>
         </div>
       </section>
@@ -91,6 +92,7 @@ export default function PlaybookIndexPage() {
         <div className="container py-5 flex gap-3 overflow-x-auto no-scrollbar">
           {PLAYBOOK_CATEGORIES.map((cat) => {
             const active = activeCategory === cat
+            const label = cat === 'Read All' ? t('categoryAll') : cat
             return (
               <button
                 key={cat}
@@ -101,7 +103,7 @@ export default function PlaybookIndexPage() {
                     : 'bg-transparent text-gray-700 border border-gray-300 hover:border-playbook-yellow hover:text-black'
                 }`}
               >
-                {cat}
+                {label}
               </button>
             )
           })}
@@ -111,11 +113,9 @@ export default function PlaybookIndexPage() {
       {/* Post grid w/ subscribe injection */}
       <section className="container section">
         {loading ? (
-          <div className="py-20 text-center text-gray-500">Loading the playbook…</div>
+          <div className="py-20 text-center text-gray-500">{t('loading')}</div>
         ) : visible.length === 0 ? (
-          <div className="py-20 text-center text-gray-500">
-            No guides in this category yet. Check back soon.
-          </div>
+          <div className="py-20 text-center text-gray-500">{t('empty')}</div>
         ) : (
           <div className="grid md:grid-cols-2 gap-8">
             {interleaveSubscribe(visible).map((item, idx) =>
@@ -142,8 +142,8 @@ export default function PlaybookIndexPage() {
         )}
       </section>
 
-      <FindYourNextBigDeal />
-      <BuySellSplit />
+      <FindYourNextBigDeal locale={locale} />
+      <BuySellSplit locale={locale} />
       <Footer />
     </main>
   )
@@ -163,6 +163,7 @@ function interleaveSubscribe(posts: PlaybookPost[]): GridItem[] {
 }
 
 function PostCard({ post, locale }: { post: PlaybookPost; locale: AppLocale }) {
+  const t = useTranslations('pages.playbookPage')
   return (
     <Link
       href={localizePath(`/playbook/${post.slug}`, locale)}
@@ -182,7 +183,7 @@ function PostCard({ post, locale }: { post: PlaybookPost; locale: AppLocale }) {
         </h3>
         <p className="text-gray-700 text-sm mb-6 line-clamp-3">{buildExcerpt(post.content)}</p>
         <span className="mt-auto text-sm font-semibold text-black group-hover:translate-x-1 transition-transform">
-          Read Guide →
+          {t('readGuide')}
         </span>
       </div>
     </Link>
@@ -198,6 +199,7 @@ function Pagination({
   total: number
   onChange: (page: number) => void
 }) {
+  const t = useTranslations('pages.playbookPage')
   return (
     <nav className="mt-16 flex items-center justify-center gap-2">
       <button
@@ -205,7 +207,7 @@ function Pagination({
         disabled={current === 1}
         className="px-4 py-2 rounded-full border border-gray-300 text-sm disabled:opacity-40 hover:border-black"
       >
-        ← Prev
+        {t('prev')}
       </button>
       {Array.from({ length: total }, (_, i) => i + 1).map((p) => (
         <button
@@ -225,7 +227,7 @@ function Pagination({
         disabled={current === total}
         className="px-4 py-2 rounded-full border border-gray-300 text-sm disabled:opacity-40 hover:border-black"
       >
-        Next →
+        {t('next')}
       </button>
     </nav>
   )

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { FindYourNextBigDeal } from '@/components/FindYourNextBigDeal'
@@ -22,6 +22,7 @@ interface PageProps {
 
 export default function PlaybookPostPage({ params }: PageProps) {
   const locale = useLocale() as AppLocale
+  const t = useTranslations('pages.playbookPage')
   const [post, setPost] = useState<PlaybookPost | null>(null)
   const [related, setRelated] = useState<PlaybookPost[]>([])
   const [loading, setLoading] = useState(true)
@@ -77,7 +78,7 @@ export default function PlaybookPostPage({ params }: PageProps) {
       <main className="min-h-screen bg-cream">
         <Header />
         <div className="container section pt-32 md:pt-40 text-center text-gray-500">
-          Loading guide…
+          {t('loadingGuide')}
         </div>
         <Footer />
       </main>
@@ -89,9 +90,9 @@ export default function PlaybookPostPage({ params }: PageProps) {
       <main className="min-h-screen bg-cream">
         <Header />
         <div className="container section pt-32 md:pt-40 text-center">
-          <p className="text-gray-700 mb-6">This guide doesn&rsquo;t exist (yet).</p>
+          <p className="text-gray-700 mb-6">{t('guideMissingCopy')}</p>
           <Link href={localizePath('/playbook', locale)} className="btn-primary">
-            ← Back to The Playbook
+            {t('backToPlaybook')}
           </Link>
         </div>
         <Footer />
@@ -112,7 +113,7 @@ export default function PlaybookPostPage({ params }: PageProps) {
             href={localizePath('/playbook', locale)}
             className="text-gray-600 hover:text-black"
           >
-            The Playbook
+            {t('breadcrumbHome')}
           </Link>
           <span className="mx-2 text-gray-400">/</span>
           <span className="text-gray-700">{post.category}</span>
@@ -137,11 +138,11 @@ export default function PlaybookPostPage({ params }: PageProps) {
           </h1>
 
           <div className="flex items-center gap-4 text-sm text-gray-600 mb-12 pb-8 border-b border-black/10">
-            <span className="font-medium text-gray-800">Pass The Plate Editorial</span>
+            <span className="font-medium text-gray-800">{t('byline')}</span>
             <span aria-hidden>•</span>
             {updated ? (
               <span>
-                {updated.toLocaleDateString('en-US', {
+                {updated.toLocaleDateString(undefined, {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
@@ -149,7 +150,7 @@ export default function PlaybookPostPage({ params }: PageProps) {
               </span>
             ) : null}
             <span aria-hidden>•</span>
-            <span>{minRead} min read</span>
+            <span>{minRead} min</span>
           </div>
 
           <div
@@ -163,7 +164,7 @@ export default function PlaybookPostPage({ params }: PageProps) {
         <section className="bg-white border-t border-black/5">
           <div className="container py-16 md:py-20">
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-10 text-center">
-              Keep reading
+              {t('keepReading')}
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
               {related.map((r) => (
@@ -187,7 +188,7 @@ export default function PlaybookPostPage({ params }: PageProps) {
                       {buildExcerpt(r.content, 120)}
                     </p>
                     <span className="mt-auto text-sm font-semibold text-black group-hover:translate-x-1 transition-transform">
-                      Read Guide →
+                      {t('readGuide')}
                     </span>
                   </div>
                 </Link>
@@ -197,8 +198,8 @@ export default function PlaybookPostPage({ params }: PageProps) {
         </section>
       )}
 
-      <FindYourNextBigDeal />
-      <BuySellSplit />
+      <FindYourNextBigDeal locale={locale} />
+      <BuySellSplit locale={locale} />
       <Footer />
     </main>
   )
